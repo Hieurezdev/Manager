@@ -15,6 +15,8 @@ public class VeTau {
     private LocalDateTime thoiDiemBanVe;
     private GheNgoi gheNgoi;
     private KhachHang khachHang;
+    private LichTrinh lichTrinh;
+    private NhanVien nhanVien;
 
     public VeTau() {
     }
@@ -28,6 +30,20 @@ public class VeTau {
         this.thoiDiemBanVe = thoiDiemBanVe;
         this.gheNgoi = gheNgoi;
         this.khachHang = khachHang;
+    }
+
+    public VeTau(String maVe, LoaiDoiTuong loaiDoiTuong, int giaVe, TrangThaiVe trangThai,
+                 LocalDateTime thoiDiemBanVe, GheNgoi gheNgoi, KhachHang khachHang,
+                 LichTrinh lichTrinh, NhanVien nhanVien) {
+        this.maVe = maVe;
+        this.loaiDoiTuong = loaiDoiTuong;
+        this.giaVe = giaVe;
+        this.trangThai = trangThai;
+        this.thoiDiemBanVe = thoiDiemBanVe;
+        this.gheNgoi = gheNgoi;
+        this.khachHang = khachHang;
+        this.lichTrinh = lichTrinh;
+        this.nhanVien = nhanVien;
     }
 
     public static List<VeTau> layDanhSachVeTheoLichTrinh(String maLichTrinh) {
@@ -60,5 +76,49 @@ public class VeTau {
 
     public KhachHang getKhachHang() {
         return khachHang;
+    }
+
+    public void setMaVe(String maVe) {
+        this.maVe = maVe;
+    }
+
+    public void setLoaiDoiTuong(LoaiDoiTuong loaiDoiTuong) {
+        this.loaiDoiTuong = loaiDoiTuong;
+    }
+
+    public void setGiaVe(int giaVe) {
+        this.giaVe = giaVe;
+    }
+
+    public void setTrangThai(TrangThaiVe trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public void setThoiDiemBanVe(LocalDateTime thoiDiemBanVe) {
+        this.thoiDiemBanVe = thoiDiemBanVe;
+    }
+
+    public void setGheNgoi(GheNgoi gheNgoi) {
+        this.gheNgoi = gheNgoi;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
+    }
+
+    public LichTrinh getLichTrinh() {
+        return lichTrinh;
+    }
+
+    public void setLichTrinh(LichTrinh lichTrinh) {
+        this.lichTrinh = lichTrinh;
+    }
+
+    public NhanVien getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
     }
 }

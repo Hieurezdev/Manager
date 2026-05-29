@@ -1,0 +1,33 @@
+# Thư mục chứa mã biên dịch đầu ra
+out/
+bin/
+build/
+target/
+
+# Các tệp biên dịch đơn lẻ
+*.class
+*.jar
+*.war
+*.ear
+
+# Cấu hình IDE IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Cấu hình IDE Eclipse
+.classpath
+.project
+.settings/
+
+# Cấu hình VS Code
+.vscode/
+
+# Tệp nhật ký hệ thống và tệp tạm
+*.log
+tmp/
+temp/
+.DS_Store
+Thumbs.db
+
+out

@@ -73,4 +73,24 @@ public class LichTrinh {
     public DoanTau getDoanTau() {
         return doanTau;
     }
+
+    public void setMaLichTrinh(String maLichTrinh) {
+        this.maLichTrinh = maLichTrinh;
+    }
+
+    public void setNgayKhoiHanh(LocalDateTime ngayKhoiHanh) {
+        this.ngayKhoiHanh = ngayKhoiHanh;
+    }
+
+    public void setTrangThai(TrangThaiLichTrinh trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public void setHanhTrinh(HanhTrinh hanhTrinh) {
+        this.hanhTrinh = hanhTrinh;
+    }
+
+    public void setDoanTau(DoanTau doanTau) {
+        this.doanTau = doanTau;
+    }
 }

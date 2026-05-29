@@ -31,4 +31,24 @@ public class GheNgoi {
     public String getMoTa() {
         return moTa;
     }
+
+    public void setMaGhe(String maGhe) {
+        this.maGhe = maGhe;
+    }
+
+    public void setSoGhe(int soGhe) {
+        this.soGhe = soGhe;
+    }
+
+    public void setViTri(String viTri) {
+        this.viTri = viTri;
+    }
+
+    public void setTrangThai(TrangThaiGhe trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
 }
