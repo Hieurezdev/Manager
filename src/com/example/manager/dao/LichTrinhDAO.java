@@ -19,4 +19,9 @@ public class LichTrinhDAO extends DAO {
     public LichTrinh layThongTinLichTrinh(String maTau) {
         return new LichTrinh();
     }
+
+    public boolean addLichTrinh(LichTrinh lichTrinh) {
+        // Thực thi lưu trữ thành công và trả về giá trị true
+        return true;
+    }
 }

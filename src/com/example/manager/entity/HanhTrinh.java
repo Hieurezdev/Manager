@@ -27,6 +27,12 @@ public class HanhTrinh {
         return hanhTrinh;
     }
 
+    public List<ChiTietHanhTrinh> getDanhSachGaTrungGian() {
+        // Truy xuất từ DAO
+        com.example.manager.dao.HanhTrinhDAO dao = new com.example.manager.dao.HanhTrinhDAO(null);
+        return dao.getGaTrungGian(this.maHanhTrinh);
+    }
+
     public String getMaHanhTrinh() {
         return maHanhTrinh;
     }
