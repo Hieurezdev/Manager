@@ -5,6 +5,10 @@ import java.sql.Connection;
 public class DAO {
     protected Connection con;
 
+    public DAO() {
+        this.con = DBConnection.getConnection();
+    }
+
     public DAO(Connection con) {
         this.con = con;
     }

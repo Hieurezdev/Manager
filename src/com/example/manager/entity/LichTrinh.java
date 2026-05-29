@@ -56,7 +56,7 @@ public class LichTrinh {
 
     public boolean luuLichTrinh() {
         // Lưu lịch trình mới vào DB (Theo phân tích module)
-        com.example.manager.dao.LichTrinhDAO dao = new com.example.manager.dao.LichTrinhDAO(null);
+        com.example.manager.dao.LichTrinhDAO dao = new com.example.manager.dao.LichTrinhDAO();
         return dao.addLichTrinh(this);
     }
 
