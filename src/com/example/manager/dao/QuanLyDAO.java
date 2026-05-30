@@ -23,6 +23,7 @@ public class QuanLyDAO extends DAO {
         }
         String ten = quanLy.getTenDangNhap();
         String mk = quanLy.getMatKhau();
-        return ten != null && !ten.isBlank() && mk != null && !mk.isBlank();
+        String vaiTro = quanLy.getVaiTro();
+        return vaiTro.equals("quanly") && ten != null && !ten.isBlank() && mk != null && !mk.isBlank();
     }
 }
