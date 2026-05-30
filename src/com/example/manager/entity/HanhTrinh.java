@@ -9,10 +9,16 @@ public class HanhTrinh {
     private double quangDuong;
     private List<ChiTietHanhTrinh> chiTietHanhTrinh;
 
+    // === BỔ SUNG LẠI: 2 trường cũ để phục vụ riêng cho module Mua Vé của ông ===
+    private String maGaDi;
+    private String maGaDen;
+
+    // === Constructor mặc định gốc từ GitHub ===
     public HanhTrinh() {
         this.chiTietHanhTrinh = new ArrayList<>();
     }
 
+    // === Constructor đầy đủ tham số gốc từ GitHub ===
     public HanhTrinh(String maHanhTrinh, String tenHanhTrinh, double quangDuong,
                      List<ChiTietHanhTrinh> chiTietHanhTrinh) {
         this.maHanhTrinh = maHanhTrinh;
@@ -21,6 +27,26 @@ public class HanhTrinh {
         this.chiTietHanhTrinh = chiTietHanhTrinh == null ? new ArrayList<>() : new ArrayList<>(chiTietHanhTrinh);
     }
 
+    // === Thêm các Getter/Setter cho thuộc tính cũ của ông để tránh lỗi compile ===
+    public String getMaGaDi() { 
+        return maGaDi; 
+    }
+    
+    public void setMaGaDi(String maGaDi) { 
+        this.maGaDi = maGaDi; 
+    }
+    
+    public String getMaGaDen() { 
+        return maGaDen; 
+    }
+    
+    public void setMaGaDen(String maGaDen) { 
+        this.maGaDen = maGaDen; 
+    }
+
+    // =========================================================================
+    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
+    // =========================================================================
     public static HanhTrinh layThongTinHanhTrinh(String maHanhTrinh) {
         HanhTrinh hanhTrinh = new HanhTrinh();
         hanhTrinh.maHanhTrinh = maHanhTrinh;
