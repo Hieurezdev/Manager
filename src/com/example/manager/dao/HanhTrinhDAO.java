@@ -19,7 +19,7 @@ public class HanhTrinhDAO extends DAO {
     public HanhTrinh layThongTinHanhTrinh(String maHanhTrinh) {
         if (con != null) {
             String sql = "SELECT ht.maHanhTrinh, ht.tenHanhTrinh, ht.quangDuong, " +
-                         "ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.soDienThoai " +
+                         "ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.diaChi, ng.soDienThoai " +
                          "FROM HanhTrinh ht " +
                          "LEFT JOIN ChiTietHanhTrinh ct ON ct.hanhTrinhId = ht.id " +
                          "LEFT JOIN NhaGa ng ON ct.nhaGaId = ng.id " +
@@ -43,6 +43,7 @@ public class HanhTrinhDAO extends DAO {
                             NhaGa ga = new NhaGa(
                                 rs.getString("maGa"),
                                 rs.getString("tenNhaGa"),
+                                rs.getString("diaChi"),
                                 rs.getString("soDienThoai")
                             );
                             chiTietList.add(new ChiTietHanhTrinh(
@@ -91,7 +92,7 @@ public class HanhTrinhDAO extends DAO {
 
     public java.util.List<com.example.manager.entity.ChiTietHanhTrinh> getGaTrungGian(String maHanhTrinh) {
         if (con != null) {
-            String sql = "SELECT ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.soDienThoai " +
+            String sql = "SELECT ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.diaChi, ng.soDienThoai " +
                          "FROM ChiTietHanhTrinh ct " +
                          "JOIN HanhTrinh ht ON ct.hanhTrinhId = ht.id " +
                          "JOIN NhaGa ng ON ct.nhaGaId = ng.id " +
@@ -105,6 +106,7 @@ public class HanhTrinhDAO extends DAO {
                         NhaGa ga = new NhaGa(
                             rs.getString("maGa"),
                             rs.getString("tenNhaGa"),
+                            rs.getString("diaChi"),
                             rs.getString("soDienThoai")
                         );
                         result.add(new ChiTietHanhTrinh(

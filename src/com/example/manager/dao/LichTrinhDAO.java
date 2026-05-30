@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +135,7 @@ public class LichTrinhDAO extends DAO {
 
     private List<ChiTietHanhTrinh> loadChiTietHanhTrinh(int hanhTrinhId) {
         List<ChiTietHanhTrinh> list = new ArrayList<>();
-        String sql = "SELECT ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.soDienThoai " +
+        String sql = "SELECT ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.diaChi, ng.soDienThoai " +
                      "FROM ChiTietHanhTrinh ct " +
                      "JOIN NhaGa ng ON ct.nhaGaId = ng.id " +
                      "WHERE ct.hanhTrinhId = ? ORDER BY ct.thuTuGa";
@@ -147,6 +146,7 @@ public class LichTrinhDAO extends DAO {
                     NhaGa ga = new NhaGa(
                         rs.getString("maGa"),
                         rs.getString("tenNhaGa"),
+                        rs.getString("diaChi"),
                         rs.getString("soDienThoai")
                     );
                     list.add(new ChiTietHanhTrinh(
