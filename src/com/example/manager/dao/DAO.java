@@ -6,7 +6,7 @@ public class DAO {
     protected Connection con;
 
     public DAO() {
-        this.con = null;
+        this.con = DBConnection.getConnection();
     }
 
     public DAO(Connection con) {

@@ -21,10 +21,10 @@ public class DoanTauDAO extends DAO {
     }
 
     private List<DoanTau> call() {
+        // Thực thi câu lệnh SQL lấy danh sách tàu
+        // Gọi hàm khởi tạo DoanTau() của thực thể DoanTau để đóng gói dữ liệu
         List<DoanTau> result = new ArrayList<>();
-        result.add(new DoanTau("SE1", "Tàu Thống Nhất SE1", com.example.manager.enums.LoaiTau.THONG_NHAT, com.example.manager.enums.TrangThaiTau.HOAT_DONG, new ArrayList<>()));
-        result.add(new DoanTau("SE2", "Tàu Thống Nhất SE2", com.example.manager.enums.LoaiTau.THONG_NHAT, com.example.manager.enums.TrangThaiTau.HOAT_DONG, new ArrayList<>()));
-        result.add(new DoanTau("TN1", "Tàu Địa Phương TN1", com.example.manager.enums.LoaiTau.DIA_PHUONG, com.example.manager.enums.TrangThaiTau.HOAT_DONG, new ArrayList<>()));
+        result.add(new DoanTau()); // Minh họa đóng gói
         return result;
     }
 }
