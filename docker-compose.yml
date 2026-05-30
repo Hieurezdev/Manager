@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: manager-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Hch301105#
+      MYSQL_DATABASE: manager_db
+      TZ: Asia/Ho_Chi_Minh
+    ports:
+      - "3306:3306"
+    volumes:
+      - manager_mysql_data:/var/lib/mysql
+      - ./src/com/example/manager/data.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pHch301105#"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  manager_mysql_data:
