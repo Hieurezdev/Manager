@@ -62,4 +62,20 @@ public class DoanTau {
         }
         toaTau.add(toa);
     }
+
+    public void setMaTau(String maTau) {
+        this.maTau = maTau;
+    }
+
+    public void setTenTau(String tenTau) {
+        this.tenTau = tenTau;
+    }
+
+    public void setLoaiTau(LoaiTau loaiTau) {
+        this.loaiTau = loaiTau;
+    }
+
+    public void setTrangThai(TrangThaiTau trangThai) {
+        this.trangThai = trangThai;
+    }
 }

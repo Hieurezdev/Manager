@@ -68,4 +68,20 @@ public class HanhTrinh {
         }
         return cuoi == null ? null : cuoi.getNhaGa();
     }
+
+    public void setMaHanhTrinh(String maHanhTrinh) {
+        this.maHanhTrinh = maHanhTrinh;
+    }
+
+    public void setTenHanhTrinh(String tenHanhTrinh) {
+        this.tenHanhTrinh = tenHanhTrinh;
+    }
+
+    public void setQuangDuong(double quangDuong) {
+        this.quangDuong = quangDuong;
+    }
+
+    public void setChiTietHanhTrinh(List<ChiTietHanhTrinh> chiTietHanhTrinh) {
+        this.chiTietHanhTrinh = chiTietHanhTrinh;
+    }
 }
