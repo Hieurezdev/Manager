@@ -10,6 +10,7 @@ import com.example.manager.entity.DoanTau;
 import com.example.manager.enums.TrangThaiVe;
 import com.example.manager.enums.TrangThaiGhe;
 import com.example.manager.enums.TrangThaiLichTrinh;
+import com.example.manager.enums.LoaiDoiTuong;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,6 +41,19 @@ public class VeTauDAO extends DAO {
         return TrangThaiVe.DA_BAN;
     }
 
+    private LoaiDoiTuong getJavaLoaiDoiTuong(String dbVal) {
+        if ("NguoiLon".equalsIgnoreCase(dbVal)) return LoaiDoiTuong.NGUOI_LON;
+        if ("TreEm".equalsIgnoreCase(dbVal)) return LoaiDoiTuong.TRE_EM;
+        if ("NguoiGia".equalsIgnoreCase(dbVal)) return LoaiDoiTuong.KHAC;
+        return LoaiDoiTuong.KHAC;
+    }
+
+    private TrangThaiLichTrinh getJavaTrangThaiLichTrinh(String dbVal) {
+        if ("DaHoanThanh".equalsIgnoreCase(dbVal)) return TrangThaiLichTrinh.HOAN_THANH;
+        if ("BiHuy".equalsIgnoreCase(dbVal)) return TrangThaiLichTrinh.HUY;
+        return TrangThaiLichTrinh.DANG_CHAY;
+    }
+
     public List<VeTau> layDanhSachVeTheoLichTrinh(String maLichTrinh) {
         if (con != null) {
             List<VeTau> list = new ArrayList<>();
@@ -54,7 +68,11 @@ public class VeTauDAO extends DAO {
                     VeTau ve = new VeTau();
                     ve.setMaVe(rs.getString("maVe"));
                     ve.setGiaVe(rs.getInt("giaVe"));
+                    ve.setLoaiDoiTuong(getJavaLoaiDoiTuong(rs.getString("loaiDoiTuong")));
                     ve.setTrangThai(getJavaTrangThaiVe(rs.getString("trangThai")));
+                    if (rs.getTimestamp("thoiDiemBanVe") != null) {
+                        ve.setThoiDiemBanVe(rs.getTimestamp("thoiDiemBanVe").toLocalDateTime());
+                    }
                     list.add(ve);
                 }
             } catch (SQLException e) {
@@ -95,6 +113,7 @@ public class VeTauDAO extends DAO {
                     VeTau ve = new VeTau();
                     ve.setMaVe(rs.getString("maVe"));
                     ve.setGiaVe(rs.getInt("giaVe"));
+                    ve.setLoaiDoiTuong(getJavaLoaiDoiTuong(rs.getString("loaiDoiTuong")));
                     ve.setTrangThai(getJavaTrangThaiVe(rs.getString("trangThai")));
                     if (rs.getTimestamp("thoiDiemBanVe") != null) {
                         ve.setThoiDiemBanVe(rs.getTimestamp("thoiDiemBanVe").toLocalDateTime());
@@ -130,12 +149,7 @@ public class VeTauDAO extends DAO {
                         lt.setNgayKhoiHanh(rs.getTimestamp("ngayKhoiHanh").toLocalDateTime());
                     }
                     
-                    String dbLt = rs.getString("ttLichTrinh");
-                    if ("ChuaChay".equalsIgnoreCase(dbLt)) {
-                        lt.setTrangThai(TrangThaiLichTrinh.DANG_CHAY);
-                    } else {
-                        lt.setTrangThai(TrangThaiLichTrinh.HOAN_THANH);
-                    }
+                    lt.setTrangThai(getJavaTrangThaiLichTrinh(rs.getString("ttLichTrinh")));
 
                     // Khoi tao Hanh trinh
                     HanhTrinh ht = new HanhTrinh();
