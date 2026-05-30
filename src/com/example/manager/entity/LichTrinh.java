@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LichTrinh {
+
     // =========================================================================
     // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn 100%)
     // =========================================================================
@@ -19,7 +20,7 @@ public class LichTrinh {
     private HanhTrinh hanhTrinh;
     private DoanTau doanTau;
 
-    // === BỔ SUNG LẠI: Các trường String cũ phục vụ cho luồng Mua Vé của ông ===
+    // === BỔ SUNG LẠI: Các trường String cũ phục vụ cho luồng Mua Vé của ông Đạt ===
     private String maHanhTrinh;
     private String maTau;
     private String ngayKhoiHanhStr;
@@ -34,7 +35,7 @@ public class LichTrinh {
 
     // === Constructor đầy đủ tham số từ GitHub ===
     public LichTrinh(String maLichTrinh, LocalDateTime ngayKhoiHanh, TrangThaiLichTrinh trangThai,
-                     HanhTrinh hanhTrinh, DoanTau doanTau) {
+            HanhTrinh hanhTrinh, DoanTau doanTau) {
         this();
         this.maLichTrinh = maLichTrinh;
         this.ngayKhoiHanh = ngayKhoiHanh;
@@ -43,7 +44,7 @@ public class LichTrinh {
         this.doanTau = doanTau;
     }
 
-    // === BỔ SUNG LẠI: Constructor 4 tham số cũ của ông (Cực kỳ quan trọng để LichTrinhDAO bốc DB không bị gãy) ===
+    // === BỔ SUNG LẠI: Constructor 4 tham số cũ (Cứu cánh luồng MuaVeFrm bốc danh sách chuyến) ===
     public LichTrinh(String maLichTrinh, String maTau, String gioDi, String gioDen) {
         this();
         this.maLichTrinh = maLichTrinh;
@@ -52,20 +53,49 @@ public class LichTrinh {
         this.gioDen = gioDen;
     }
 
-    // === Thêm các Getter/Setter cho các thuộc tính cũ ông bổ sung ===
-    public String getMaHanhTrinh() { return maHanhTrinh; }
-    public void setMaHanhTrinh(String maHanhTrinh) { this.maHanhTrinh = maHanhTrinh; }
-    public String getMaTau() { return maTau != null ? maTau : (doanTau != null ? doanTau.getMaTau() : ""); }
-    public void setMaTau(String maTau) { this.maTau = maTau; }
-    public String getNgayKhoiHanhStr() { return ngayKhoiHanhStr; }
-    public void setNgayKhoiHanhStr(String ngayKhoiHanhStr) { this.ngayKhoiHanhStr = ngayKhoiHanhStr; }
-    public String getGioDi() { return gioDi; }
-    public void setGioDi(String gioDi) { this.gioDi = gioDi; }
-    public String getGioDen() { return gioDen; }
-    public void setGioDen(String gioDen) { this.gioDen = gioDen; }
+    // === Thêm các Getter/Setter cho các thuộc tính ông Đạt bổ sung ===
+    public String getMaHanhTrinh() {
+        return maHanhTrinh;
+    }
+
+    public void setMaHanhTrinh(String maHanhTrinh) {
+        this.maHanhTrinh = maHanhTrinh;
+    }
+
+    public String getMaTau() {
+        return maTau != null ? maTau : (doanTau != null ? doanTau.getMaTau() : "");
+    }
+
+    public void setMaTau(String maTau) {
+        this.maTau = maTau;
+    }
+
+    public String getNgayKhoiHanhStr() {
+        return ngayKhoiHanhStr;
+    }
+
+    public void setNgayKhoiHanhStr(String ngayKhoiHanhStr) {
+        this.ngayKhoiHanhStr = ngayKhoiHanhStr;
+    }
+
+    public String getGioDi() {
+        return gioDi;
+    }
+
+    public void setGioDi(String gioDi) {
+        this.gioDi = gioDi;
+    }
+
+    public String getGioDen() {
+        return gioDen;
+    }
+
+    public void setGioDen(String gioDen) {
+        this.gioDen = gioDen;
+    }
 
     // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
+    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Trả lại nguyên vẹn từng chữ để né Conflict)
     // =========================================================================
     public static List<LichTrinh> layDanhSachLichTrinhTrongKy(String maTau, LocalDate ngayBD, LocalDate ngayKT) {
         return new ArrayList<>();
@@ -73,6 +103,24 @@ public class LichTrinh {
 
     public static LichTrinh layThongTinLichTrinh(String maTau) {
         return new LichTrinh();
+    }
+
+    public void call(HanhTrinh hanhTrinh, DoanTau doanTau, LocalDateTime ngayKhoiHanh, TrangThaiLichTrinh trangThai) {
+        this.hanhTrinh = hanhTrinh;
+        this.doanTau = doanTau;
+        this.ngayKhoiHanh = ngayKhoiHanh;
+        this.trangThai = trangThai;
+        this.chiTietLichTrinh = new ArrayList<>();
+    }
+
+    public void addChiTietLichTrinh(LocalDateTime gioDen, LocalDateTime gioDi, NhaGa nhaGa) {
+        ChiTietLichTrinh ct = new ChiTietLichTrinh(null, gioDen, gioDi, nhaGa);
+        this.chiTietLichTrinh.add(ct);
+    }
+
+    public boolean luuLichTrinh() {
+        com.example.manager.dao.LichTrinhDAO dao = new com.example.manager.dao.LichTrinhDAO();
+        return dao.addLichTrinh(this);
     }
 
     public String getMaLichTrinh() {
@@ -87,7 +135,7 @@ public class LichTrinh {
         return trangThai;
     }
 
-    public List<ChiTietLichTrinh> getChiTietLichTrinh() {
+    public List<ChiTietHanhTrinh> getChiTietHanhTrinh() {
         return new ArrayList<>(chiTietLichTrinh);
     }
 
@@ -128,5 +176,47 @@ public class LichTrinh {
 
     public void setDoanTau(DoanTau doanTau) {
         this.doanTau = doanTau;
+    }
+
+    // =========================================================================
+    // HÀM ỦY QUYỀN THỰC THỂ: Khớp nối 100% kịch bản chữ mô tả tuần tự nhóm
+    // =========================================================================
+    public List<GheNgoi> xuLyQuetSoDoGheToaXe(java.sql.Connection con, String maLichTrinh, String tenToa) throws Exception {
+        List<GheNgoi> list = new ArrayList<>();
+        String sql = "SELECT g.maGhe, g.soGhe, g.viTri, g.trangThai, t.maToa "
+                + "FROM GheNgoi g "
+                + "JOIN ToaTau t ON g.toaTauId = t.id "
+                + "JOIN DoanTau dt ON t.doanTauId = dt.id "
+                + "JOIN LichTrinh lt ON lt.doanTauId = dt.id "
+                + "WHERE lt.maLichTrinh = ? AND t.tenToa = ?";
+
+        try (java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, maLichTrinh);
+            ps.setString(2, tenToa);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    GheNgoi g = new GheNgoi();
+                    g.setMaGhe(rs.getString("maGhe"));
+                    g.setSoGhe(rs.getInt("soGhe")); // Ép kiểu số int đồng bộ chuẩn nhóm
+                    g.setViTri(rs.getString("viTri"));
+
+                    String status = rs.getString("trangThai");
+                    if ("DA_DAT".equalsIgnoreCase(status)) {
+                        g.setTrangThai(com.example.manager.enums.TrangThaiGhe.DA_DAT);
+                    } else if ("TAM_GIU".equalsIgnoreCase(status)) {
+                        g.setTrangThai(com.example.manager.enums.TrangThaiGhe.TAM_GIU);
+                    } else {
+                        g.setTrangThai(com.example.manager.enums.TrangThaiGhe.TRONG);
+                    }
+
+                    try {
+                        g.setMaToa(rs.getString("maToa"));
+                    } catch (Exception ignored) {
+                    }
+                    list.add(g);
+                }
+            }
+        }
+        return list;
     }
 }

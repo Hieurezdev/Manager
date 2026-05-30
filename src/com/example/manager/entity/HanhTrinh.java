@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HanhTrinh {
+
     private String maHanhTrinh;
     private String tenHanhTrinh;
     private double quangDuong;
     private List<ChiTietHanhTrinh> chiTietHanhTrinh;
 
-    // === BỔ SUNG LẠI: 2 trường cũ để phục vụ riêng cho module Mua Vé của ông ===
+    // === BỔ SUNG: Thuộc tính phục vụ riêng cho module Mua Vé của ông Đạt ===
     private String maGaDi;
     private String maGaDen;
 
@@ -20,37 +21,43 @@ public class HanhTrinh {
 
     // === Constructor đầy đủ tham số gốc từ GitHub ===
     public HanhTrinh(String maHanhTrinh, String tenHanhTrinh, double quangDuong,
-                     List<ChiTietHanhTrinh> chiTietHanhTrinh) {
+            List<ChiTietHanhTrinh> chiTietHanhTrinh) {
         this.maHanhTrinh = maHanhTrinh;
         this.tenHanhTrinh = tenHanhTrinh;
         this.quangDuong = quangDuong;
         this.chiTietHanhTrinh = chiTietHanhTrinh == null ? new ArrayList<>() : new ArrayList<>(chiTietHanhTrinh);
     }
 
-    // === Thêm các Getter/Setter cho thuộc tính cũ của ông để tránh lỗi compile ===
-    public String getMaGaDi() { 
-        return maGaDi; 
+    // === Getter/Setter cho thuộc tính của ông Đạt để tránh lỗi compile giao diện mua vé ===
+    public String getMaGaDi() {
+        return maGaDi;
     }
-    
-    public void setMaGaDi(String maGaDi) { 
-        this.maGaDi = maGaDi; 
+
+    public void setMaGaDi(String maGaDi) {
+        return maGaDi;
     }
-    
-    public String getMaGaDen() { 
-        return maGaDen; 
+
+    public String getMaGaDen() {
+        return maGaDen;
     }
-    
-    public void setMaGaDen(String maGaDen) { 
-        this.maGaDen = maGaDen; 
+
+    public void setMaGaDen(String maGaDen) {
+        return maGaDen;
     }
 
     // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
+    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để diệt tận gốc Conflict)
     // =========================================================================
     public static HanhTrinh layThongTinHanhTrinh(String maHanhTrinh) {
         HanhTrinh hanhTrinh = new HanhTrinh();
         hanhTrinh.maHanhTrinh = maHanhTrinh;
         return hanhTrinh;
+    }
+
+    // ĐỒNG BỘ: Trả lại hàm bốc ga trung gian cho bạn ông làm Thống kê không bị gãy code
+    public List<ChiTietHanhTrinh> getDanhSachGaTrungGian() {
+        com.example.manager.dao.HanhTrinhDAO dao = new com.example.manager.dao.HanhTrinhDAO(null);
+        return dao.getGaTrungGian(this.maHanhTrinh);
     }
 
     public String getMaHanhTrinh() {

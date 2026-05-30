@@ -3,18 +3,20 @@ package com.example.manager.entity;
 import com.example.manager.enums.TrangThaiGhe;
 
 public class GheNgoi {
+
     private String maGhe;
-    private int soGhe; // Giữ nguyên kiểu int của bản GitHub
+    private int soGhe;
     private String viTri;
-    private TrangThaiGhe trangThai; // Giữ nguyên Enum của bản GitHub
+    private TrangThaiGhe trangThai;
     private String moTa;
-    private String maToa; // Bổ sung lại maToa để phục vụ chức năng Mua Vé của ông
+    // Bổ sung maToa để phục vụ luồng xử lý định vị sơ đồ ghế của ông Đạt
+    private String maToa;
 
     // === Constructor mặc định gốc từ GitHub ===
     public GheNgoi() {
     }
 
-    // === Constructor đầy đủ tham số (Đã đồng bộ kiểu dữ liệu int, Enum và giữ lại maToa) ===
+    // === Constructor 1: Chuẩn Enum gốc của bạn ông trên GitHub ===
     public GheNgoi(String maGhe, int soGhe, String viTri, TrangThaiGhe trangThai, String maToa) {
         this.maGhe = maGhe;
         this.soGhe = soGhe;
@@ -23,7 +25,26 @@ public class GheNgoi {
         this.maToa = maToa;
     }
 
-    // === Thêm các Getter/Setter cho thuộc tính maToa của ông ===
+    // === Constructor 2: Nạp chồng nhận String (Cứu cánh các đoạn gọi hàm JDBC cũ của ông Đạt không bị Compile Error) ===
+    public GheNgoi(String maGhe, String soGhe, String viTri, String trangThaiStr, String maToa) {
+        this.maGhe = maGhe;
+        try {
+            this.soGhe = Integer.parseInt(soGhe); // Tự động ép String sang int
+        } catch (Exception e) {
+            this.soGhe = 0;
+        }
+        this.viTri = viTri;
+        this.maToa = maToa;
+
+        // Tự động chuyển đổi chuỗi String từ DB sang Enum TrangThaiGhe chuẩn của nhóm
+        try {
+            this.trangThai = TrangThaiGhe.valueOf(trangThaiStr.toUpperCase());
+        } catch (Exception e) {
+            this.trangThai = TrangThaiGhe.TRONG; // Mặc định nếu lỗi là ghế trống
+        }
+    }
+
+    // === Getter/Setter cho thuộc tính maToa bổ sung ===
     public String getMaToa() {
         return maToa;
     }
@@ -33,7 +54,7 @@ public class GheNgoi {
     }
 
     // =========================================================================
-    // TOÀN BỘ GETTER/SETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
+    // TOÀN BỘ GETTER/SETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để diệt tận gốc Conflict)
     // =========================================================================
     public String getMaGhe() {
         return maGhe;

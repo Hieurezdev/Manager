@@ -20,11 +20,12 @@ import java.sql.Connection;
 import java.util.List;
 
 public class MuaVeFrm extends JFrame implements ActionListener {
+
     private Connection globalConnection;
     private LichTrinhDAO lichTrinhDAO;
     private KhachHangDAO khachHangDAO;
     private HoaDonDAO hoaDonDAO;
-    
+
     private JTextField txtGaDi, txtGaDen, txtNgayDi;
     private JButton btnTimKiem;
     private JTable tblChuyenTau;
@@ -33,16 +34,15 @@ public class MuaVeFrm extends JFrame implements ActionListener {
     private JPanel pnlToaContainer;
     private JPanel pnlGheGrid;
     private JButton[] btnToas = new JButton[4];
-    
+
     private List<LichTrinh> dsChuyenTauHienTai;
     private List<GheNgoi> dsGheHienTai;
     private LichTrinh chuyenChonTam = null;
-    private String toaChon = ""; 
+    private String toaChon = "";
     private int rowsCurrentSelected = -1;
-    private String maGheChonTam = null; 
+    private String maGheChonTam = null;
     private String maNhanVienVanhHanh = "NV001";
-    
-    // Lưu thông tin tạm của hành khách thay thế cho CampBill cũ
+
     private String tamTen, tamCccd, tamSdt;
 
     public MuaVeFrm() {
@@ -67,22 +67,35 @@ public class MuaVeFrm extends JFrame implements ActionListener {
 
         JPanel pnlSearch = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 8));
         pnlSearch.setBorder(BorderFactory.createTitledBorder("Tra cứu hành trình"));
-        pnlSearch.add(new JLabel("Ga đi:")); txtGaDi = new JTextField("", 8); pnlSearch.add(txtGaDi);
-        pnlSearch.add(new JLabel("Ga đến:")); txtGaDen = new JTextField("", 8); pnlSearch.add(txtGaDen);
-        pnlSearch.add(new JLabel("Ngày đi:")); txtNgayDi = new JTextField("", 8); pnlSearch.add(txtNgayDi);
-        btnTimKiem = new JButton("Tìm kiếm"); btnTimKiem.addActionListener(this); pnlSearch.add(btnTimKiem);
+        pnlSearch.add(new JLabel("Ga đi:"));
+        txtGaDi = new JTextField("", 8);
+        pnlSearch.add(txtGaDi);
+        pnlSearch.add(new JLabel("Ga đến:"));
+        txtGaDen = new JTextField("", 8);
+        pnlSearch.add(txtGaDen);
+        pnlSearch.add(new JLabel("Ngày đi:"));
+        txtNgayDi = new JTextField("", 8);
+        pnlSearch.add(txtNgayDi);
+        btnTimKiem = new JButton("Tìm kiếm");
+        btnTimKiem.addActionListener(this);
+        pnlSearch.add(btnTimKiem);
         pnlNorthWrapper.add(pnlSearch);
         add(pnlNorthWrapper, BorderLayout.NORTH);
 
         tableModel = new DefaultTableModel(new Object[]{"STT", "Mã tàu", "Giờ khởi hành", "Giờ đến", "Giá cơ bản", "Chọn"}, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return c == 5 && (rowsCurrentSelected == -1 || rowsCurrentSelected == r); }
+            @Override
+            public boolean isCellEditable(int r, int c) {
+                return c == 5 && (rowsCurrentSelected == -1 || rowsCurrentSelected == r);
+            }
         };
-        tblChuyenTau = new JTable(tableModel); tblChuyenTau.setRowHeight(32);
+        tblChuyenTau = new JTable(tableModel);
+        tblChuyenTau.setRowHeight(32);
         JScrollPane scrollTable = new JScrollPane(tblChuyenTau);
         scrollTable.setPreferredSize(new Dimension(940, 150));
         add(scrollTable, BorderLayout.CENTER);
 
-        pnlSoDoGheWrapper = new JPanel(new BorderLayout(10, 10)); pnlSoDoGheWrapper.setVisible(false);
+        pnlSoDoGheWrapper = new JPanel(new BorderLayout(10, 10));
+        pnlSoDoGheWrapper.setVisible(false);
         pnlToaContainer = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 5));
         pnlToaContainer.add(new JLabel("Chọn toa:"));
         for (int i = 0; i < 4; i++) {
@@ -97,63 +110,91 @@ public class MuaVeFrm extends JFrame implements ActionListener {
         JScrollPane scrollGhe = new JScrollPane(pnlGheGrid);
         scrollGhe.setPreferredSize(new Dimension(940, 220));
         pnlSoDoGheWrapper.add(scrollGhe, BorderLayout.CENTER);
-        
+
         JPanel pnlColorGuide = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 5));
         pnlColorGuide.add(tạoOChuThichMau("Ghế Trống", Color.WHITE));
-        pnlColorGuide.add(tạoOChuThichMau("Đã Có Người Đặt Trước", new Color(255, 180, 180)));
-        pnlColorGuide.add(tạoOChuThichMau("Đang Chọn Giữ Chỗ", new Color(255, 230, 0)));
-        pnlColorGuide.add(tạoOChuThichMau("Đã Thanh Toan Thành Công", new Color(30, 144, 255)));
+        pnlColorGuide.add(tạoOChuThichMau("Đã Có Người Đặt Trước", new Color(30, 144, 255))); // ĐỒNG BỘ: Màu xanh dương đại diện cho ĐÃ BÁN/ĐÃ ĐẶT
+        pnlColorGuide.add(tạoOChuThichMau("Đang Chọn Giữ Chỗ", Color.YELLOW));
         pnlSoDoGheWrapper.add(pnlColorGuide, BorderLayout.SOUTH);
         add(pnlSoDoGheWrapper, BorderLayout.SOUTH);
     }
 
     private JPanel tạoOChuThichMau(String text, Color color) {
         JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        JLabel lblBox = new JLabel("   "); lblBox.setOpaque(true); lblBox.setBackground(color);
-        lblBox.setBorder(BorderFactory.createLineBorder(Color.GRAY)); p.add(lblBox);
-        JLabel lblText = new JLabel(text); lblText.setFont(new Font("Arial", Font.PLAIN, 11)); p.add(lblText);
+        JLabel lblBox = new JLabel("   ");
+        lblBox.setOpaque(true);
+        lblBox.setBackground(color);
+        lblBox.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        p.add(lblBox);
+        JLabel lblText = new JLabel(text);
+        lblText.setFont(new Font("Arial", Font.PLAIN, 11));
+        p.add(lblText);
         return p;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnTimKiem) hienThiDanhSachChuyenTauDB();
+        if (e.getSource() == btnTimKiem) {
+            hienThiDanhSachChuyenTauDB();
+        }
     }
 
     private void hienThiDanhSachChuyenTauDB() {
         try {
             dsChuyenTauHienTai = lichTrinhDAO.layDanhSachChuyenTauPhuHop(txtGaDi.getText().trim(), txtGaDen.getText().trim(), txtNgayDi.getText().trim());
-            tableModel.setRowCount(0); rowsCurrentSelected = -1; pnlSoDoGheWrapper.setVisible(false);
+            tableModel.setRowCount(0);
+            rowsCurrentSelected = -1;
+            pnlSoDoGheWrapper.setVisible(false);
             if (dsChuyenTauHienTai.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Hệ thống tìm kiếm không có chuyến tàu nào phù hợp."); return;
+                JOptionPane.showMessageDialog(this, "Hệ thống tìm kiếm không có chuyến tàu nào phù hợp.");
+                return;
             }
             int stt = 1;
             for (LichTrinh lt : dsChuyenTauHienTai) {
-                tableModel.addRow(new Object[]{stt++, lt.getMaTau(), lt.getGioDi(), lt.getGioDen(), String.format("%,.0f", lichTrinhDAO.getGiaVeGocTieuChuan()), "Chon"});
+                tableModel.addRow(new Object[]{stt++, lt.getMaTau(), lt.getGioDi(), lt.getGioDen(), String.format("%,.0f", lichTrinhDAO.getGiaVeGocTieuChuan()), "Chọn"});
             }
             tblChuyenTau.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
             tblChuyenTau.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void xửLyNutChonChuyenTrongTable(int row) {
         try {
             if (rowsCurrentSelected == row) {
-                if (maGheChonTam != null) hoaDonDAO.capNhatTrangThaiGhe(maGheChonTam, TrangThaiGhe.TRONG.name());
-                maGheChonTam = null; rowsCurrentSelected = -1; chuyenChonTam = null; pnlSoDoGheWrapper.setVisible(false);
-                for (int i = 0; i < tableModel.getRowCount(); i++) tableModel.setValueAt("Chọn", i, 5);
+                if (maGheChonTam != null) {
+                    hoaDonDAO.capNhatTrangThaiGhe(maGheChonTam, TrangThaiGhe.TRONG.name());
+                }
+                maGheChonTam = null;
+                rowsCurrentSelected = -1;
+                chuyenChonTam = null;
+                pnlSoDoGheWrapper.setVisible(false);
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    tableModel.setValueAt("Chọn", i, 5);
+                }
             } else if (rowsCurrentSelected == -1) {
-                rowsCurrentSelected = row; chuyenChonTam = dsChuyenTauHienTai.get(row);
-                for (int i = 0; i < tableModel.getRowCount(); i++) tableModel.setValueAt(i == row ? "Đang chọn" : "-", i, 5);
+                rowsCurrentSelected = row;
+                chuyenChonTam = dsChuyenTauHienTai.get(row);
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    tableModel.setValueAt(i == row ? "Đang chọn" : "-", i, 5);
+                }
 
                 pnlSoDoGheWrapper.setVisible(true);
                 pnlGheGrid.removeAll();
-                pnlGheGrid.revalidate(); pnlGheGrid.repaint();
-                for (int i = 0; i < 4; i++) btnToas[i].setBackground(null);
+                pnlGheGrid.revalidate();
+                pnlGheGrid.repaint();
+                for (int i = 0; i < 4; i++) {
+                    btnToas[i].setBackground(null);
+                }
                 toaChon = "";
             }
-            this.pack(); this.setSize(1000, 750); this.setLocationRelativeTo(null);
-        } catch (Exception ex) { ex.printStackTrace(); }
+            this.pack();
+            this.setSize(1000, 750);
+            this.setLocationRelativeTo(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void clickChonToa(String nameToa) {
@@ -171,12 +212,17 @@ public class MuaVeFrm extends JFrame implements ActionListener {
             pnlGheGrid.removeAll();
             int[][] maTranGhe = new int[5][11];
             for (int col = 0; col < 11; col++) {
-                maTranGhe[0][col] = 1 + col * 4; maTranGhe[1][col] = 2 + col * 4; maTranGhe[2][col] = -1;
-                maTranGhe[3][col] = 3 + col * 4; maTranGhe[4][col] = 4 + col * 4;
+                maTranGhe[0][col] = 1 + col * 4;
+                maTranGhe[1][col] = 2 + col * 4;
+                maTranGhe[2][col] = -1;
+                maTranGhe[3][col] = 3 + col * 4;
+                maTranGhe[4][col] = 4 + col * 4;
             }
             for (int row = 0; row < 5; row++) {
                 if (row == 2) {
-                    for (int col = 0; col < 11; col++) pnlGheGrid.add(col == 5 ? new JLabel("LỐI ĐI", SwingConstants.CENTER) : new JLabel(""));
+                    for (int col = 0; col < 11; col++) {
+                        pnlGheGrid.add(col == 5 ? new JLabel("LỐI ĐI", SwingConstants.CENTER) : new JLabel(""));
+                    }
                     continue;
                 }
                 for (int col = 0; col < 11; col++) {
@@ -184,44 +230,57 @@ public class MuaVeFrm extends JFrame implements ActionListener {
                     GheNgoi gheMatch = null;
                     if (dsGheHienTai != null) {
                         for (GheNgoi g : dsGheHienTai) {
-                            if (String.valueOf(g.getSoGhe()).equals(labelGhe)) { gheMatch = g; break; }
+                            if (String.valueOf(g.getSoGhe()).equals(labelGhe)) {
+                                gheMatch = g;
+                                break;
+                            }
                         }
                     }
-                    
-                    JButton btnGhe = new JButton(labelGhe); btnGhe.setOpaque(true); btnGhe.setBorderPainted(true);
-                    
+
+                    JButton btnGhe = new JButton(labelGhe);
+                    btnGhe.setOpaque(true);
+                    btnGhe.setBorderPainted(true);
+
+                    // ĐỒNG BỘ: So sánh trực tiếp với Enum TrangThaiGhe chuẩn hệ thống nhóm
                     if (gheMatch != null && gheMatch.getTrangThai() == TrangThaiGhe.DA_DAT) {
-                        btnGhe.setBackground(new Color(30, 144, 255)); 
-                        btnGhe.setEnabled(false); btnGhe.setBorderPainted(false);
+                        btnGhe.setBackground(new Color(30, 144, 255)); // Đồ họa màu xanh dương đại diện cho Đã Bán
+                        btnGhe.setEnabled(false);
+                        btnGhe.setBorderPainted(false);
                     } else if (gheMatch != null && gheMatch.getTrangThai() == TrangThaiGhe.TAM_GIU) {
-                        btnGhe.setBackground(Color.YELLOW); 
+                        btnGhe.setBackground(Color.YELLOW);
                         btnGhe.setBorderPainted(false);
                     } else {
-                        btnGhe.setBackground(Color.WHITE); 
+                        btnGhe.setBackground(Color.WHITE);
                     }
-                    
+
                     String soToaHienTai = toaChon.replaceAll("[^0-9]", "");
-                    if (soToaHienTai.isEmpty()) soToaHienTai = "3"; 
-                    
+                    if (soToaHienTai.isEmpty()) {
+                        soToaHienTai = "3";
+                    }
+
                     final String maGheDB = (gheMatch != null) ? gheMatch.getMaGhe() : "T" + soToaHienTai + "-G" + labelGhe;
-                    
+
                     btnGhe.addActionListener(evt -> moPopupTamGiuGheDB(maGheDB, labelGhe));
-                    
+
                     pnlGheGrid.add(btnGhe);
                 }
             }
-            pnlGheGrid.revalidate(); pnlGheGrid.repaint();
-        } catch (Exception ex) { ex.printStackTrace(); }
+            pnlGheGrid.revalidate();
+            pnlGheGrid.repaint();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void moPopupTamGiuGheDB(String maGheDB, String labelGhe) {
         try {
             this.maGheChonTam = maGheDB;
-            
+
             if (hoaDonDAO != null) {
+                // ĐỒNG BỘ: Bắn dữ liệu cập nhật trạng thái TAM_GIU dưới DB thật
                 hoaDonDAO.capNhatTrangThaiGhe(maGheDB, TrangThaiGhe.TAM_GIU.name());
             }
-            
+
             for (Component c : pnlGheGrid.getComponents()) {
                 if (c instanceof JButton && ((JButton) c).getText().equals(labelGhe)) {
                     c.setBackground(Color.YELLOW);
@@ -229,73 +288,93 @@ public class MuaVeFrm extends JFrame implements ActionListener {
                 }
             }
 
-            JDialog dlg = new JDialog(this, "Thông tin hành khách", true); 
-            dlg.setSize(450, 320); 
-            dlg.setLocationRelativeTo(this); 
+            JDialog dlg = new JDialog(this, "Thông tin hành khách", true);
+            dlg.setSize(450, 320);
+            dlg.setLocationRelativeTo(this);
             dlg.setLayout(new BorderLayout(10, 10));
-            
+
             JPanel pnlTop = new JPanel(new GridLayout(3, 1));
-            pnlTop.add(new JLabel("  Sơ đồ ghế: " + toaChon + " - Ghế " + labelGhe)); 
-            pnlTop.add(new JLabel("  Trạng thái: Đang điền thông tin..."));
-            JLabel lblTimer = new JLabel("  Thời gian giữ chỗ còn lại: 10:00"); 
-            lblTimer.setForeground(Color.RED); pnlTop.add(lblTimer);
+            pnlTop.add(new JLabel("  Sơ đồ ghế: " + toaChon + " - Ghế " + labelGhe));
+            pnlTop.add(new JLabel("  Trạng thái: Điền dữ liệu khách hàng thực tế"));
+            JLabel lblTimer = new JLabel("  Thời gian giữ chỗ còn lại: 10:00");
+            lblTimer.setForeground(Color.RED);
+            pnlTop.add(lblTimer);
             dlg.add(pnlTop, BorderLayout.NORTH);
 
             JPanel pnlForm = new JPanel(new GridLayout(4, 2, 5, 5));
-            pnlForm.add(new JLabel("  Họ tên:")); JTextField txtTen = new JTextField(""); pnlForm.add(txtTen);
-            pnlForm.add(new JLabel("  Đối tượng:")); JComboBox<LoaiDoiTuong> cbo = new JComboBox<>(LoaiDoiTuong.values()); pnlForm.add(cbo);
-            pnlForm.add(new JLabel("  Sđt:")); JTextField txtSDT = new JTextField(""); pnlForm.add(txtSDT);
-            pnlForm.add(new JLabel("  Cccd:")); JTextField txtCC = new JTextField(""); pnlForm.add(txtCC);
+            pnlForm.add(new JLabel("  Họ tên:"));
+            JTextField txtTen = new JTextField("");
+            pnlForm.add(txtTen);
+            pnlForm.add(new JLabel("  Đối tượng:"));
+            JComboBox<LoaiDoiTuong> cbo = new JComboBox<>(LoaiDoiTuong.values());
+            pnlForm.add(cbo);
+            pnlForm.add(new JLabel("  Sđt:"));
+            JTextField txtSDT = new JTextField("");
+            pnlForm.add(txtSDT);
+            pnlForm.add(new JLabel("  Cccd:"));
+            JTextField txtCC = new JTextField("");
+            pnlForm.add(txtCC);
             dlg.add(pnlForm, BorderLayout.CENTER);
 
             final int[] time = {600};
             Timer timer = new Timer(1000, e -> {
                 time[0]--;
-                if (time[0] >= 0) lblTimer.setText(String.format("  Thời gian giữ chỗ còn lại: %02d:%02d", time[0]/60, time[0]%60));
-                else { 
-                    ((Timer)e.getSource()).stop(); 
-                    dlg.dispose(); 
-                    try { if (hoaDonDAO != null) hoaDonDAO.capNhatTrangThaiGhe(maGheDB, TrangThaiGhe.TRONG.name()); } catch(Exception ignored){} 
-                    lamMoiSoDoGheTuDB(); 
+                if (time[0] >= 0) {
+                    lblTimer.setText(String.format("  Thời gian giữ chỗ còn lại: %02d:%02d", time[0] / 60, time[0] % 60)); 
+                }else {
+                    ((Timer) e.getSource()).stop();
+                    dlg.dispose();
+                    try {
+                        if (hoaDonDAO != null) {
+                            hoaDonDAO.capNhatTrangThaiGhe(maGheDB, TrangThaiGhe.TRONG.name());
+                    
+                        }} catch (Exception ignored) {
+                    }
+                    lamMoiSoDoGheTuDB();
                 }
             });
 
-            JButton btnXacMinh = new JButton("Xác minh & Xuất hóa đơn"); 
+            JButton btnXacMinh = new JButton("Xác minh & Xuất hóa đơn");
             btnXacMinh.addActionListener(evt -> {
                 try {
-                    timer.stop(); 
-                    dlg.dispose(); 
-                    
+                    timer.stop();
+                    dlg.dispose();
+
                     this.tamTen = txtTen.getText().trim();
                     this.tamCccd = txtCC.getText().trim();
                     this.tamSdt = txtSDT.getText().trim();
 
-                    // ĐÃ KHỬ MOCKDATA: Chạy logic DB thật thông qua KhachHangDAO
-                    HoaDon hoadonTam = khachHangDAO.xuLyChinhSachGiaVaTaoHoaDonTam(
-                        tamTen, tamCccd, tamSdt, "kh@gmail.com", 
-                        ((LoaiDoiTuong)cbo.getSelectedItem()).name(), 
-                        chuyenChonTam, toaChon, labelGhe, 850000
+                    // KHỬ SẠCH MOCKDATA: Chọc DB kiểm tra đối tượng và sinh hóa đơn thật
+                    String loaiDTStr = ((LoaiDoiTuong) cbo.getSelectedItem()).name();
+                    HoaDon hoadonTam = khachHangDAO.xuLyChinhSachGiaVaTaoDonTam(
+                            tamTen, tamCccd, tamSdt, "khachhang@gmail.com",
+                            loaiDTStr, chuyenChonTam, toaChon, labelGhe, 850000
                     );
-                    
+
                     moPopupHoaDonDB(hoadonTam, labelGhe);
-                } catch (Exception ex) { ex.printStackTrace(); }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             });
             dlg.add(btnXacMinh, BorderLayout.SOUTH);
 
-            timer.start(); 
-            dlg.setVisible(true); 
-            
-        } catch (Exception ex) { ex.printStackTrace(); }
+            timer.start();
+            dlg.setVisible(true);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void moPopupHoaDonDB(HoaDon b, String labelGhe) {
-        JDialog dlg = new JDialog(this, "Hóa đơn thanh toán chi tiết", true); 
-        dlg.setSize(500, 420); 
-        dlg.setLocationRelativeTo(this); 
+        JDialog dlg = new JDialog(this, "Hóa đơn thanh toán chi tiết", true);
+        dlg.setSize(500, 420);
+        dlg.setLocationRelativeTo(this);
         dlg.setLayout(new BorderLayout(15, 15));
-        
-        JPanel pnl = new JPanel(new GridLayout(6, 2, 2, 2)); pnl.setBackground(Color.LIGHT_GRAY);
-        
+
+        JPanel pnl = new JPanel(new GridLayout(6, 2, 2, 2));
+        pnl.setBackground(Color.LIGHT_GRAY);
+
         String gaDiThat = (chuyenChonTam != null) ? txtGaDi.getText().trim() : "";
         String gaDenThat = (chuyenChonTam != null) ? txtGaDen.getText().trim() : "";
         String gioDiThat = (chuyenChonTam != null) ? chuyenChonTam.getGioDi() : "";
@@ -303,70 +382,115 @@ public class MuaVeFrm extends JFrame implements ActionListener {
         String maTauThat = (chuyenChonTam != null) ? chuyenChonTam.getMaTau() : "";
 
         String[][] data = {
-            {" Họ tên: " + this.tamTen, " Cccd: " + this.tamCccd}, 
+            {" Họ tên: " + this.tamTen, " Cccd: " + this.tamCccd},
             {" Chuyến tàu: " + maTauThat, " Tuyến: " + gaDiThat + " -> " + gaDenThat},
-            {" Khởi hành: " + gioDiThat, " Đến: " + gioDenThat}, 
+            {" Khởi hành: " + gioDiThat, " Đến: " + gioDenThat},
             {" Vị trí: " + toaChon + " - Ghe " + labelGhe, " Loại: Vé hệ thống thực tế"},
             {" Chính sách: Áp dụng đối tượng", " Giá gốc: " + String.format("%,.0f", 850000.0) + " VND"},
             {" TỔNG TIỀN THANH TOÁN:", String.format("%,d", b.getTongTien()) + " VND"}
         };
-        
+
         for (String[] r : data) {
-            for (String c : r) { JLabel l = new JLabel(c); l.setOpaque(true); l.setBackground(Color.WHITE); pnl.add(l); }
+            for (String c : r) {
+                JLabel l = new JLabel(c);
+                l.setOpaque(true);
+                l.setBackground(Color.WHITE);
+                pnl.add(l);
+            }
         }
         dlg.add(pnl, BorderLayout.CENTER);
-        
+
         JPanel pnlBtns = new JPanel(new FlowLayout());
-        JButton btnOk = new JButton("Xác nhận thanh toán thành công"); 
-        
+        JButton btnOk = new JButton("Xác nhận thanh toán thành công");
+
         btnOk.addActionListener(evt -> {
             try {
-                dlg.dispose(); 
+                dlg.dispose();
                 if (hoaDonDAO != null && khachHangDAO != null && chuyenChonTam != null) {
                     String maKH = khachHangDAO.layMaKhachHangTheoCCCD(this.tamCccd);
-                    hoaDonDAO.luuGiaoDichThanhToanThat(maNhanVienVanhHanh, b, chuyenChonTam.getMaLichTrinh(), maGheChonTam, maKH); 
+                    // CHẠY CHỐT TRANSACTION THẬT: Ghi nhận hóa đơn, vé tàu và chốt ghế DA_DAT vĩnh viễn dưới DB
+                    hoaDonDAO.luuGiaoDichThanhToanThat(maNhanVienVanhHanh, b, chuyenChonTam.getMaLichTrinh(), maGheChonTam, maKH);
                 }
-                
-                lamMoiSoDoGheTuDB(); 
-                JOptionPane.showMessageDialog(this, "Giao dịch thành công! Ghế đã được chuyển sang trạng thái ĐÃ BÁN."); 
-                maGheChonTam = null; 
-            } catch (Exception ex) { ex.printStackTrace(); }
+
+                lamMoiSoDoGheTuDB();
+                JOptionPane.showMessageDialog(this, "Giao dịch thành công! Ghế đã được chuyển sang trạng thái ĐÃ BÁN.");
+                maGheChonTam = null;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
-        
-        JButton btnCancel = new JButton("Hủy bỏ giao dịch"); 
-        btnCancel.addActionListener(evt -> { 
-            try { 
-                dlg.dispose(); 
+
+        JButton btnCancel = new JButton("Hủy bỏ giao dịch");
+        btnCancel.addActionListener(evt -> {
+            try {
+                dlg.dispose();
                 if (hoaDonDAO != null) {
-                    hoaDonDAO.capNhatTrangThaiGhe(maGheChonTam, TrangThaiGhe.TRONG.name()); 
+                    hoaDonDAO.capNhatTrangThaiGhe(maGheChonTam, TrangThaiGhe.TRONG.name());
                 }
-                lamMoiSoDoGheTuDB(); 
-            } catch (Exception ignored) {} 
+                lamMoiSoDoGheTuDB();
+            } catch (Exception ignored) {
+            }
         });
-        
-        pnlBtns.add(btnOk); pnlBtns.add(btnCancel); 
-        dlg.add(pnlBtns, BorderLayout.SOUTH); 
+
+        pnlBtns.add(btnOk);
+        pnlBtns.add(btnCancel);
+        dlg.add(pnlBtns, BorderLayout.SOUTH);
         dlg.setVisible(true);
     }
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() { setOpaque(true); }
-        @Override public Component getTableCellRendererComponent(JTable t, Object v, boolean isS, boolean hasF, int r, int c) {
+
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable t, Object v, boolean isS, boolean hasF, int r, int c) {
             setText((v == null) ? "" : v.toString());
-            setBackground(v != null && v.toString().equals("Dang chon") ? Color.YELLOW : UIManager.getColor("Button.background"));
-            setEnabled(v == null || !v.toString().equals("-")); return this;
+            setBackground(v != null && v.toString().equals("Đang chọn") ? Color.YELLOW : UIManager.getColor("Button.background"));
+            setEnabled(v == null || !v.toString().equals("-"));
+            return this;
         }
     }
 
     class ButtonEditor extends DefaultCellEditor {
-        protected JButton button; private String label; private boolean isPushed; private int targetRow;
-        public ButtonEditor(JCheckBox cb) { super(cb); button = new JButton(); button.setOpaque(true); button.addActionListener(e -> fireEditingStopped()); }
-        @Override public Component getTableCellEditorComponent(JTable t, Object v, boolean isS, int r, int c) { targetRow = r; label = (v == null) ? "" : v.toString(); button.setText(label); isPushed = true; return button; }
-        @Override public Object getCellEditorValue() { if (isPushed) { SwingUtilities.invokeLater(() -> xửLyNutChonChuyenTrongTable(targetRow)); } isPushed = false; return label; }
+
+        protected JButton button;
+        private String label;
+        private boolean isPushed;
+        private int targetRow;
+
+        public ButtonEditor(JCheckBox cb) {
+            super(cb);
+            button = new JButton();
+            button.setOpaque(true);
+            button.addActionListener(e -> fireEditingStopped());
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable t, Object v, boolean isS, int r, int c) {
+            targetRow = r;
+            label = (v == null) ? "" : v.toString();
+            button.setText(label);
+            isPushed = true;
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            if (isPushed) {
+                SwingUtilities.invokeLater(() -> xửLyNutChonChuyenTrongTable(targetRow));
+            }
+            isPushed = false;
+            return label;
+        }
     }
 
     public static void main(String[] args) {
-        try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); } catch (Exception ignored) {}
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ignored) {
+        }
         SwingUtilities.invokeLater(() -> new MuaVeFrm().setVisible(true));
     }
 }
