@@ -51,9 +51,9 @@ public class TestRunner {
     }
 
     private static void testHanhTrinhGaDauGaCuoi() {
-        NhaGa ga1 = new NhaGa("GA-1", "Ga 1", "000");
-        NhaGa ga2 = new NhaGa("GA-2", "Ga 2", "000");
-        NhaGa ga3 = new NhaGa("GA-3", "Ga 3", "000");
+        NhaGa ga1 = new NhaGa("GA-1", "Ga 1", null, "000");
+        NhaGa ga2 = new NhaGa("GA-2", "Ga 2", null, "000");
+        NhaGa ga3 = new NhaGa("GA-3", "Ga 3", null, "000");
 
         List<ChiTietHanhTrinh> ct = new ArrayList<>();
         ct.add(new ChiTietHanhTrinh("CT-1", 2, ga2));
@@ -66,9 +66,9 @@ public class TestRunner {
     }
 
     private static void testHanhTrinhMaGaDauGaCuoi() {
-        NhaGa ga1 = new NhaGa("GA-START", "Ga start", "000");
-        NhaGa ga2 = new NhaGa("GA-MID", "Ga mid", "000");
-        NhaGa ga3 = new NhaGa("GA-END", "Ga end", "000");
+        NhaGa ga1 = new NhaGa("GA-START", "Ga start", null, "000");
+        NhaGa ga2 = new NhaGa("GA-MID", "Ga mid", null, "000");
+        NhaGa ga3 = new NhaGa("GA-END", "Ga end", null, "000");
 
         List<ChiTietHanhTrinh> ct = new ArrayList<>();
         ct.add(new ChiTietHanhTrinh("CT-1", 3, ga3));
@@ -82,8 +82,8 @@ public class TestRunner {
     }
 
     private static LichTrinh taoLichTrinh(String ma, int soVe, int giaVe) {
-        NhaGa ga1 = new NhaGa("GA-1", "Ga 1", "000");
-        NhaGa ga2 = new NhaGa("GA-2", "Ga 2", "000");
+        NhaGa ga1 = new NhaGa("GA-1", "Ga 1", null, "000");
+        NhaGa ga2 = new NhaGa("GA-2", "Ga 2", null, "000");
         List<ChiTietHanhTrinh> ct = new ArrayList<>();
         ct.add(new ChiTietHanhTrinh("CT-1", 1, ga1));
         ct.add(new ChiTietHanhTrinh("CT-2", 2, ga2));

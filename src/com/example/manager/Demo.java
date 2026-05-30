@@ -112,9 +112,9 @@ public class Demo {
     }
 
     private static List<LichTrinh> taoMockLichTrinh() {
-        NhaGa haNoi = new NhaGa("GA-HN", "Ha Noi", "024-000000");
-        NhaGa saiGon = new NhaGa("GA-SG", "Sai Gon", "028-000000");
-        NhaGa vinh = new NhaGa("GA-VI", "Vinh", "0238-000000");
+        NhaGa haNoi = new NhaGa("GA-HN", "Ha Noi", null, "024-000000");
+        NhaGa saiGon = new NhaGa("GA-SG", "Sai Gon", null, "028-000000");
+        NhaGa vinh = new NhaGa("GA-VI", "Vinh", null, "0238-000000");
 
         List<ChiTietHanhTrinh> ctHt1 = new ArrayList<>();
         ctHt1.add(new ChiTietHanhTrinh("CTHT-1", 1, haNoi));
