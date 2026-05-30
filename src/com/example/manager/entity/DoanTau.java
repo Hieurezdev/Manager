@@ -2,6 +2,7 @@ package com.example.manager.entity;
 
 import com.example.manager.enums.LoaiTau;
 import com.example.manager.enums.TrangThaiTau;
+import com.example.manager.dao.DoanTauDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,12 @@ public class DoanTau {
 
     public static List<DoanTau> layDanhSachDoanTau() {
         return new ArrayList<>();
+    }
+
+    public static List<DoanTau> getDanhSachTau() {
+        // Gọi DAO để truy xuất danh sách tàu từ CSDL
+        DoanTauDAO dao = new DoanTauDAO(null); // Sử dụng null do chưa có Connection thực tế
+        return dao.getAllDoanTau();
     }
 
     public String getMaTau() {

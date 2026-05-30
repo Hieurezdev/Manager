@@ -66,4 +66,60 @@ public class HanhTrinhDAO extends DAO {
 
         return HanhTrinh.layThongTinHanhTrinh(maHanhTrinh);
     }
+
+    public java.util.List<HanhTrinh> getAllHanhTrinh() {
+        if (con != null) {
+            String sql = "SELECT maHanhTrinh, tenHanhTrinh, quangDuong FROM HanhTrinh ORDER BY maHanhTrinh";
+            List<HanhTrinh> list = new ArrayList<>();
+            try (PreparedStatement ps = con.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    HanhTrinh ht = new HanhTrinh();
+                    ht.setMaHanhTrinh(rs.getString("maHanhTrinh"));
+                    ht.setTenHanhTrinh(rs.getString("tenHanhTrinh"));
+                    ht.setQuangDuong(rs.getDouble("quangDuong"));
+                    list.add(ht);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return list;
+        }
+
+        return new ArrayList<>();
+    }
+
+    public java.util.List<com.example.manager.entity.ChiTietHanhTrinh> getGaTrungGian(String maHanhTrinh) {
+        if (con != null) {
+            String sql = "SELECT ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.soDienThoai " +
+                         "FROM ChiTietHanhTrinh ct " +
+                         "JOIN HanhTrinh ht ON ct.hanhTrinhId = ht.id " +
+                         "JOIN NhaGa ng ON ct.nhaGaId = ng.id " +
+                         "WHERE ht.maHanhTrinh = ? " +
+                         "ORDER BY ct.thuTuGa";
+            List<ChiTietHanhTrinh> result = new ArrayList<>();
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, maHanhTrinh);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        NhaGa ga = new NhaGa(
+                            rs.getString("maGa"),
+                            rs.getString("tenNhaGa"),
+                            rs.getString("soDienThoai")
+                        );
+                        result.add(new ChiTietHanhTrinh(
+                            rs.getString("maCTHT"),
+                            rs.getInt("thuTuGa"),
+                            ga
+                        ));
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        return new ArrayList<>();
+    }
 }

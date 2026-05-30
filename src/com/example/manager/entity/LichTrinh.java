@@ -39,6 +39,27 @@ public class LichTrinh {
         return new LichTrinh();
     }
 
+    public void call(HanhTrinh hanhTrinh, DoanTau doanTau, LocalDateTime ngayKhoiHanh, TrangThaiLichTrinh trangThai) {
+        // Tự gọi phương thức call nội bộ để gom các thuộc tính cơ bản (Bước 35)
+        this.hanhTrinh = hanhTrinh;
+        this.doanTau = doanTau;
+        this.ngayKhoiHanh = ngayKhoiHanh;
+        this.trangThai = trangThai;
+        this.chiTietLichTrinh = new ArrayList<>();
+    }
+
+    public void addChiTietLichTrinh(LocalDateTime gioDen, LocalDateTime gioDi, NhaGa nhaGa) {
+        // Thực thể LichTrinh gọi phương thức call truyền dữ liệu sang thực thể ChiTietLichTrinh (Bước 36, 37, 38)
+        ChiTietLichTrinh ct = new ChiTietLichTrinh(null, gioDen, gioDi, nhaGa);
+        this.chiTietLichTrinh.add(ct);
+    }
+
+    public boolean luuLichTrinh() {
+        // Lưu lịch trình mới vào DB (Theo phân tích module)
+        com.example.manager.dao.LichTrinhDAO dao = new com.example.manager.dao.LichTrinhDAO();
+        return dao.addLichTrinh(this);
+    }
+
     public String getMaLichTrinh() {
         return maLichTrinh;
     }

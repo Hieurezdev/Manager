@@ -104,4 +104,8 @@ public class DoanTauDAO extends DAO {
         }
         return LoaiToa.NGOI_CUNG;
     }
+
+    public List<DoanTau> getAllDoanTau() {
+        return layDanhSachDoanTau();
+    }
 }

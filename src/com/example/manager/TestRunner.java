@@ -26,7 +26,39 @@ public class TestRunner {
         testBaoCaoTinhDoanhThuVaSapXep();
         testHanhTrinhGaDauGaCuoi();
         testHanhTrinhMaGaDauGaCuoi();
+        testLenLichChay();
         System.out.println("All tests passed.");
+    }
+
+    private static void testLenLichChay() {
+        System.out.println("=== TEST LÊN LỊCH CHẠY ===");
+        // 1. Quản lý chọn chức năng "Lên lịch chạy"
+        com.example.manager.boundary.ManHinhQuanLyFrm quanLyFrm = new com.example.manager.boundary.ManHinhQuanLyFrm();
+        System.out.println("Quản lý bấm chọn Lên lịch chạy...");
+        quanLyFrm.actionPerformed("LenLichChay");
+
+        // (Do quanLyFrm khởi tạo View ẩn bên trong nên ta sẽ tạo trực tiếp View để test luồng sự kiện tiếp theo)
+        com.example.manager.boundary.ManHinhLenLichChayView view = new com.example.manager.boundary.ManHinhLenLichChayView();
+        
+        // 2. View tải dữ liệu ban đầu
+        System.out.println("Giao diện tải danh sách tàu...");
+        view.call();
+        
+        // 3. Quản lý chọn một chuyến tàu
+        DoanTau tauMock = new DoanTau("T1", "Tàu Mock", LoaiTau.THONG_NHAT, TrangThaiTau.HOAT_DONG, null);
+        System.out.println("Quản lý chọn tàu: " + tauMock.getTenTau());
+        view.actionPerformed("ChonTau", tauMock);
+        
+        // 4. Quản lý chọn hành trình
+        HanhTrinh htMock = new HanhTrinh("HT1", "Hành trình Mock", 100.0, new ArrayList<>());
+        System.out.println("Quản lý chọn hành trình: " + htMock.getTenHanhTrinh());
+        view.actionPerformed("ChonHanhTrinh", htMock);
+        
+        // 5. Quản lý nhập thời gian và bấm Xác nhận
+        System.out.println("Quản lý nhập thời gian và bấm Xác nhận...");
+        view.actionPerformed("XacNhan", null);
+        
+        System.out.println("Hoàn tất Test Lên lịch chạy!\n");
     }
 
     private static void testBaoCaoTinhDoanhThuVaSapXep() {
