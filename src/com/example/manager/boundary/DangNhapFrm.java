@@ -31,7 +31,9 @@ public class DangNhapFrm {
 
     /** Sequence diagram steps 3-10: build QuanLy, validate, open QuanLyChungFrm on success. */
     public QuanLyChungFrm dangNhap() {
-        QuanLy quanLy = new QuanLy(txtTDN, txtMK, null, null); // step 4: QuanLy()
+        QuanLy quanLy = new QuanLy(); // step 4: QuanLy()
+        quanLy.setTenDangNhap(txtTDN);
+        quanLy.setMatKhau(txtMK);
         QuanLyDAO quanLyDAO = new QuanLyDAO(null);
         boolean hopLe = quanLyDAO.checkDangNhap(quanLy);        // step 7: checkDangNhap()
 

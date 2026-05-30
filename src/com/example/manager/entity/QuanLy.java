@@ -1,34 +1,18 @@
 package com.example.manager.entity;
 
-public class QuanLy {
-    private String tenDangNhap;
-    private String matKhau;
-    private String vaiTro;
-    private String trangThai;
+public class QuanLy extends TaiKhoan {
+    private String maQuanLy;
 
     public QuanLy() {
+        super();
     }
 
-    public QuanLy(String tenDangNhap, String matKhau, String vaiTro, String trangThai) {
-        this.tenDangNhap = tenDangNhap;
-        this.matKhau = matKhau;
-        this.vaiTro = vaiTro;
-        this.trangThai = trangThai;
+    public QuanLy(String maTaiKhoan, String tenDangNhap, String matKhau,
+                  String hoTen, String vaiTro, String trangThai, String maQuanLy) {
+        super(maTaiKhoan, tenDangNhap, matKhau, hoTen, vaiTro, trangThai);
+        this.maQuanLy = maQuanLy;
     }
 
-    public String getTenDangNhap() {
-        return tenDangNhap;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public String getVaiTro() {
-        return vaiTro;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
+    public String getMaQuanLy() { return maQuanLy; }
+    public void setMaQuanLy(String maQuanLy) { this.maQuanLy = maQuanLy; }
 }
