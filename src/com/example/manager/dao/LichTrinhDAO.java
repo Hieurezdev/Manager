@@ -25,7 +25,7 @@ public class LichTrinhDAO extends DAO {
     private double giaVeGocTieuChuan = 850000;
 
     public LichTrinhDAO() {
-        super();
+        super(com.example.manager.dao.DBConnection.getConnection());
     }
 
     public LichTrinhDAO(Connection con) {
