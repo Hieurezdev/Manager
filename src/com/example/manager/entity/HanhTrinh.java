@@ -27,6 +27,12 @@ public class HanhTrinh {
         return hanhTrinh;
     }
 
+    public List<ChiTietHanhTrinh> getDanhSachGaTrungGian() {
+        // Truy xuất từ DAO
+        com.example.manager.dao.HanhTrinhDAO dao = new com.example.manager.dao.HanhTrinhDAO(null);
+        return dao.getGaTrungGian(this.maHanhTrinh);
+    }
+
     public String getMaHanhTrinh() {
         return maHanhTrinh;
     }
@@ -61,5 +67,21 @@ public class HanhTrinh {
             }
         }
         return cuoi == null ? null : cuoi.getNhaGa();
+    }
+
+    public void setMaHanhTrinh(String maHanhTrinh) {
+        this.maHanhTrinh = maHanhTrinh;
+    }
+
+    public void setTenHanhTrinh(String tenHanhTrinh) {
+        this.tenHanhTrinh = tenHanhTrinh;
+    }
+
+    public void setQuangDuong(double quangDuong) {
+        this.quangDuong = quangDuong;
+    }
+
+    public void setChiTietHanhTrinh(List<ChiTietHanhTrinh> chiTietHanhTrinh) {
+        this.chiTietHanhTrinh = chiTietHanhTrinh;
     }
 }
