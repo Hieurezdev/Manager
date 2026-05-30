@@ -1,0 +1,25 @@
+# === Chặn cụm file .class biên dịch ở thư mục gốc ===
+/com/
+*.class
+
+# === Chặn các file tạm, nhật ký hệ thống ===
+*.log
+tmp/
+temp/
+.DS_Store
+Thumbs.db
+
+# === Cấu hình các IDE để tránh xung đột cấu hình nhóm ===
+.idea/
+*.iml
+*.iws
+.classpath
+.project
+.settings/
+.vscode/
+nbproject/private/
+nbbuild/
+nbdist/
+
+*.jar
+
