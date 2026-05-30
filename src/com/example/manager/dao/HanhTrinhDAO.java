@@ -43,6 +43,7 @@ public class HanhTrinhDAO extends DAO {
                             NhaGa ga = new NhaGa(
                                 rs.getString("maGa"),
                                 rs.getString("tenNhaGa"),
+                                rs.getString("diaChi"),
                                 rs.getString("soDienThoai")
                             );
                             chiTietList.add(new ChiTietHanhTrinh(
@@ -105,6 +106,7 @@ public class HanhTrinhDAO extends DAO {
                         NhaGa ga = new NhaGa(
                             rs.getString("maGa"),
                             rs.getString("tenNhaGa"),
+                            rs.getString("diaChi"),
                             rs.getString("soDienThoai")
                         );
                         result.add(new ChiTietHanhTrinh(

@@ -58,7 +58,7 @@ public class NhaGaDAO extends DAO {
     // --- Legacy helper kept for HanhTrinh compatibility ---
     public List<NhaGa> layThongTinGaDauGaCuoi(String maGaDi, String maGaDen) {
         if (con != null) {
-            String sql = "SELECT maGa, tenNhaGa, soDienThoai FROM NhaGa WHERE maGa IN (?, ?)";
+            String sql = "SELECT maGa, tenNhaGa, diaChi, soDienThoai FROM NhaGa WHERE maGa IN (?, ?)";
             try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setString(1, maGaDi);
                 ps.setString(2, maGaDen);
@@ -68,6 +68,7 @@ public class NhaGaDAO extends DAO {
                         NhaGa ga = new NhaGa(
                             rs.getString("maGa"),
                             rs.getString("tenNhaGa"),
+                            rs.getString("diaChi"),
                             rs.getString("soDienThoai")
                         );
                         map.put(ga.getMaGa(), ga);

@@ -117,8 +117,8 @@ public class TestTraVe {
         PhieuTraVeDAO.mockPhieuTraVeList.clear();
         HoaDonDAO.mockHoaDonList.clear();
 
-        NhaGa gaHN = new NhaGa("GA-HN", "Ga Ha Noi", "024");
-        NhaGa gaSG = new NhaGa("GA-SG", "Ga Sai Gon", "028");
+        NhaGa gaHN = new NhaGa("GA-HN", "Ga Ha Noi", "", "024");
+        NhaGa gaSG = new NhaGa("GA-SG", "Ga Sai Gon", "", "028");
         List<ChiTietHanhTrinh> ct = new ArrayList<>();
         ct.add(new ChiTietHanhTrinh("CT-1", 1, gaHN));
         ct.add(new ChiTietHanhTrinh("CT-2", 2, gaSG));
