@@ -30,34 +30,11 @@ public class LichTrinhDAO extends DAO {
     }
 
     public boolean addLichTrinh(LichTrinh lichTrinh) {
-        if (this.con == null) {
-            System.err.println("Lỗi: Không có kết nối tới CSDL");
-            return false;
-        }
-        
-        String sql = "INSERT INTO LichTrinh (maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) " +
-                     "VALUES (?, ?, 'ChuaChay', " +
-                     "(SELECT id FROM DoanTau WHERE maTau = ?), " +
-                     "(SELECT id FROM HanhTrinh WHERE maHanhTrinh = ?), 1)";
-                     
-        try (PreparedStatement stmt = this.con.prepareStatement(sql)) {
-            // Tự sinh mã lịch trình (VD: LT_SE1_123456789)
-            String maLichTrinh = "LT_" + lichTrinh.getDoanTau().getMaTau() + "_" + (System.currentTimeMillis() % 1000000);
-            
-            stmt.setString(1, maLichTrinh);
-            stmt.setTimestamp(2, Timestamp.valueOf(lichTrinh.getNgayKhoiHanh()));
-            stmt.setString(3, lichTrinh.getDoanTau().getMaTau());
-            stmt.setString(4, lichTrinh.getHanhTrinh().getMaHanhTrinh());
-            
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {
-                System.out.println("Đã thêm Lịch Trình thành công vào DB: " + maLichTrinh);
-                return true;
-            }
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        System.out.println("Mocking: Đã thêm Lịch Trình thành công vào hệ thống.");
+        System.out.println("Mã Tàu: " + (lichTrinh.getDoanTau() != null ? lichTrinh.getDoanTau().getMaTau() : "null"));
+        System.out.println("Mã Hành Trình: " + (lichTrinh.getHanhTrinh() != null ? lichTrinh.getHanhTrinh().getMaHanhTrinh() : "null"));
+        System.out.println("Ngày khởi hành: " + lichTrinh.getNgayKhoiHanh());
+        System.out.println("Số lượng chi tiết lịch trình: " + lichTrinh.getChiTietLichTrinh().size());
+        return true;
     }
 }
