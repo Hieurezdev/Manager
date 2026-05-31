@@ -53,7 +53,7 @@ public class TestMuaVe {
             // 3. Kiểm thử logic tính chính sách giá vé dựa theo đối tượng
             System.out.println("\n--- [Test Case 2] Xử lý chính sách giá và tạo hóa đơn tạm ---");
             if (dsChuyen != null && !dsChuyen.isEmpty()) {
-                LichTrinh chuyenChon = dsChuyen.get0(); // Lấy chuyến đầu tiên ra để test gán vé
+                LichTrinh chuyenChon = dsChuyen.get(0); // Lấy chuyến đầu tiên ra để test gán vé
 
                 // Giả lập dữ liệu hành khách nhập vào quầy bán vé
                 String hoTen = "Nguyen Van A";
@@ -65,7 +65,7 @@ public class TestMuaVe {
                 String labelGhe = "12";
                 double giaGoc = 850000;
 
-                HoaDon hdTam = khachHangDAO.xuLyChinhSachGiaVaTaoHoaDonTam(hoTen, cccd, sdt, email, loaiDoiTuong, chuyenChon, toaChon, labelGhe, giaGoc);
+                HoaDon hdTam = khachHangDAO.xuLyChinhSachGiaVaTaoDonTam(hoTen, cccd, sdt, email, loaiDoiTuong, chuyenChon, toaChon, labelGhe, giaGoc);
 
                 if (hdTam != null) {
                     System.out.println("[✅ TEST PASSED] Hàm xuLyChinhSachGiaVaTaoHoaDonTam chạy nuột nà.");

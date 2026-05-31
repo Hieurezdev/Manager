@@ -58,18 +58,18 @@ public class KhachHangDAO extends DAO {
         LoaiDoiTuong doiTuongEnum = LoaiDoiTuong.valueOf(loaiDoiTuongStr);
         String tenLoaiDoiTuongDB = "Người lớn";
         if (doiTuongEnum == LoaiDoiTuong.SINH_VIEN) {
-            tenLoaiDoiTuongDB = "Sinh viên"; 
-        }else if (doiTuongEnum == LoaiDoiTuong.TRE_EM) {
+            tenLoaiDoiTuongDB = "Sinh viên";
+        } else if (doiTuongEnum == LoaiDoiTuong.TRE_EM) {
             tenLoaiDoiTuongDB = "Trẻ em";
         }
 
         double phanTramGiam = 0.0;
-        String sqlCS = "SELECT phanTramGiamGia FROM ChinhSachGia WHERE tenLoaiDoiTuong = ?";
+        String sqlCS = "SELECT tiLeGiamGia FROM ChinhSachGia WHERE LoaiDoiTuong = ?";
         try (PreparedStatement ps = con.prepareStatement(sqlCS)) {
             ps.setString(1, tenLoaiDoiTuongDB);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    phanTramGiam = rs.getDouble("phanTramGiamGia");
+                    phanTramGiam = rs.getDouble("tiLeGiamGia");
                 }
             }
         }

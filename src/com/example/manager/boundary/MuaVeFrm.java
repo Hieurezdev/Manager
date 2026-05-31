@@ -1,23 +1,22 @@
 package com.example.manager.boundary;
 
 import com.example.manager.dao.DBConnection;
-import com.example.manager.dao.LichTrinhDAO;
-import com.example.manager.dao.KhachHangDAO;
 import com.example.manager.dao.HoaDonDAO;
-import com.example.manager.entity.HoaDon;
+import com.example.manager.dao.KhachHangDAO;
+import com.example.manager.dao.LichTrinhDAO;
 import com.example.manager.entity.GheNgoi;
+import com.example.manager.entity.HoaDon;
 import com.example.manager.entity.LichTrinh;
 import com.example.manager.enums.LoaiDoiTuong;
 import com.example.manager.enums.TrangThaiGhe;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class MuaVeFrm extends JFrame implements ActionListener {
 
@@ -45,6 +44,40 @@ public class MuaVeFrm extends JFrame implements ActionListener {
 
     private String tamTen, tamCccd, tamSdt;
 
+    // --- BIẾN ĐIỀU HƯỚNG QUAY LẠI FORM CHA ---
+    private JFrame khungMenuCha;
+
+    private void styleButton(JButton btn, Color bgColor) {
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setOpaque(true);
+        btn.setBackground(bgColor);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Arial", Font.BOLD, 12));
+    }
+
+    /**
+     * CONSTRUCTOR NẠP CHỒNG (MỚI THÊM): Tiếp nhận form cha để phục vụ nút quay
+     * lại đồ họa mượt mà
+     */
+    public MuaVeFrm(JFrame parent) {
+        this(); // Gọi lại toàn bộ logic dựng UI của constructor mặc định bên dưới
+        this.khungMenuCha = parent;
+
+        // Thay đổi hành vi đóng cửa sổ: Chỉ tắt chính nó và hiển thị lại trang chủ nhân viên
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                quayLaiMànHinhChinh();
+            }
+        });
+    }
+
+    /**
+     * CONSTRUCTOR MẶC ĐỊNH GỐC: Giữ nguyên vẹn 100% kịch bản kiểm thử tự động
+     * của nhóm
+     */
     public MuaVeFrm() {
         this.globalConnection = DBConnection.getConnection();
         if (this.globalConnection != null) {
@@ -53,7 +86,7 @@ public class MuaVeFrm extends JFrame implements ActionListener {
             this.hoaDonDAO = new HoaDonDAO(globalConnection);
         }
 
-        setTitle("Hệ thống quản lý bán vé tàu hỏa");
+        setTitle("Hệ thống quản lý bán vé tàu hỏa - PTIT Railway");
         setSize(1000, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -61,8 +94,14 @@ public class MuaVeFrm extends JFrame implements ActionListener {
 
         JPanel pnlNorthWrapper = new JPanel();
         pnlNorthWrapper.setLayout(new BoxLayout(pnlNorthWrapper, BoxLayout.Y_AXIS));
+
+        // Thêm thanh công cụ chứa nút điều hướng quay lại trực quan cho nhân viên
         JPanel pnlStaffHeader = new JPanel(new BorderLayout());
-        pnlStaffHeader.add(new JLabel("Staff's name: Nguyễn Thị C  "), BorderLayout.EAST);
+        JButton btnBack = new JButton("Quay lại Trang Chủ");
+        btnBack.setFont(new Font("Arial", Font.BOLD, 11));
+        btnBack.addActionListener(e -> quayLaiMànHinhChinh());
+        pnlStaffHeader.add(btnBack, BorderLayout.WEST);
+
         pnlNorthWrapper.add(pnlStaffHeader);
 
         JPanel pnlSearch = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 8));
@@ -113,10 +152,21 @@ public class MuaVeFrm extends JFrame implements ActionListener {
 
         JPanel pnlColorGuide = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 5));
         pnlColorGuide.add(tạoOChuThichMau("Ghế Trống", Color.WHITE));
-        pnlColorGuide.add(tạoOChuThichMau("Đã Có Người Đặt Trước", new Color(30, 144, 255))); // ĐỒNG BỘ: Màu xanh dương đại diện cho ĐÃ BÁN/ĐÃ ĐẶT
+        pnlColorGuide.add(tạoOChuThichMau("Đã Có Người Đặt Trước", new Color(30, 144, 255)));
         pnlColorGuide.add(tạoOChuThichMau("Đang Chọn Giữ Chỗ", Color.YELLOW));
         pnlSoDoGheWrapper.add(pnlColorGuide, BorderLayout.SOUTH);
         add(pnlSoDoGheWrapper, BorderLayout.SOUTH);
+    }
+
+    private void quayLaiMànHinhChinh() {
+        if (khungMenuCha != null) {
+            khungMenuCha.setVisible(true);
+            this.dispose();
+        } else {
+            // Fallback quay lại form chủ nhân viên mặc định nếu chạy độc lập file
+            new NhanVienHomeFrm().setVisible(true);
+            this.dispose();
+        }
     }
 
     private JPanel tạoOChuThichMau(String text, Color color) {
@@ -241,9 +291,8 @@ public class MuaVeFrm extends JFrame implements ActionListener {
                     btnGhe.setOpaque(true);
                     btnGhe.setBorderPainted(true);
 
-                    // ĐỒNG BỘ: So sánh trực tiếp với Enum TrangThaiGhe chuẩn hệ thống nhóm
                     if (gheMatch != null && gheMatch.getTrangThai() == TrangThaiGhe.DA_DAT) {
-                        btnGhe.setBackground(new Color(30, 144, 255)); // Đồ họa màu xanh dương đại diện cho Đã Bán
+                        btnGhe.setBackground(new Color(30, 144, 255));
                         btnGhe.setEnabled(false);
                         btnGhe.setBorderPainted(false);
                     } else if (gheMatch != null && gheMatch.getTrangThai() == TrangThaiGhe.TAM_GIU) {
@@ -277,7 +326,6 @@ public class MuaVeFrm extends JFrame implements ActionListener {
             this.maGheChonTam = maGheDB;
 
             if (hoaDonDAO != null) {
-                // ĐỒNG BỘ: Bắn dữ liệu cập nhật trạng thái TAM_GIU dưới DB thật
                 hoaDonDAO.capNhatTrangThaiGhe(maGheDB, TrangThaiGhe.TAM_GIU.name());
             }
 
@@ -320,15 +368,15 @@ public class MuaVeFrm extends JFrame implements ActionListener {
             Timer timer = new Timer(1000, e -> {
                 time[0]--;
                 if (time[0] >= 0) {
-                    lblTimer.setText(String.format("  Thời gian giữ chỗ còn lại: %02d:%02d", time[0] / 60, time[0] % 60)); 
-                }else {
+                    lblTimer.setText(String.format("  Thời gian giữ chỗ còn lại: %02d:%02d", time[0] / 60, time[0] % 60));
+                } else {
                     ((Timer) e.getSource()).stop();
                     dlg.dispose();
                     try {
                         if (hoaDonDAO != null) {
                             hoaDonDAO.capNhatTrangThaiGhe(maGheDB, TrangThaiGhe.TRONG.name());
-                    
-                        }} catch (Exception ignored) {
+                        }
+                    } catch (Exception ignored) {
                     }
                     lamMoiSoDoGheTuDB();
                 }
@@ -336,24 +384,39 @@ public class MuaVeFrm extends JFrame implements ActionListener {
 
             JButton btnXacMinh = new JButton("Xác minh & Xuất hóa đơn");
             btnXacMinh.addActionListener(evt -> {
+                // 1. Lấy dữ liệu tạm từ text field
+                String ten = txtTen.getText().trim();
+                String cccd = txtCC.getText().trim();
+                String sdt = txtSDT.getText().trim();
+
+                // 2. Kiểm tra nếu thông tin trống thì chặn lại
+                if (ten.isEmpty() || cccd.isEmpty() || sdt.isEmpty()) {
+                    JOptionPane.showMessageDialog(dlg, "Vui lòng nhập đầy đủ thông tin khách hàng!",
+                            "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    return; // DỪNG LẠI, không đóng dialog và không chạy tiếp code bên dưới
+                }
+
+                // 3. Nếu dữ liệu hợp lệ, mới thực hiện các bước tiếp theo
                 try {
                     timer.stop();
-                    dlg.dispose();
+                    dlg.dispose(); // Đóng popup nhập thông tin
 
-                    this.tamTen = txtTen.getText().trim();
-                    this.tamCccd = txtCC.getText().trim();
-                    this.tamSdt = txtSDT.getText().trim();
+                    this.tamTen = ten;
+                    this.tamCccd = cccd;
+                    this.tamSdt = sdt;
 
-                    // KHỬ SẠCH MOCKDATA: Chọc DB kiểm tra đối tượng và sinh hóa đơn thật
                     String loaiDTStr = ((LoaiDoiTuong) cbo.getSelectedItem()).name();
                     HoaDon hoadonTam = khachHangDAO.xuLyChinhSachGiaVaTaoDonTam(
                             tamTen, tamCccd, tamSdt, "khachhang@gmail.com",
                             loaiDTStr, chuyenChonTam, toaChon, labelGhe, 850000
                     );
 
+                    // Hiển thị hóa đơn
                     moPopupHoaDonDB(hoadonTam, labelGhe);
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                    JOptionPane.showMessageDialog(dlg, "Có lỗi xảy ra: " + ex.getMessage());
                 }
             });
             dlg.add(btnXacMinh, BorderLayout.SOUTH);
@@ -408,7 +471,6 @@ public class MuaVeFrm extends JFrame implements ActionListener {
                 dlg.dispose();
                 if (hoaDonDAO != null && khachHangDAO != null && chuyenChonTam != null) {
                     String maKH = khachHangDAO.layMaKhachHangTheoCCCD(this.tamCccd);
-                    // CHẠY CHỐT TRANSACTION THẬT: Ghi nhận hóa đơn, vé tàu và chốt ghế DA_DAT vĩnh viễn dưới DB
                     hoaDonDAO.luuGiaoDichThanhToanThat(maNhanVienVanhHanh, b, chuyenChonTam.getMaLichTrinh(), maGheChonTam, maKH);
                 }
 
