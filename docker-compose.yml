@@ -7,10 +7,10 @@ services:
       MYSQL_DATABASE: manager_db
       TZ: Asia/Ho_Chi_Minh
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - manager_mysql_data:/var/lib/mysql
-      - ./src/com/example/manager/data.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./src/main/java/com/example/manager/data.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pHch301105#"]
@@ -36,7 +36,6 @@ services:
       QT_X11_NO_MITSHM: 1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-    command: ["java", "-cp", "out:mysql-connector-j-8.0.33.jar", "com.example.manager.view.DangNhapFrm"]
 
 volumes:
   manager_mysql_data:
