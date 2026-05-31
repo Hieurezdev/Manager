@@ -1,15 +1,14 @@
-FROM eclipse-temurin:17-jdk
+FROM maven:3.9-eclipse-temurin-17
 
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
 
-COPY . /app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl libxext6 libxrender1 libxtst6 libxi6 libfreetype6 fontconfig libgtk-3-0 && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl libxext6 libxrender1 libxtst6 libxi6 libfreetype6 fontconfig libgtk-3-0 && \
-    rm -rf /var/lib/apt/lists/* && \
-    if [ ! -f mysql-connector-j-8.0.33.jar ]; then \
-      curl -L -o mysql-connector-j-8.0.33.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar; \
-    fi && \
-    find src/com/example/manager -name "*.java" ! -name "Test*.java" -print0 | xargs -0 javac -encoding UTF-8 -d out
+RUN mvn clean compile -DskipTests
 
 ENV DB_HOST=mysql
 ENV DB_PORT=3306
@@ -18,4 +17,4 @@ ENV DB_USER=root
 ENV DB_PASSWORD=Hch301105#
 ENV DISPLAY=${DISPLAY}
 
-CMD ["java", "-cp", "out:mysql-connector-j-8.0.33.jar", "com.example.manager.view.DangNhapFrm"]
+CMD ["mvn", "exec:java", "-Dexec.mainClass=com.example.manager.view.DangNhapFrm"]

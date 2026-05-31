@@ -19,7 +19,7 @@ public class AddSampleData {
             return;
         }
 
-        String sqlFilePath = "src/com/example/manager/data.sql";
+        String sqlFilePath = "src\\main\\java\\com\\example\\manager\\data.sql";
         System.out.println("-> Dang doc file: " + sqlFilePath);
 
         try (Statement stmt = con.createStatement()) {
