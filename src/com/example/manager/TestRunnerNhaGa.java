@@ -1,10 +1,10 @@
 package com.example.manager;
 
-import com.example.manager.boundary.DangNhapFrm;
-import com.example.manager.boundary.QuanLyChiTietGaFrm;
-import com.example.manager.boundary.QuanLyChungFrm;
-import com.example.manager.boundary.QuanLyGaFrm;
-import com.example.manager.boundary.ThemGaFrm;
+import com.example.manager.view.DangNhapFrm;
+import com.example.manager.view.QuanLyChiTietGaFrm;
+import com.example.manager.view.QuanLyChungFrm;
+import com.example.manager.view.QuanLyGaFrm;
+import com.example.manager.view.ThemGaFrm;
 import com.example.manager.entity.NhaGa;
 import java.util.List;
 

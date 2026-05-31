@@ -1,6 +1,6 @@
 package com.example.manager;
 
-import com.example.manager.boundary.ManHinhLenLichChayView;
+import com.example.manager.view.ManHinhLenLichChayView;
 import com.example.manager.entity.DoanTau;
 import com.example.manager.entity.HanhTrinh;
 import com.example.manager.entity.NhaGa;

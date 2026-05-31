@@ -1,6 +1,7 @@
-package com.example.manager.boundary;
+package com.example.manager.view;
 
 import com.example.manager.dao.BaoCaoDAO;
+import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.DoanTauDAO;
 import com.example.manager.dao.LichTrinhDAO;
 import com.example.manager.dao.VeTauDAO;
@@ -38,7 +39,7 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
 
     // --- CÁC BIẾN GIAO DIỆN THỰC TẾ (SWING) ---
     private JTextField txtNgayBD, txtNgayKT;
-    private JButton btnThongKeReal, btnQuayLai;
+    private JButton btnThongKe, btnQuayLai;
     private JTable tblKetQua;
     private DefaultTableModel modelTable;
     private JLabel lblTongDoanhThu;
@@ -46,8 +47,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     // --- GIỮ NGUYÊN BẮT BUỘC THUỘC TÍNH TRÊN GITHUB ĐỂ NÉ CONFLICT TEST ---
     private LocalDate ngayBD;
     private LocalDate ngayKT;
-    private String btnThongKe;
-
     private String outMaLichTrinh;
     private String outTenTau;
     private String outGaDau;
@@ -56,6 +55,10 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     private String outSoVeBan;
     private String outTiLeLapDay;
     private String outDoanhThuChuyen;
+
+    private void logThongKe(String message) {
+        System.out.println("[ThongKe] " + message);
+    }
 
     // Constructor phục vụ luồng chạy giao diện thực tế
     public ManHinhThongKeFrm(JFrame parent) {
@@ -99,16 +102,16 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
         txtNgayKT.setFont(new Font("Arial", Font.PLAIN, 13));
         pnlFilter.add(txtNgayKT);
 
-        btnThongKeReal = new JButton("Thống Kê Doanh Thu");
-        btnThongKeReal.setFont(new Font("Arial", Font.BOLD, 12));
-        btnThongKeReal.setBorderPainted(false);
-        btnThongKeReal.setFocusPainted(false);
-        btnThongKeReal.setContentAreaFilled(false);
-        btnThongKeReal.setOpaque(true);
-        btnThongKeReal.setBackground(new Color(30, 144, 255));
-        btnThongKeReal.setForeground(Color.WHITE);
-        btnThongKeReal.addActionListener(this);
-        pnlFilter.add(btnThongKeReal);
+        btnThongKe = new JButton("Thống Kê Doanh Thu");
+        btnThongKe.setFont(new Font("Arial", Font.BOLD, 12));
+        btnThongKe.setBorderPainted(false);
+        btnThongKe.setFocusPainted(false);
+        btnThongKe.setContentAreaFilled(false);
+        btnThongKe.setOpaque(true);
+        btnThongKe.setBackground(new Color(30, 144, 255));
+        btnThongKe.setForeground(Color.WHITE);
+        btnThongKe.addActionListener(this);
+        pnlFilter.add(btnThongKe);
 
         add(pnlFilter, BorderLayout.NORTH);
 
@@ -170,7 +173,7 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        if (src == btnThongKeReal) {
+        if (src == btnThongKe) {
             xuLyThongKeTuGiaoDien();
         } else if (src == btnQuayLai) {
             quayLaiMenu();
@@ -187,10 +190,12 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         try {
+            logThongKe("Bat dau thong ke tu giao dien: ngayBD=" + strNgayBD + ", ngayKT=" + strNgayKT);
             this.ngayBD = LocalDate.parse(strNgayBD, dtf);
             this.ngayKT = LocalDate.parse(strNgayKT, dtf);
 
             if (ngayKT.isBefore(ngayBD)) {
+                logThongKe("Ngay ket thuc nho hon ngay bat dau, dung xu ly.");
                 JOptionPane.showMessageDialog(this,
                         "Hệ thống báo lỗi: Ngày kết thúc không được nhỏ hơn ngày bắt đầu. Vui lòng chọn lại!",
                         "Lỗi thiết lập thời gian", JOptionPane.WARNING_MESSAGE);
@@ -199,15 +204,19 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
 
             // Gọi hàm thongKe() chuẩn gốc trên GitHub để lấy dữ liệu tính toán từ DB (Không dùng Mock Data nữa!)
             BaoCao baoCao = thongKe();
+            logThongKe("Ket thuc thongKe(), baoCao=" + (baoCao == null ? "null" : "ok"));
 
             // Làm sạch bảng kết quả trước khi hiển thị dữ liệu mới lên JTable
             modelTable.setRowCount(0);
 
             if (baoCao == null || baoCao.getChiTietBaoCao() == null || baoCao.getChiTietBaoCao().isEmpty()) {
+                logThongKe("Khong co chi tiet bao cao, hien thong bao ket qua trong.");
                 lblTongDoanhThu.setText("TỔNG DOANH THU KỲ BÁO CÁO: 0 VNĐ");
                 JOptionPane.showMessageDialog(this, "Không có dữ liệu vận hành hoặc hàm xử lý DB trả về kết quả trống.", "Kết quả trống", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+
+            logThongKe("So dong bao cao hien thi=" + baoCao.getChiTietBaoCao().size() + ", tong doanh thu=" + baoCao.getTongDoanhThu());
 
             // Render dữ liệu tính toán từ hệ thống nghiệp vụ của nhóm lên bảng giao diện của bạn
             for (ChiTietBaoCao ct : baoCao.getChiTietBaoCao()) {
@@ -231,9 +240,12 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
                 });
             }
 
+            logThongKe("Da do du lieu len bang thanh cong.");
+
             lblTongDoanhThu.setText(String.format("TỔNG DOANH THU KỲ BÁO CÁO: %,d VNĐ", baoCao.getTongDoanhThu()));
 
         } catch (DateTimeParseException ex) {
+            logThongKe("Loi dinh dang ngay: " + ex.getMessage());
             JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ! Vui lòng nhập đúng định dạng DD/MM/YYYY.", "Lỗi định dạng", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -243,9 +255,11 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
      * NGHIỆP VỤ. Đọc thông tin từ DAO thật liên kết với cơ sở dữ liệu.
      */
     public BaoCao thongKe() {
-        Connection con = null; // Biến kết nối cơ sở dữ liệu thật của nhóm bạn
+        Connection con = DBConnection.getConnection();
+        logThongKe("DB connection " + (con == null ? "that bai" : "thanh cong"));
         BaoCaoDAO baoCaoDAO = new BaoCaoDAO(con);
         if (!baoCaoDAO.kiemTraHopLe(ngayBD, ngayKT)) {
+            logThongKe("Ngay thong ke khong hop le, dung xu ly.");
             return null;
         }
 
@@ -256,13 +270,42 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
         LichTrinhDAO lichTrinhDAO = new LichTrinhDAO(con);
         VeTauDAO veTauDAO = new VeTauDAO(con);
 
-        int stt = 1;
-        for (DoanTau tau : doanTauDAO.layDanhSachDoanTau()) {
+        List<DoanTau> dsDoanTau = doanTauDAO.layDanhSachDoanTau();
+        logThongKe("So doan tau lay duoc=" + dsDoanTau.size());
+
+        thuThapChiTietBaoCao(chiTietList, dsDoanTau, lichTrinhDAO, veTauDAO, true);
+
+        if (chiTietList.isEmpty()) {
+            logThongKe("Khong co ket qua khi chi lay chuyen hoan thanh, thu lai voi tat ca chuyen trong ky.");
+            thuThapChiTietBaoCao(chiTietList, dsDoanTau, lichTrinhDAO, veTauDAO, false);
+        }
+
+        logThongKe("Tong so dong ket qua sau fallback=" + chiTietList.size());
+
+        String maBaoCao = "BC-" + System.currentTimeMillis();
+        baoCao.luuKetQuaThongKe(maBaoCao, chiTietList);
+        baoCao.tinhDoanhThu();
+        baoCao.sapXepDoanhThuGiamDan();
+        baoCaoDAO.luuKetQuaThongKe(maBaoCao, chiTietList);
+
+        capNhatOutput(baoCao);
+        return baoCao;
+    }
+
+    private void thuThapChiTietBaoCao(List<ChiTietBaoCao> chiTietList,
+            List<DoanTau> dsDoanTau,
+            LichTrinhDAO lichTrinhDAO,
+            VeTauDAO veTauDAO,
+            boolean chiLayChuyenHoanThanh) {
+        int stt = chiTietList.size() + 1;
+        for (DoanTau tau : dsDoanTau) {
             List<LichTrinh> lichTrinhList = lichTrinhDAO.layDanhSachLichTrinhTrongKy(
                     tau.getMaTau(), ngayBD, ngayKT
             );
+            logThongKe("Tau " + tau.getMaTau() + " co " + lichTrinhList.size() + " lich trinh trong ky");
             for (LichTrinh lichTrinh : lichTrinhList) {
-                if (lichTrinh.getTrangThai() != TrangThaiLichTrinh.HOAN_THANH) {
+                if (chiLayChuyenHoanThanh && lichTrinh.getTrangThai() != TrangThaiLichTrinh.HOAN_THANH) {
+                    logThongKe("Bo qua lich trinh " + lichTrinh.getMaLichTrinh() + " vi trang thai=" + lichTrinh.getTrangThai());
                     continue;
                 }
 
@@ -275,6 +318,8 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
                         doanhThu += ve.getGiaVe();
                     }
                 }
+
+                logThongKe("Tinh lich trinh " + lichTrinh.getMaLichTrinh() + ": veDaBan=" + veDaBan.size() + ", soVeBan=" + soVeBan + ", doanhThu=" + doanhThu);
 
                 int sucChua = tinhSucChua(tau);
                 double tiLeLapDay = sucChua == 0 ? 0.0 : (soVeBan * 100.0) / sucChua;
@@ -289,15 +334,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
                 stt++;
             }
         }
-
-        String maBaoCao = "BC-" + System.currentTimeMillis();
-        baoCao.luuKetQuaThongKe(maBaoCao, chiTietList);
-        baoCao.tinhDoanhThu();
-        baoCao.sapXepDoanhThuGiamDan();
-        baoCaoDAO.luuKetQuaThongKe(maBaoCao, chiTietList);
-
-        capNhatOutput(baoCao);
-        return baoCao;
     }
 
     private void capNhatOutput(BaoCao baoCao) {

@@ -317,14 +317,14 @@ INSERT INTO GheNgoi (maGhe, soGhe, viTri, trangThai, moTa, toaTauId) VALUES
 
 -- 9.5 Lịch trình vận hành
 INSERT INTO LichTrinh (maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) VALUES
-('LT_SE1_20260601', '2026-06-01 19:30:00', 'ChuaChay', 1, 1, 1);
+('LT_SE1_20260527', '2026-05-27 19:30:00', 'DaHoanThanh', 1, 1, 1);
 
 -- Thiết lập giờ đến, đi dự kiến tại các ga dừng
 INSERT INTO ChiTietLichTrinh (maCTLT, gioDen, gioDi, nhaGaId, lichTrinhId) VALUES
-('CTLT_HN', NULL, '2026-06-01 19:30:00', 1, 1),                 -- Xuất phát Ga Hà Nội
-('CTLT_VI', '2026-06-02 01:15:00', '2026-06-02 01:25:00', 2, 1), -- Dừng Ga Vinh 10p
-('CTLT_DN', '2026-06-02 08:30:00', '2026-06-02 08:45:00', 3, 1), -- Dừng Ga Đà Nẵng 15p
-('CTLT_SG', '2026-06-02 21:00:00', NULL, 4, 1);                 -- Kết thúc Ga Sài Gòn
+('CTLT_HN', NULL, '2026-05-27 19:30:00', 1, 1),                 -- Xuất phát Ga Hà Nội
+('CTLT_VI', '2026-05-28 01:15:00', '2026-05-28 01:25:00', 2, 1), -- Dừng Ga Vinh 10p
+('CTLT_DN', '2026-05-28 08:30:00', '2026-05-28 08:45:00', 3, 1), -- Dừng Ga Đà Nẵng 15p
+('CTLT_SG', '2026-05-28 21:00:00', NULL, 4, 1);                 -- Kết thúc Ga Sài Gòn
 
 -- 9.6 Chính sách giảm giá
 INSERT INTO ChinhSachGia (maChinhSach, loaiDoiTuong, tiLeGiamGia, moTa) VALUES
@@ -358,7 +358,7 @@ UPDATE GheNgoi SET trangThai = 'Trong' WHERE id = 3;
 
 -- 9.9 Tạo một báo cáo doanh thu
 INSERT INTO BaoCao (maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayKetThuc, quanLyId) VALUES
-('BC_JUNE_2026', '2026-06-03 08:00:00', 1250000, '2026-06-01', '2026-06-02', 1);
+('BC_MAY_2026', '2026-05-29 08:00:00', 1250000, '2026-05-01', '2026-05-31', 1);
 
 INSERT INTO ChiTietBaoCao (maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lichTrinhId, baoCaoId) VALUES
 ('CTBC_SE1_01', 2, 1250000, 25.00, 1, 1); -- SE1 có tổng 8 ghế, bán 2 vé -> Tỉ lệ lấp đầy 25%

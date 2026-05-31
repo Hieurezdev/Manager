@@ -1,4 +1,4 @@
-package com.example.manager.boundary;
+package com.example.manager.view;
 
 import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.VeTauDAO;

@@ -33,12 +33,12 @@ public class TestRunner {
     private static void testLenLichChay() {
         System.out.println("=== TEST LÊN LỊCH CHẠY ===");
         // 1. Quản lý chọn chức năng "Lên lịch chạy"
-        com.example.manager.boundary.ManHinhQuanLyFrm quanLyFrm = new com.example.manager.boundary.ManHinhQuanLyFrm();
+        com.example.manager.view.ManHinhQuanLyFrm quanLyFrm = new com.example.manager.view.ManHinhQuanLyFrm();
         System.out.println("Quản lý bấm chọn Lên lịch chạy...");
         quanLyFrm.actionPerformed("LenLichChay");
 
         // (Do quanLyFrm khởi tạo View ẩn bên trong nên ta sẽ tạo trực tiếp View để test luồng sự kiện tiếp theo)
-        com.example.manager.boundary.ManHinhLenLichChayView view = new com.example.manager.boundary.ManHinhLenLichChayView();
+        com.example.manager.view.ManHinhLenLichChayView view = new com.example.manager.view.ManHinhLenLichChayView();
         
         // 2. View tải dữ liệu ban đầu
         System.out.println("Giao diện tải danh sách tàu...");

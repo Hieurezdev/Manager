@@ -1,4 +1,4 @@
-package com.example.manager.boundary;
+package com.example.manager.view;
 
 public class ManHinhQuanLyFrm {
     private String subThongKe;

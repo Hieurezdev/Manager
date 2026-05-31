@@ -1,7 +1,7 @@
 package com.example.manager;
 
-import com.example.manager.boundary.SearchVeTauFrm;
-import com.example.manager.boundary.TraVeFrm;
+import com.example.manager.view.SearchVeTauFrm;
+import com.example.manager.view.TraVeFrm;
 import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.PhieuTraVeDAO;
 import com.example.manager.dao.VeTauDAO;

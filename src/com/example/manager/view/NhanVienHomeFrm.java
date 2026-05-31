@@ -1,4 +1,4 @@
-package com.example.manager.boundary;
+package com.example.manager.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

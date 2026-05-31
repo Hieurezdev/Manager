@@ -1,4 +1,4 @@
-package com.example.manager.boundary;
+package com.example.manager.view;
 
 import com.example.manager.entity.ChiTietHanhTrinh;
 import com.example.manager.entity.DoanTau;

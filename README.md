@@ -14,7 +14,7 @@
    java -cp "out;mysql-connector-j-8.0.33.jar" com.example.manager.AddSampleData
    ```
 
-## Build toàn bộ mã nguồn
+## Build toàn bộ mã nguồna
 Từ thư mục gốc dự án (dành cho Windows PowerShell):
 ```powershell
 Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName } | javac -encoding UTF-8 -d out @-
@@ -37,3 +37,32 @@ java -cp "out;mysql-connector-j-8.0.33.jar" com.example.manager.TestTraVe
 
 ## Ghi chú cho Team
 - **Tuyệt đối không push file `.jar` lên Git** để tránh làm phình dung lượng. Kho lưu trữ chỉ chứa Code. Mọi thành viên khi clone code về cần tự thực hiện Bước 1 trong phần Cài đặt ở trên.
+
+## Chạy toàn bộ hệ thống bằng Docker
+Compose hiện tại dựng cả MySQL lẫn ứng dụng Java.
+
+1. Khởi động toàn bộ stack:
+   ```bash
+   sudo docker compose up --build
+   ```
+
+2. Nếu chỉ muốn dựng nền và chạy nền:
+   ```bash
+   sudo docker compose up -d --build
+   ```
+
+Lưu ý: ứng dụng này là Swing GUI. Nếu bạn chạy trên Linux desktop và muốn cửa sổ hiện ra từ container qua X11, hãy cho phép Docker truy cập display trước khi chạy:
+```bash
+xhost +local:docker
+```
+Sau đó chạy:
+```bash
+sudo docker compose up --build
+```
+
+Nếu muốn chặn lại sau khi chạy xong:
+```bash
+xhost -local:docker
+```
+
+Trên môi trường headless, app vẫn khởi động nhưng không thể tự hiện cửa sổ GUI nếu không có X11/desktop forwarding.
