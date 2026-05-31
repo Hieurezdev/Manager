@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoanTau {
+
     private String maTau;
     private String tenTau;
     private LoaiTau loaiTau;
@@ -30,9 +31,9 @@ public class DoanTau {
         return new ArrayList<>();
     }
 
+    // === GIỮ LẠI CHO BẠN ÔNG: Hàm bốc danh sách tàu từ DAO phục vụ Thống kê ===
     public static List<DoanTau> getDanhSachTau() {
-        // Gọi DAO để truy xuất danh sách tàu từ CSDL
-        DoanTauDAO dao = new DoanTauDAO(null); // Sử dụng null do chưa có Connection thực tế
+        DoanTauDAO dao = new DoanTauDAO(null);
         return dao.getAllDoanTau();
     }
 
