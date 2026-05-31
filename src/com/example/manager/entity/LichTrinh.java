@@ -1,7 +1,6 @@
 package com.example.manager.entity;
 
 import com.example.manager.enums.TrangThaiLichTrinh;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,8 +33,7 @@ public class LichTrinh {
     }
 
     // === Constructor đầy đủ tham số từ GitHub ===
-    public LichTrinh(String maLichTrinh, LocalDateTime ngayKhoiHanh, TrangThaiLichTrinh trangThai,
-            HanhTrinh hanhTrinh, DoanTau doanTau) {
+    public LichTrinh(String maLichTrinh, LocalDateTime ngayKhoiHanh, TrangThaiLichTrinh trangThai, HanhTrinh hanhTrinh, DoanTau doanTau) {
         this();
         this.maLichTrinh = maLichTrinh;
         this.ngayKhoiHanh = ngayKhoiHanh;
@@ -135,7 +133,7 @@ public class LichTrinh {
         return trangThai;
     }
 
-    public List<ChiTietHanhTrinh> getChiTietHanhTrinh() {
+    public List<ChiTietLichTrinh> getChiTietLichTrinh() {
         return new ArrayList<>(chiTietLichTrinh);
     }
 

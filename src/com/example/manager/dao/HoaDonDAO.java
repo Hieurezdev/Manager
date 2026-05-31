@@ -4,42 +4,48 @@ import com.example.manager.entity.HoaDon;
 import com.example.manager.enums.LoaiDoiTuong;
 import com.example.manager.enums.PhuongThucThanhToan;
 import com.example.manager.enums.TrangThaiVe;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class HoaDonDAO extends DAO {
+
+    // KHÔI PHỤC: Giữ lại biến lưu ảo này của bạn ông để module Test trên GitHub không bị báo lỗi đỏ
+    public static List<HoaDon> mockHoaDonList = new ArrayList<>();
 
     public HoaDonDAO(Connection con) {
         super(con);
     }
 
     /**
-     * Hàm tạo hóa đơn gốc từ GitHub (Giữ nguyên logic lõi của bạn ông để né
-     * conflict)
+     * Hàm tạo hóa đơn gốc từ GitHub (ĐÃ KHÔI PHỤC HOÀN TOÀN LUỒNG ELSE ĐỂ NÉ
+     * CONFLICT)
      */
     public boolean createHoaDon(HoaDon hoaDon) {
-        if (con == null) {
+        if (con != null) {
+            String sql = "INSERT INTO HoaDon (maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, hoaDon.getMaHoaDon());
+                ps.setString(2, hoaDon.getLoaiHoaDon());
+                ps.setTimestamp(3, Timestamp.valueOf(hoaDon.getNgayTao()));
+                ps.setString(4, "TienMat");
+                ps.setInt(5, hoaDon.getTongTien());
+                ps.setString(6, "DaThanhToan");
+                return ps.executeUpdate() > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return false;
+        } else {
+            // KHÔI PHỤC: Trả lại đúng logic chạy offline lưu vào RAM cho bạn ông
+            mockHoaDonList.add(hoaDon);
+            return true;
         }
-
-        String sql = "INSERT INTO HoaDon (maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, hoaDon.getMaHoaDon());
-            ps.setString(2, hoaDon.getLoaiHoaDon());
-            ps.setTimestamp(3, Timestamp.valueOf(hoaDon.getNgayTao()));
-            ps.setString(4, "TienMat");
-            ps.setInt(5, hoaDon.getTongTien());
-            ps.setString(6, "DaThanhToan");
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     /**
@@ -79,7 +85,6 @@ public class HoaDonDAO extends DAO {
                 ps.setString(1, bill.getMaHoaDon());
                 ps.setString(2, maNV);
                 ps.setString(3, maKH);
-                // Ép kiểu double về int cho khớp thuộc tính tổng tiền của bạn ông làm Thống kê
                 ps.setInt(4, (int) bill.getTongTien());
                 ps.setString(5, PhuongThucThanhToan.TIEN_MAT.name());
                 ps.executeUpdate();

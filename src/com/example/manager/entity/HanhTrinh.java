@@ -20,8 +20,7 @@ public class HanhTrinh {
     }
 
     // === Constructor đầy đủ tham số gốc từ GitHub ===
-    public HanhTrinh(String maHanhTrinh, String tenHanhTrinh, double quangDuong,
-            List<ChiTietHanhTrinh> chiTietHanhTrinh) {
+    public HanhTrinh(String maHanhTrinh, String tenHanhTrinh, double quangDuong, List<ChiTietHanhTrinh> chiTietHanhTrinh) {
         this.maHanhTrinh = maHanhTrinh;
         this.tenHanhTrinh = tenHanhTrinh;
         this.quangDuong = quangDuong;
