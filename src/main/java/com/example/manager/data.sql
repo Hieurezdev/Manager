@@ -253,35 +253,35 @@ CREATE INDEX idx_lichtrinh_khoihanh ON LichTrinh(ngayKhoiHanh);
 -- 9. CHÈN DỮ LIỆU MẪU ĐỂ CHẠY THỬ NGHIỆM (Seed Data)
 -- ============================================================================
 
--- 9.1 Tài khoản (Mật khẩu demo: 'pbkdf2_sha256$hash_code_here')
+-- 9.1 Tài khoản (Mật khẩu demo: '123456')
 INSERT INTO TaiKhoan (tenDangNhap, matKhau, hoTen, vaiTro, trangThai) VALUES
-('admin01', 'hash_admin_pw_1', 'Nguyễn Văn Minh (Admin)', 'QuanLy', 'HoatDong'),
-('admin02', 'hashed_admin_pw_2', 'Hoàng Văn Đức', 'QuanLy', 'HoatDong'),
-('admin03', 'hashed_admin_pw_3', 'Vũ Thị Hạnh', 'QuanLy', 'HoatDong'),
-('admin04', 'hashed_admin_pw_4', 'Đinh Văn Long', 'QuanLy', 'HoatDong'),
-('admin05', 'hashed_admin_pw_5', 'Trương Văn Quang', 'QuanLy', 'HoatDong'),
-('admin06', 'hashed_admin_pw_6', 'Vương Thị Oanh', 'QuanLy', 'HoatDong'),
-('admin07', 'hashed_admin_pw_7', 'Trần Thị Lan Anh', 'QuanLy', 'HoatDong'),
-('admin08', 'hashed_admin_pw_8', 'Hoàng Văn Hải', 'QuanLy', 'HoatDong'),
-('admin09', 'hashed_admin_pw_9', 'Ngô Văn Khánh', 'QuanLy', 'HoatDong'),
-('admin10', 'hashed_admin_pw_10', 'Đặng Văn Phong', 'QuanLy', 'HoatDong'),
-('clerk01', 'hashed_clerk_pw_1', 'Trần Thị Thu Thảo', 'NhanVien', 'HoatDong'),
-('clerk02', 'hashed_clerk_pw_2', 'Lê Hoàng Long', 'NhanVien', 'HoatDong'),
-('clerk03', 'hashed_clerk_pw_3', 'Phạm Thị Diễm', 'NhanVien', 'HoatDong'),
-('clerk04', 'hashed_clerk_pw_4', 'Đỗ Thị Phương', 'NhanVien', 'HoatDong'),
-('clerk05', 'hashed_clerk_pw_5', 'Ngô Văn Giang', 'NhanVien', 'Khoa'),
-('clerk06', 'hashed_clerk_pw_6', 'Đặng Văn Hùng', 'NhanVien', 'HoatDong'),
-('clerk07', 'hashed_clerk_pw_7', 'Bùi Thị Khánh', 'NhanVien', 'HoatDong'),
-('clerk08', 'hashed_clerk_pw_8', 'Lý Thị Mai', 'NhanVien', 'HoatDong'),
-('clerk09', 'hashed_clerk_pw_9', 'Mai Văn Phúc', 'NhanVien', 'HoatDong'),
-('clerk10', 'hashed_clerk_pw_10', 'Phan Thị Quỳnh', 'NhanVien', 'HoatDong'),
-('clerk11', 'hashed_clerk_pw_11', 'Đào Thị Sen', 'NhanVien', 'HoatDong'),
-('clerk12', 'hashed_clerk_pw_12', 'Lưu Văn Tuấn', 'NhanVien', 'HoatDong'),
-('clerk13', 'hashed_clerk_pw_13', 'Nguyễn Văn Bình', 'NhanVien', 'HoatDong'),
-('clerk14', 'hashed_clerk_pw_14', 'Lê Văn Dũng', 'NhanVien', 'HoatDong'),
-('clerk15', 'hashed_clerk_pw_15', 'Đỗ Thị Ngọc Ánh', 'NhanVien', 'HoatDong'),
-('clerk16', 'hashed_clerk_pw_16', 'Vũ Thị Minh Trang', 'NhanVien', 'HoatDong'),
-('clerk17', 'hashed_clerk_pw_17', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong');
+('admin01', '123456', 'Nguyễn Văn Minh (Admin)', 'QuanLy', 'HoatDong'),
+('admin02', '123456', 'Hoàng Văn Đức', 'QuanLy', 'HoatDong'),
+('admin03', '123456', 'Vũ Thị Hạnh', 'QuanLy', 'HoatDong'),
+('admin04', '123456', 'Đinh Văn Long', 'QuanLy', 'HoatDong'),
+('admin05', '123456', 'Trương Văn Quang', 'QuanLy', 'HoatDong'),
+('admin06', '123456', 'Vương Thị Oanh', 'QuanLy', 'HoatDong'),
+('admin07', '123456', 'Trần Thị Lan Anh', 'QuanLy', 'HoatDong'),
+('admin08', '123456', 'Hoàng Văn Hải', 'QuanLy', 'HoatDong'),
+('admin09', '123456', 'Ngô Văn Khánh', 'QuanLy', 'HoatDong'),
+('admin10', '123456', 'Đặng Văn Phong', 'QuanLy', 'HoatDong'),
+('clerk01', '123456', 'Trần Thị Thu Thảo', 'NhanVien', 'HoatDong'),
+('clerk02', '123456', 'Lê Hoàng Long', 'NhanVien', 'HoatDong'),
+('clerk03', '123456', 'Phạm Thị Diễm', 'NhanVien', 'HoatDong'),
+('clerk04', '123456', 'Đỗ Thị Phương', 'NhanVien', 'HoatDong'),
+('clerk05', '123456', 'Ngô Văn Giang', 'NhanVien', 'Khoa'),
+('clerk06', '123456', 'Đặng Văn Hùng', 'NhanVien', 'HoatDong'),
+('clerk07', '123456', 'Bùi Thị Khánh', 'NhanVien', 'HoatDong'),
+('clerk08', '123456', 'Lý Thị Mai', 'NhanVien', 'HoatDong'),
+('clerk09', '123456', 'Mai Văn Phúc', 'NhanVien', 'HoatDong'),
+('clerk10', '123456', 'Phan Thị Quỳnh', 'NhanVien', 'HoatDong'),
+('clerk11', '123456', 'Đào Thị Sen', 'NhanVien', 'HoatDong'),
+('clerk12', '123456', 'Lưu Văn Tuấn', 'NhanVien', 'HoatDong'),
+('clerk13', '123456', 'Nguyễn Văn Bình', 'NhanVien', 'HoatDong'),
+('clerk14', '123456', 'Lê Văn Dũng', 'NhanVien', 'HoatDong'),
+('clerk15', '123456', 'Đỗ Thị Ngọc Ánh', 'NhanVien', 'HoatDong'),
+('clerk16', '123456', 'Vũ Thị Minh Trang', 'NhanVien', 'HoatDong'),
+('clerk17', '123456', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong');
 
 -- 2. Thêm vào bảng KhachHang
 INSERT INTO KhachHang (maKH, hoTen, soDienThoai, email, soCCCD) VALUES

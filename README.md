@@ -10,8 +10,8 @@
 2. Đảm bảo MySQL server đang chạy trên máy của bạn với tài khoản và mật khẩu đã cấu hình trong tệp `src/com/example/manager/dao/DBConnection.java`.
 3. Chạy lệnh sau để tự động khởi tạo database và nạp toàn bộ dữ liệu mẫu (chạy trên PowerShell):
    ```bash
-   javac -encoding UTF-8 -d out -sourcepath src src/com/example/manager/AddSampleData.java
-   java -cp "out;mysql-connector-j-8.0.33.jar" com.example.manager.AddSampleData
+   javac -encoding UTF-8 -d out -sourcepath src/main/java src/main/java/com/example/manager/AddSampleData.java
+   java -cp "out:mysql-connector-j-8.0.33.jar" com.example.manager.AddSampleData
    ```
 
 ## Build toàn bộ mã nguồna

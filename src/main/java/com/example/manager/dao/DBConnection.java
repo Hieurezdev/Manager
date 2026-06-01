@@ -8,7 +8,7 @@ import java.util.Locale;
 public class DBConnection {
 
     private static final String DB_HOST = getEnvOrDefault("DB_HOST", "localhost");
-    private static final String DB_PORT = getEnvOrDefault("DB_PORT", "3306");
+    private static final String DB_PORT = getEnvOrDefault("DB_PORT", "3307");
     private static final String DB_NAME = getEnvOrDefault("DB_NAME", "manager_db");
     private static final String USER = getEnvOrDefault("DB_USER", "root");
     private static final String PASSWORD = getEnvOrDefault("DB_PASSWORD", "Hch301105#");

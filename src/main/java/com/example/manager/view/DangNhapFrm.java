@@ -60,7 +60,7 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         btnLogin.addActionListener(this);
         panelBottom.add(btnLogin, BorderLayout.NORTH);
 
-        JLabel lblHint = new JLabel("<html><center style='color:blue;'>Gợi ý tài khoản test:<br>Quản lý: manager/123 | Nhân viên: staff/123</center></html>", JLabel.CENTER);
+        JLabel lblHint = new JLabel("<html><center style='color:blue;'>Gợi ý tài khoản test:<br>Quản lý: admin01/123456 | Nhân viên: clerk01/123456</center></html>", JLabel.CENTER);
         lblHint.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         panelBottom.add(lblHint, BorderLayout.SOUTH);
         add(panelBottom, BorderLayout.SOUTH);
@@ -84,27 +84,21 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         String user = (txtUsername != null) ? txtUsername.getText().trim() : this.txtTDN;
         String pass = (txtPassword != null) ? new String(txtPassword.getPassword()).trim() : this.txtMK;
 
-        // 1. XỬ LÝ VAI TRÒ: QUẢN LÝ
-        if (user.equals("manager") && pass.equals("123")) {
+        com.example.manager.dao.QuanLyDAO quanLyDAO = new com.example.manager.dao.QuanLyDAO(com.example.manager.dao.DBConnection.getConnection());
+        String vaiTro = quanLyDAO.layVaiTroDangNhap(user, pass);
+
+        if ("QuanLy".equals(vaiTro)) {
             dangNhapThanhCong = true;
-
-            QuanLy quanLy = new QuanLy(user, pass, null, null);
-            QuanLyDAO quanLyDAO = new QuanLyDAO(null);
-
             quanLyChungFrm = new QuanLyChungFrm();
-
             if (txtUsername != null) {
                 quanLyChungFrm.setVisible(true);
                 this.dispose();
             }
             return quanLyChungFrm; // Trả về trang chủ Quản lý
 
-            // 2. XỬ LÝ VAI TRÒ: NHÂN VIÊN
-        } else if (user.equals("staff") && pass.equals("123")) {
+        } else if ("NhanVien".equals(vaiTro)) {
             dangNhapThanhCong = true;
-
             nhanVienHomeFrm = new NhanVienHomeFrm();
-
             if (txtUsername != null) {
                 nhanVienHomeFrm.setVisible(true);
                 this.dispose();
