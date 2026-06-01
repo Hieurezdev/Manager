@@ -37,7 +37,7 @@ public class VeTauDAOTest {
     @Test
     public void testSearchVeTau_TicketFoundAndStatusIsDaBan() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true);
+        when(mockResultSet.next()).thenReturn(true, false);
         when(mockResultSet.getString("maVe")).thenReturn("VE_0001");
         when(mockResultSet.getString("trangThai")).thenReturn("DaBan");
         
@@ -49,7 +49,7 @@ public class VeTauDAOTest {
     @Test
     public void testSearchVeTau_TicketFoundButStatusIsDaHuy() throws SQLException {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true);
+        when(mockResultSet.next()).thenReturn(true, false);
         when(mockResultSet.getString("maVe")).thenReturn("VE_0001");
         when(mockResultSet.getString("trangThai")).thenReturn("DaTra"); 
         
