@@ -1,4 +1,260 @@
--- Thứ tự chèn dữ liệu gợi ý:
+-- ============================================================================
+-- KỊCH BẢN KHỞI TẠO CƠ SỞ DỮ LIỆU HỆ THỐNG QUẢN LÝ BÁN VÉ TÀU HỎA (MySQL Version)
+-- Đảm bảo giữ nguyên 100% tên bảng, tên thuộc tính và cấu trúc thực thể đã thiết kế.
+-- ============================================================================
+
+-- Bật tắt kiểm tra khóa ngoại để an toàn khi DROP và CREATE
+SET FOREIGN_KEY_CHECKS = 0;
+SET NAMES utf8mb4;
+
+-- Xóa bảng cũ nếu tồn tại để tránh xung đột khi chạy lại script (Thứ tự xóa ngược với thứ tự tạo)
+DROP TABLE IF EXISTS ChiTietBaoCao;
+DROP TABLE IF EXISTS BaoCao;
+DROP TABLE IF EXISTS PhieuTraVe;
+DROP TABLE IF EXISTS VeTau;
+DROP TABLE IF EXISTS HoaDon;
+DROP TABLE IF EXISTS ChinhSachGia;
+DROP TABLE IF EXISTS ChiTietLichTrinh;
+DROP TABLE IF EXISTS LichTrinh;
+DROP TABLE IF EXISTS GheNgoi;
+DROP TABLE IF EXISTS ToaTau;
+DROP TABLE IF EXISTS DoanTau;
+DROP TABLE IF EXISTS ChiTietHanhTrinh;
+DROP TABLE IF EXISTS NhaGa;
+DROP TABLE IF EXISTS HanhTrinh;
+DROP TABLE IF EXISTS KhachHang;
+DROP TABLE IF EXISTS NhanVien;
+DROP TABLE IF EXISTS QuanLy;
+DROP TABLE IF EXISTS TaiKhoan;
+
+-- ============================================================================
+-- 1. KHỐI TÀI KHOẢN & PHÂN QUYỀN (Inheritance: TaiKhoan -> QuanLy, NhanVien)
+-- ============================================================================
+
+CREATE TABLE TaiKhoan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tenDangNhap VARCHAR(100) UNIQUE NOT NULL,
+    matKhau VARCHAR(255) NOT NULL,
+    hoTen VARCHAR(255) NOT NULL,
+    vaiTro VARCHAR(50) NOT NULL CONSTRAINT chk_vaiTro CHECK (vaiTro IN ('QuanLy', 'NhanVien')),
+    trangThai VARCHAR(50) NOT NULL CONSTRAINT chk_trangThaiTK CHECK (trangThai IN ('HoatDong', 'Khoa'))
+);
+
+CREATE TABLE QuanLy (
+    id INT PRIMARY KEY,
+    maQuanLy VARCHAR(50) UNIQUE NOT NULL,
+    FOREIGN KEY (id) REFERENCES TaiKhoan(id) ON DELETE CASCADE
+);
+
+CREATE TABLE NhanVien (
+    id INT PRIMARY KEY,
+    maNhanVien VARCHAR(50) UNIQUE NOT NULL,
+    FOREIGN KEY (id) REFERENCES TaiKhoan(id) ON DELETE CASCADE
+);
+
+-- ============================================================================
+-- 2. KHỐI KHÁCH HÀNG
+-- ============================================================================
+
+CREATE TABLE KhachHang (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maKH VARCHAR(50) UNIQUE NOT NULL,
+    hoTen VARCHAR(255) NOT NULL,
+    soCCCD VARCHAR(20) UNIQUE NOT NULL,
+    soDienThoai VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- ============================================================================
+-- 3. KHỐI NHÀ GA & HÀNH TRÌNH (Tuyến đường)
+-- ============================================================================
+
+CREATE TABLE HanhTrinh (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maHanhTrinh VARCHAR(50) UNIQUE NOT NULL,
+    tenHanhTrinh VARCHAR(255) NOT NULL,
+    quangDuong DECIMAL(10,2) NOT NULL CONSTRAINT chk_quangDuong CHECK (quangDuong > 0)
+);
+
+-- Mỗi Nhà Ga chịu sự quản lý trực tiếp từ một Quản Lý (Mối quan hệ 1-N Aggregation)
+CREATE TABLE NhaGa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maGa VARCHAR(50) UNIQUE NOT NULL,
+    tenNhaGa VARCHAR(255) NOT NULL,
+    diaChi VARCHAR(255) NOT NULL,
+    soDienThoai VARCHAR(20),
+    quanLyId INT REFERENCES QuanLy(id) ON DELETE SET NULL
+);
+
+-- Bảng trung gian giải quyết quan hệ N-N giữa HanhTrinh và NhaGa
+CREATE TABLE ChiTietHanhTrinh (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maCTHT VARCHAR(50) UNIQUE NOT NULL,
+    thuTuGa INT NOT NULL CONSTRAINT chk_thuTuGa CHECK (thuTuGa > 0),
+    nhaGaId INT NOT NULL REFERENCES NhaGa(id) ON DELETE RESTRICT,
+    hanhTrinhId INT NOT NULL REFERENCES HanhTrinh(id) ON DELETE CASCADE,
+    CONSTRAINT uq_hanhtrinh_ga UNIQUE (hanhTrinhId, nhaGaId)
+);
+
+-- ============================================================================
+-- 4. KHỐI PHƯƠNG TIỆN (DoanTau -> ToaTau -> GheNgoi)
+-- ============================================================================
+
+CREATE TABLE DoanTau (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maTau VARCHAR(50) UNIQUE NOT NULL,
+    tenTau VARCHAR(255) NOT NULL,
+    loaiTau VARCHAR(50) NOT NULL CONSTRAINT chk_loaiTau CHECK (loaiTau IN ('TauNhanh', 'TauThuong')),
+    trangThai VARCHAR(50) NOT NULL CONSTRAINT chk_trangThaiDT CHECK (trangThai IN ('SanSang', 'BaoTri'))
+);
+
+CREATE TABLE ToaTau (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maToa VARCHAR(50) UNIQUE NOT NULL,
+    tenToa VARCHAR(100) NOT NULL,
+    soThuTu INT NOT NULL CONSTRAINT chk_soThuTu CHECK (soThuTu > 0),
+    loaiToa VARCHAR(50) NOT NULL CONSTRAINT chk_loaiToa CHECK (loaiToa IN ('NgoiCung', 'NgoiMem', 'GiuongNam')),
+    soLuongGheToiDa INT NOT NULL CONSTRAINT chk_soGheMax CHECK (soLuongGheToiDa > 0),
+    moTa TEXT,
+    doanTauId INT NOT NULL REFERENCES DoanTau(id) ON DELETE CASCADE
+);
+
+CREATE TABLE GheNgoi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maGhe VARCHAR(50) UNIQUE NOT NULL,
+    soGhe INT NOT NULL CONSTRAINT chk_soGhe CHECK (soGhe > 0),
+    viTri VARCHAR(50) NOT NULL CONSTRAINT chk_viTri CHECK (viTri IN ('CuaSo', 'LoiDi', 'GiuongTang1', 'GiuongTang2', 'GiuongTang3')),
+    trangThai VARCHAR(50) NOT NULL CONSTRAINT chk_trangThaiGhe CHECK (trangThai IN ('Trong', 'DaDat')),
+    moTa TEXT,
+    toaTauId INT NOT NULL REFERENCES ToaTau(id) ON DELETE CASCADE
+);
+
+-- ============================================================================
+-- 5. KHỐI LỊCH TRÌNH VẬN HÀNH
+-- ============================================================================
+
+CREATE TABLE LichTrinh (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maLichTrinh VARCHAR(50) UNIQUE NOT NULL,
+    ngayKhoiHanh DATETIME NOT NULL,
+    trangThai VARCHAR(50) NOT NULL CONSTRAINT chk_trangThaiLT CHECK (trangThai IN ('ChuaChay', 'DangChay', 'DaHoanThanh', 'BiHuy')),
+    doanTauId INT NOT NULL REFERENCES DoanTau(id) ON DELETE RESTRICT,
+    hanhTrinhId INT NOT NULL REFERENCES HanhTrinh(id) ON DELETE RESTRICT,
+    quanLyId INT REFERENCES QuanLy(id) ON DELETE SET NULL
+);
+
+-- Bảng trung gian giải quyết quan hệ N-N giữa LichTrinh và NhaGa
+CREATE TABLE ChiTietLichTrinh (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maCTLT VARCHAR(50) UNIQUE NOT NULL,
+    gioDen DATETIME,
+    gioDi DATETIME,
+    nhaGaId INT NOT NULL REFERENCES NhaGa(id) ON DELETE RESTRICT,
+    lichTrinhId INT NOT NULL REFERENCES LichTrinh(id) ON DELETE CASCADE,
+    CONSTRAINT chk_thoiGian_lichtrinh CHECK (gioDen IS NULL OR gioDi IS NULL OR gioDen <= gioDi)
+);
+
+-- ============================================================================
+-- 6. KHỐI THIẾT LẬP GIÁ & GIAO DỊCH (ChinhSachGia -> HoaDon -> VeTau -> PhieuTraVe)
+-- ============================================================================
+
+CREATE TABLE ChinhSachGia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maChinhSach VARCHAR(50) UNIQUE NOT NULL,
+    loaiDoiTuong VARCHAR(100) NOT NULL,
+    tiLeGiamGia DECIMAL(5,2) NOT NULL DEFAULT 0.00 CONSTRAINT chk_tiLeGiamGia CHECK (tiLeGiamGia >= 0 AND tiLeGiamGia <= 100),
+    moTa TEXT
+);
+
+CREATE TABLE HoaDon (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maHoaDon VARCHAR(50) UNIQUE NOT NULL,
+    loaiHoaDon VARCHAR(50) NOT NULL CONSTRAINT chk_loaiHD CHECK (loaiHoaDon IN ('MuaVe', 'PhatTraVe')),
+    ngayGioLap DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    phuongThucThanhToan VARCHAR(50) NOT NULL CONSTRAINT chk_phuongThuc CHECK (phuongThucThanhToan IN ('TienMat', 'ChuyenKhoan')),
+    tongTien INT NOT NULL DEFAULT 0 CONSTRAINT chk_tongTien CHECK (tongTien >= 0),
+    trangThai VARCHAR(50) NOT NULL CONSTRAINT chk_trangThaiHD CHECK (trangThai IN ('DaThanhToan', 'DaHuy')),
+    nhanVienId INT REFERENCES NhanVien(id) ON DELETE SET NULL,
+    khachHangId INT REFERENCES KhachHang(id) ON DELETE SET NULL
+);
+
+CREATE TABLE VeTau (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maVe VARCHAR(50) UNIQUE NOT NULL,
+    loaiDoiTuong VARCHAR(50) NOT NULL CONSTRAINT chk_doiTuong CHECK (loaiDoiTuong IN ('NguoiLon', 'TreEm', 'NguoiGia')),
+    giaVe INT NOT NULL CONSTRAINT chk_giaVe CHECK (giaVe >= 0),
+    trangThai VARCHAR(50) NOT NULL CONSTRAINT chk_trangThaiVe CHECK (trangThai IN ('DaBan', 'DaTra', 'DaDoi')),
+    thoiDiemBanVe DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    lichTrinhId INT NOT NULL REFERENCES LichTrinh(id) ON DELETE RESTRICT,
+    nhanVienId INT REFERENCES NhanVien(id) ON DELETE SET NULL,
+    khachHangId INT REFERENCES KhachHang(id) ON DELETE SET NULL,
+    gheNgoiId INT NOT NULL REFERENCES GheNgoi(id) ON DELETE RESTRICT,
+    chinhSachGiaId INT REFERENCES ChinhSachGia(id) ON DELETE RESTRICT,
+    hoaDonId INT REFERENCES HoaDon(id) ON DELETE CASCADE
+);
+
+CREATE TABLE PhieuTraVe (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maPhieuTra VARCHAR(50) UNIQUE NOT NULL,
+    thoiDiemTra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    tienPhat INT NOT NULL DEFAULT 0 CONSTRAINT chk_tienPhat CHECK (tienPhat >= 0),
+    tienHoanLaiKhach INT NOT NULL DEFAULT 0 CONSTRAINT chk_tienHoan CHECK (tienHoanLaiKhach >= 0),
+    veTauId INT UNIQUE NOT NULL REFERENCES VeTau(id) ON DELETE RESTRICT,
+    nhanVienId INT REFERENCES NhanVien(id) ON DELETE SET NULL,
+    hoaDonId INT REFERENCES HoaDon(id) ON DELETE CASCADE
+);
+
+-- ============================================================================
+-- 7. KHỐI THỐNG KÊ & BÁO CÁO (BaoCao -> ChiTietBaoCao)
+-- ============================================================================
+
+CREATE TABLE BaoCao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maBaoCao VARCHAR(50) UNIQUE NOT NULL,
+    ngayLapBaoCao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    tongDoanhThu BIGINT NOT NULL DEFAULT 0,
+    ngayBatDau DATE NOT NULL,
+    ngayKetThuc DATE NOT NULL,
+    quanLyId INT REFERENCES QuanLy(id) ON DELETE SET NULL,
+    CONSTRAINT chk_khoangThoiGian CHECK (ngayBatDau <= ngayKetThuc)
+);
+
+CREATE TABLE ChiTietBaoCao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    maCTBC VARCHAR(50) UNIQUE NOT NULL,
+    soVeBan INT NOT NULL DEFAULT 0 CONSTRAINT chk_soVeBan CHECK (soVeBan >= 0),
+    doanhThuChuyen INT NOT NULL DEFAULT 0 CONSTRAINT chk_doanhThuChuyen CHECK (doanhThuChuyen >= 0),
+    tiLeLapDay DECIMAL(5,2) NOT NULL DEFAULT 0.00 CONSTRAINT chk_tiLeLapDay CHECK (tiLeLapDay >= 0 AND tiLeLapDay <= 100),
+    lichTrinhId INT NOT NULL REFERENCES LichTrinh(id) ON DELETE RESTRICT,
+    baoCaoId INT NOT NULL REFERENCES BaoCao(id) ON DELETE CASCADE,
+    CONSTRAINT uq_baocao_lichtrinh UNIQUE (baoCaoId, lichTrinhId)
+);
+
+-- ============================================================================
+-- 8. TẠO INDEXES TỐI ƯU TRUY VẤN (Performance Tuning)
+-- ============================================================================
+
+-- Tìm kiếm nhanh theo mã
+CREATE INDEX idx_ve_maVe ON VeTau(maVe);
+CREATE INDEX idx_hoadon_maHD ON HoaDon(maHoaDon);
+CREATE INDEX idx_lichtrinh_maLT ON LichTrinh(maLichTrinh);
+
+-- Tìm kiếm khách hàng theo CCCD và SĐT
+CREATE INDEX idx_khachhang_cccd ON KhachHang(soCCCD);
+CREATE INDEX idx_khachhang_sdt ON KhachHang(soDienThoai);
+
+-- Truy vấn sơ đồ ghế nhanh theo Toa Tàu
+CREATE INDEX idx_ghengoi_toa ON GheNgoi(toaTauId);
+
+-- Tra cứu lịch trình theo khoảng thời gian khởi hành
+CREATE INDEX idx_lichtrinh_khoihanh ON LichTrinh(ngayKhoiHanh);
+
+
+-- ============================================================================
+-- 9. CHÈN DỮ LIỆU MẪU ĐỂ CHẠY THỬ NGHIỆM (Seed Data)
+-- ============================================================================
+
+-- Thứ tự chèn dữ liệu:
 -- Nhóm Độc lập (Không có khóa ngoại):
 
 -- TaiKhoan (Bảng gốc)
@@ -41,46 +297,44 @@
 
 -- ChiTietBaoCao (Tham chiếu LichTrinh, BaoCao)
 
--- CHI TIET DATA 
+-- CHI TIET INSERT DATA 
 
 -- 1. Thêm vào bảng user 
 
-INSERT INTO TaiKhoan (tenDangNhap, matKhau, hoTen, vaiTro, trangThai) VALUES
-('admin01', 'hash_admin_pw_1', 'Nguyễn Văn Minh (Admin)', 'QuanLy', 'HoatDong'),
-('admin02', 'hashed_admin_pw_2', 'Hoàng Văn Đức', 'QuanLy', 'HoatDong'),
-('admin03', 'hashed_admin_pw_3', 'Vũ Thị Hạnh', 'QuanLy', 'HoatDong'),
-('admin04', 'hashed_admin_pw_4', 'Đinh Văn Long', 'QuanLy', 'HoatDong'),
-('admin05', 'hashed_admin_pw_5', 'Trương Văn Quang', 'QuanLy', 'HoatDong'),
-('admin06', 'hashed_admin_pw_6', 'Vương Thị Oanh', 'QuanLy', 'HoatDong'),
-('admin07', 'hashed_admin_pw_7', 'Trần Thị Lan Anh', 'QuanLy', 'HoatDong'),
-('admin08', 'hashed_admin_pw_8', 'Hoàng Văn Hải', 'QuanLy', 'HoatDong'),
-('admin09', 'hashed_admin_pw_9', 'Ngô Văn Khánh', 'QuanLy', 'HoatDong'),
-('admin10', 'hashed_admin_pw_10', 'Đặng Văn Phong', 'QuanLy', 'HoatDong'),
-('clerk01', 'hashed_clerk_pw_1', 'Trần Thị Thu Thảo', 'NhanVien', 'HoatDong'),
-('clerk02', 'hashed_clerk_pw_2', 'Lê Hoàng Long', 'NhanVien', 'HoatDong'),
-('clerk03', 'hashed_clerk_pw_3', 'Phạm Thị Diễm', 'NhanVien', 'HoatDong'),
-('clerk04', 'hashed_clerk_pw_4', 'Đỗ Thị Phương', 'NhanVien', 'HoatDong'),
-('clerk05', 'hashed_clerk_pw_5', 'Ngô Văn Giang', 'NhanVien', 'Khoa'),
-('clerk06', 'hashed_clerk_pw_6', 'Đặng Văn Hùng', 'NhanVien', 'HoatDong'),
-('clerk07', 'hashed_clerk_pw_7', 'Bùi Thị Khánh', 'NhanVien', 'HoatDong'),
-('clerk08', 'hashed_clerk_pw_8', 'Lý Thị Mai', 'NhanVien', 'HoatDong'),
-('clerk09', 'hashed_clerk_pw_9', 'Mai Văn Phúc', 'NhanVien', 'HoatDong'),
-('clerk10', 'hashed_clerk_pw_10', 'Phan Thị Quỳnh', 'NhanVien', 'HoatDong'),
-('clerk11', 'hashed_clerk_pw_11', 'Đào Thị Sen', 'NhanVien', 'HoatDong'),
-('clerk12', 'hashed_clerk_pw_12', 'Lưu Văn Tuấn', 'NhanVien', 'HoatDong'),
-('clerk13', 'hashed_clerk_pw_13', 'Nguyễn Văn Bình', 'NhanVien', 'HoatDong'),
-('clerk14', 'hashed_clerk_pw_14', 'Lê Văn Dũng', 'NhanVien', 'HoatDong'),
-('clerk15', 'hashed_clerk_pw_15', 'Đỗ Thị Ngọc Ánh', 'NhanVien', 'HoatDong'),
-('clerk16', 'hashed_clerk_pw_16', 'Vũ Thị Minh Trang', 'NhanVien', 'HoatDong'),
-('clerk17', 'hashed_clerk_pw_17', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong');
+INSERT INTO TaiKhoan (id, tenDangNhap, matKhau, hoTen, vaiTro, trangThai) VALUES
+(1, 'admin01', 'hash_admin_pw_1', 'Nguyễn Văn Minh (Admin)', 'QuanLy', 'HoatDong'),
+(134, 'admin02', 'hashed_admin_pw_2', 'Hoàng Văn Đức', 'QuanLy', 'HoatDong'),
+(135, 'admin03', 'hashed_admin_pw_3', 'Vũ Thị Hạnh', 'QuanLy', 'HoatDong'),
+(136, 'admin04', 'hashed_admin_pw_4', 'Đinh Văn Long', 'QuanLy', 'HoatDong'),
+(137, 'admin05', 'hashed_admin_pw_5', 'Trương Văn Quang', 'QuanLy', 'HoatDong'),
+(138, 'admin06', 'hashed_admin_pw_6', 'Vương Thị Oanh', 'QuanLy', 'HoatDong'),
+(139, 'admin07', 'hashed_admin_pw_7', 'Trần Thị Lan Anh', 'QuanLy', 'HoatDong'),
+(140, 'admin08', 'hashed_admin_pw_8', 'Hoàng Văn Hải', 'QuanLy', 'HoatDong'),
+(141, 'admin09', 'hashed_admin_pw_9', 'Ngô Văn Khánh', 'QuanLy', 'HoatDong'),
+(142, 'admin10', 'hashed_admin_pw_10', 'Đặng Văn Phong', 'QuanLy', 'HoatDong'),
+(2, 'clerk01', 'hashed_clerk_pw_1', 'Trần Thị Thu Thảo', 'NhanVien', 'HoatDong'),
+(3, 'clerk02', 'hashed_clerk_pw_2', 'Lê Hoàng Long', 'NhanVien', 'HoatDong'),
+(145, 'clerk03', 'hashed_clerk_pw_3', 'Phạm Thị Diễm', 'NhanVien', 'HoatDong'),
+(146, 'clerk04', 'hashed_clerk_pw_4', 'Đỗ Thị Phương', 'NhanVien', 'HoatDong'),
+(147, 'clerk05', 'hashed_clerk_pw_5', 'Ngô Văn Giang', 'NhanVien', 'Khoa'),
+(148, 'clerk06', 'hashed_clerk_pw_6', 'Đặng Văn Hùng', 'NhanVien', 'HoatDong'),
+(149, 'clerk07', 'hashed_clerk_pw_7', 'Bùi Thị Khánh', 'NhanVien', 'HoatDong'),
+(150, 'clerk08', 'hashed_clerk_pw_8', 'Lý Thị Mai', 'NhanVien', 'HoatDong'),
+(151, 'clerk09', 'hashed_clerk_pw_9', 'Mai Văn Phúc', 'NhanVien', 'HoatDong'),
+(152, 'clerk10', 'hashed_clerk_pw_10', 'Phan Thị Quỳnh', 'NhanVien', 'HoatDong'),
+(153, 'clerk11', 'hashed_clerk_pw_11', 'Đào Thị Sen', 'NhanVien', 'HoatDong'),
+(154, 'clerk12', 'hashed_clerk_pw_12', 'Lưu Văn Tuấn', 'NhanVien', 'HoatDong'),
+(155, 'clerk13', 'hashed_clerk_pw_13', 'Nguyễn Văn Bình', 'NhanVien', 'HoatDong'),
+(156, 'clerk14', 'hashed_clerk_pw_14', 'Lê Văn Dũng', 'NhanVien', 'HoatDong'),
+(157, 'clerk15', 'hashed_clerk_pw_15', 'Đỗ Thị Ngọc Ánh', 'NhanVien', 'HoatDong'),
+(158, 'clerk16', 'hashed_clerk_pw_16', 'Vũ Thị Minh Trang', 'NhanVien', 'HoatDong'),
+(159, 'clerk17', 'hashed_clerk_pw_17', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong');
 
 -- 2. Thêm vào bảng KhachHang
 INSERT INTO KhachHang (maKH, hoTen, soDienThoai, email, soCCCD) VALUES
--- ('KH0001','Phạm Minh Đức', '0912345678', 'duc.pm@gmail.com', '001201004567'),
--- ('KH0002','Nguyễn Thị Hoa', '0987654321', 'hoa.nt@gmail.com', '002202009876'),
-('KH0000', 'Phạm Văn Anh', '0901000001', 'anh.pv@email.com', '001000000001'), -- Khôi phục bản ghi 01 cũ của bạn bị thiếu
-('KH0001', 'Phạm Minh Đức', '0912345678', 'duc.pm@gmail.com', '001201004567'),
-('KH0002', 'Nguyễn Thị Hoa', '0987654321', 'hoa.nt@gmail.com', '002202009876'),
+('KH0000', 'Phạm Văn Anh', '0901000001', 'anh.pv@email.com', '001000000001'),
+('KH0001','Phạm Minh Đức', '0912345678', 'duc.pm@gmail.com', '001201004567'),
+('KH0002','Nguyễn Thị Hoa', '0987654321', 'hoa.nt@gmail.com', '002202009876'),
 ('KH0003', 'Lê Văn Cường', '0901000003', 'cuong.lv@email.com', '001000000003'),
 ('KH0004', 'Hoàng Thị Dung', '0901000004', 'dung.ht@email.com', '001000000004'),
 ('KH0005', 'Nguyễn Văn Em', '0901000005', 'em.nv@email.com', '001000000005'),
@@ -201,6 +455,7 @@ INSERT INTO KhachHang (maKH, hoTen, soDienThoai, email, soCCCD) VALUES
 ('KH0120', 'Bùi Thị Ngọc', '0901000120', 'ngoc.bt120@email.com', '001000000120');
 -- Them du lieu vao bang HanhTrinh  
 INSERT INTO HanhTrinh (maHanhTrinh, tenHanhTrinh, quangDuong) VALUES
+('HT_HNSG', 'Tuyến Bắc Nam - Hà Nội Sài Gòn', 1726.00),
 ('HT000', 'Hà Nội - Hải Phòng', 102.00),
 ('HT001', 'Hà Nội - Lào Cai', 296.00),
 ('HT002', 'Hà Nội - Quán Triều', 75.00),
@@ -263,6 +518,7 @@ INSERT INTO HanhTrinh (maHanhTrinh, tenHanhTrinh, quangDuong) VALUES
 ('HT059', 'Sài Gòn - Huế', 1060.00);
 -- Them du lieu vao bang Tau 
 INSERT INTO DoanTau (maTau, tenTau, loaiTau, trangThai) VALUES
+('SE1', 'Tàu Thống Nhất SE1', 'TauNhanh', 'SanSang'),
 ('DT000', 'Thống Nhất SE1', 'TauNhanh', 'SanSang'),
 ('DT001', 'Thống Nhất SE2', 'TauNhanh', 'SanSang'),
 ('DT002', 'Thống Nhất SE3', 'TauNhanh', 'SanSang'),
@@ -326,7 +582,7 @@ INSERT INTO DoanTau (maTau, tenTau, loaiTau, trangThai) VALUES
 
 -- Them du lieu vao bang QuanLy 
 INSERT INTO QuanLy (id, maQuanLy) VALUES
-(133, 'QL_HANOI_01'),
+(1, 'QL_HANOI_01'),
 (134, 'QL_HANOI_02'),
 (135, 'QL_HANOI_03'),
 (136, 'QL_HANOI_04'),
@@ -339,8 +595,8 @@ INSERT INTO QuanLy (id, maQuanLy) VALUES
 
 -- Them du lieu vao bang NhanVien 
 INSERT INTO NhanVien (id, maNhanVien) VALUES
-(143, 'NV_QUAY_01'),
-(144, 'NV_QUAY_02'),
+(2, 'NV_QUAY_01'),
+(3, 'NV_QUAY_02'),
 (145, 'NV_QUAY_03'),
 (146, 'NV_QUAY_04'),
 (147, 'NV_QUAY_05'),
@@ -395,6 +651,8 @@ INSERT INTO NhaGa (id, maGa, tenNhaGa, diaChi, soDienThoai, quanLyId) VALUES
 
 -- Them Toa Tau
 INSERT INTO ToaTau (maToa, tenToa, soThuTu, loaiToa, soLuongGheToiDa, moTa, doanTauId) VALUES
+('TOA01_SE1', 'Toa 1 - Ghế ngồi mềm điều hòa', 1, 'NgoiMem', 4, 'Toa chất lượng cao', 1),
+('TOA02_SE1', 'Toa 2 - Giường nằm khoang 4', 2, 'GiuongNam', 4, 'Khoa vip yên tĩnh', 1),
 -- Tàu Thống Nhất SE1 (id = 1)
 ('TOA01_DT1', 'Toa 1 - Ngồi mềm điều hòa', 1, 'NgoiMem', 64, 'Toa ghế mềm, điều hòa trung tâm', 1),
 ('TOA02_DT1', 'Toa 2 - Ngồi mềm điều hòa', 2, 'NgoiMem', 64, 'Toa ghế mềm, điều hòa trung tâm', 1),
@@ -438,414 +696,527 @@ INSERT INTO ToaTau (maToa, tenToa, soThuTu, loaiToa, soLuongGheToiDa, moTa, doan
 ('TOA05_DT6', 'Toa 5 - Giường nằm khoang 6', 5, 'GiuongNam', 42, 'Khoang nằm gia đình', 6);
 
 -- Them ghe ngoi 
-INSERT INTO GheNgoi (id, maGhe, soGhe, viTri, trangThai, moTa, toaTauId) VALUES
+INSERT INTO GheNgoi (maGhe, soGhe, viTri, trangThai, moTa, toaTauId) VALUES
+('SE1_T1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm sát cửa sổ', 1),
+('SE1_T1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm gần lối đi', 1),
+('SE1_T1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi mềm sát cửa sổ', 1),
+('SE1_T1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi mềm gần lối đi', 1),
 -- Toa 1 - Ngồi mềm điều hòa (toaTauId = 3, mã toa: TOA01_DT1)
-(9, 'TOA01_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 3),
-(10, 'TOA01_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 3),
-(11, 'TOA01_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi mềm số 3', 3),
-(12, 'TOA01_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 4', 3),
-(13, 'TOA01_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 3),
+('TOA01_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 3),
+('TOA01_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 3),
+('TOA01_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi mềm số 3', 3),
+('TOA01_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 4', 3),
+('TOA01_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 3),
 
 -- Toa 3 - Ngồi cứng (toaTauId = 5, mã toa: TOA03_DT1)
-(14, 'TOA03_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 5),
-(15, 'TOA03_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 5),
-(16, 'TOA03_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 5),
-(17, 'TOA03_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 5),
-(18, 'TOA03_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 5),
+('TOA03_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 5),
+('TOA03_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 5),
+('TOA03_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 5),
+('TOA03_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 5),
+('TOA03_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 5),
 
 -- Toa 4 - Giường nằm khoang 4 (toaTauId = 6, mã toa: TOA04_DT1)
-(19, 'TOA04_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 6),
-(20, 'TOA04_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 6),
-(21, 'TOA04_DT1_G03', 3, 'GiuongTang1', 'DaDat', 'Giường nằm tầng 1 số 3', 6),
-(22, 'TOA04_DT1_G04', 4, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 4', 6),
-(23, 'TOA04_DT1_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 6),
+('TOA04_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 6),
+('TOA04_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 6),
+('TOA04_DT1_G03', 3, 'GiuongTang1', 'DaDat', 'Giường nằm tầng 1 số 3', 6),
+('TOA04_DT1_G04', 4, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 4', 6),
+('TOA04_DT1_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 6),
 
 -- Toa 5 - Giường nằm khoang 6 (toaTauId = 7, mã toa: TOA05_DT1)
-(24, 'TOA05_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 7),
-(25, 'TOA05_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 7),
-(26, 'TOA05_DT1_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 7),
-(27, 'TOA05_DT1_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 7),
-(28, 'TOA05_DT1_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 7),
+('TOA05_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 7),
+('TOA05_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 7),
+('TOA05_DT1_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 7),
+('TOA05_DT1_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 7),
+('TOA05_DT1_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 7),
 
 -- Toa 1 - Ngồi cứng (toaTauId = 13, mã toa: TOA01_DT3)
-(29, 'TOA01_DT3_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 13),
-(30, 'TOA01_DT3_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 13),
-(31, 'TOA01_DT3_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 13),
-(32, 'TOA01_DT3_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 13),
-(33, 'TOA01_DT3_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 13),
+('TOA01_DT3_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 13),
+('TOA01_DT3_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 13),
+('TOA01_DT3_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 13),
+('TOA01_DT3_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 13),
+('TOA01_DT3_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 13),
 
 -- Toa 5 - Giường nằm khoang 6 (toaTauId = 17, mã toa: TOA05_DT3)
-(34, 'TOA05_DT3_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 17),
-(35, 'TOA05_DT3_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 17),
-(36, 'TOA05_DT3_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 17),
-(37, 'TOA05_DT3_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 17),
-(38, 'TOA05_DT3_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 17),
-(39, 'TOA01_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 18),
-(40, 'TOA01_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 18),
-(41, 'TOA01_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 18),
-(42, 'TOA01_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 18),
-(43, 'TOA01_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 18),
-(44, 'TOA01_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 18),
+('TOA05_DT3_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 17),
+('TOA05_DT3_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 17),
+('TOA05_DT3_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 17),
+('TOA05_DT3_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 17),
+('TOA05_DT3_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 17),
+('TOA01_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 18),
+('TOA01_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 18),
+('TOA01_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 18),
+('TOA01_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 18),
+('TOA01_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 18),
+('TOA01_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 18),
 
 -- Toa 2 - Giường nằm khoang 4 (toaTauId = 19, mã toa: TOA02_DT4)
-(45, 'TOA02_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 19),
-(46, 'TOA02_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 19),
-(47, 'TOA02_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 19),
-(48, 'TOA02_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 19),
-(49, 'TOA02_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 19),
-(50, 'TOA02_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 19),
+('TOA02_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 19),
+('TOA02_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 19),
+('TOA02_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 19),
+('TOA02_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 19),
+('TOA02_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 19),
+('TOA02_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 19),
 
 -- Toa 4 - Ngồi mềm điều hòa (toaTauId = 21, mã toa: TOA04_DT4)
-(51, 'TOA04_DT4_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 21),
-(52, 'TOA04_DT4_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 21),
-(53, 'TOA04_DT4_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 21),
-(54, 'TOA04_DT4_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 21),
-(55, 'TOA04_DT4_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 21),
-(56, 'TOA04_DT4_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 21),
+('TOA04_DT4_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 21),
+('TOA04_DT4_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 21),
+('TOA04_DT4_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 21),
+('TOA04_DT4_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 21),
+('TOA04_DT4_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 21),
+('TOA04_DT4_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 21),
 
 -- Toa 1 - Ngồi cứng (toaTauId = 23, mã toa: TOA01_DT5)
-(57, 'TOA01_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 23),
-(58, 'TOA01_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 23),
-(59, 'TOA01_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 3', 23),
-(60, 'TOA01_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi cứng số 4', 23),
-(61, 'TOA01_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 23),
-(62, 'TOA01_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 6', 23),
+('TOA01_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 23),
+('TOA01_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 23),
+('TOA01_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 3', 23),
+('TOA01_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi cứng số 4', 23),
+('TOA01_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 23),
+('TOA01_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 6', 23),
 
 -- Toa 3 - Ngồi mềm điều hòa (toaTauId = 25, mã toa: TOA03_DT5)
-(63, 'TOA03_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 25),
-(64, 'TOA03_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 25),
-(65, 'TOA03_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 25),
-(66, 'TOA03_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 25),
-(67, 'TOA03_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 25),
-(68, 'TOA03_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 25),
+('TOA03_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 25),
+('TOA03_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 25),
+('TOA03_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 25),
+('TOA03_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 25),
+('TOA03_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 25),
+('TOA03_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 25),
 
 -- Toa 1 - Ngồi mềm điều hòa (toaTauId = 27, mã toa: TOA01_DT6)
-(69, 'TOA01_DT6_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 27),
-(70, 'TOA01_DT6_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 27),
-(71, 'TOA01_DT6_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 27),
-(72, 'TOA01_DT6_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 27),
-(73, 'TOA01_DT6_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 27),
-(74, 'TOA01_DT6_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 27),
+('TOA01_DT6_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 27),
+('TOA01_DT6_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 27),
+('TOA01_DT6_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 27),
+('TOA01_DT6_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 27),
+('TOA01_DT6_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 27),
+('TOA01_DT6_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 27),
 
 -- Toa 4 - Giường nằm khoang 4 (toaTauId = 30, mã toa: TOA04_DT6)
-(75, 'TOA04_DT6_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 30),
-(76, 'TOA04_DT6_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 30),
-(77, 'TOA04_DT6_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 30),
-(78, 'TOA04_DT6_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 30),
-(79, 'TOA04_DT6_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 30),
-(80, 'TOA04_DT6_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 30);
+('TOA04_DT6_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 30),
+('TOA04_DT6_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 30),
+('TOA04_DT6_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 30),
+('TOA04_DT6_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 30),
+('TOA04_DT6_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 30),
+('TOA04_DT6_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 30);
 
 -- Them chi tiet hanh trinh 
-INSERT INTO ChiTietHanhTrinh (id, maCTHT, thuTuGa, nhaGaId, hanhTrinhId) VALUES
+INSERT INTO ChiTietHanhTrinh (maCTHT, thuTuGa, nhaGaId, hanhTrinhId) VALUES
+('CTHT_01_HN', 1, 1, 1), -- Ga Hà Nội (Ga xuất phát)
+('CTHT_01_VI', 2, 2, 1), -- Ga Vinh
+('CTHT_01_DN', 3, 3, 1), -- Ga Đà Nẵng
+('CTHT_01_SG', 4, 4, 1), -- Ga Sài Gòn (Ga cuối)
 -- Tuyển HT000: Hà Nội - Hải Phòng
-(5, 'CTHT_HT000_01', 1, 1, 2),
-(6, 'CTHT_HT000_02', 2, 5, 2),
+('CTHT_HT000_01', 1, 1, 2),
+('CTHT_HT000_02', 2, 5, 2),
 
 -- Tuyến HT001: Hà Nội - Lào Cai
-(7, 'CTHT_HT001_01', 1, 1, 3),
-(8, 'CTHT_HT001_02', 2, 21, 3),
+('CTHT_HT001_01', 1, 1, 3),
+('CTHT_HT001_02', 2, 21, 3),
 
 -- Tuyến HT002: Hà Nội - Quán Triều
-(9, 'CTHT_HT002_01', 1, 1, 4),
-(10, 'CTHT_HT002_02', 2, 23, 4),
+('CTHT_HT002_01', 1, 1, 4),
+('CTHT_HT002_02', 2, 23, 4),
 
 -- Tuyến HT003: Sài Gòn - Nha Trang
-(11, 'CTHT_HT003_01', 1, 4, 5),
-(12, 'CTHT_HT003_02', 2, 16, 5),
+('CTHT_HT003_01', 1, 4, 5),
+('CTHT_HT003_02', 2, 16, 5),
 
 -- Tuyến HT004: Sài Gòn - Quy Nhơn
-(13, 'CTHT_HT004_01', 1, 4, 6),
-(14, 'CTHT_HT004_02', 2, 13, 6),
+('CTHT_HT004_01', 1, 4, 6),
+('CTHT_HT004_02', 2, 13, 6),
 
 -- Tuyến HT005: Sài Gòn - Đà Nẵng
-(15, 'CTHT_HT005_01', 1, 4, 7),
-(16, 'CTHT_HT005_02', 2, 3, 7),
+('CTHT_HT005_01', 1, 4, 7),
+('CTHT_HT005_02', 2, 3, 7),
 
 -- Tuyến HT006: Sài Gòn - Huế
-(17, 'CTHT_HT006_01', 1, 4, 8),
-(18, 'CTHT_HT006_02', 2, 10, 8),
+('CTHT_HT006_01', 1, 4, 8),
+('CTHT_HT006_02', 2, 10, 8),
 
 -- Tuyến HT007: Đà Nẵng - Huế
-(19, 'CTHT_HT007_01', 1, 3, 9),
-(20, 'CTHT_HT007_02', 2, 10, 9),
+('CTHT_HT007_01', 1, 3, 9),
+('CTHT_HT007_02', 2, 10, 9),
 
 -- Tuyến HT008: Huế - Vinh
-(21, 'CTHT_HT008_01', 1, 10, 10),
-(22, 'CTHT_HT008_02', 2, 2, 10),
+('CTHT_HT008_01', 1, 10, 10),
+('CTHT_HT008_02', 2, 2, 10),
 
 -- Tuyến HT009: Vinh - Thanh Hóa
-(23, 'CTHT_HT009_01', 1, 2, 11),
-(24, 'CTHT_HT009_02', 2, 8, 11),
+('CTHT_HT009_01', 1, 2, 11),
+('CTHT_HT009_02', 2, 8, 11),
 
 -- Tuyến HT010: Thanh Hóa - Nam Định
-(25, 'CTHT_HT010_01', 1, 8, 12),
-(26, 'CTHT_HT010_02', 2, 6, 12),
+('CTHT_HT010_01', 1, 8, 12),
+('CTHT_HT010_02', 2, 6, 12),
 
 -- Tuyến HT011: Sài Gòn - Phan Thiết
-(27, 'CTHT_HT011_01', 1, 4, 13),
-(28, 'CTHT_HT011_02', 2, 18, 13),
+('CTHT_HT011_01', 1, 4, 13),
+('CTHT_HT011_02', 2, 18, 13),
 
 -- Tuyến HT012: Nha Trang - Đà Nẵng
-(29, 'CTHT_HT012_01', 1, 16, 14),
-(30, 'CTHT_HT012_02', 2, 3, 14),
+('CTHT_HT012_01', 1, 16, 14),
+('CTHT_HT012_02', 2, 3, 14),
 
 -- Tuyến HT013: Đà Nẵng - Quy Nhơn
-(31, 'CTHT_HT013_01', 1, 3, 15),
-(32, 'CTHT_HT013_02', 2, 13, 15),
+('CTHT_HT013_01', 1, 3, 15),
+('CTHT_HT013_02', 2, 13, 15),
 
 -- Tuyến HT014: Quy Nhơn - Nha Trang
-(33, 'CTHT_HT014_01', 1, 13, 16),
-(34, 'CTHT_HT014_02', 2, 16, 16),
+('CTHT_HT014_01', 1, 13, 16),
+('CTHT_HT014_02', 2, 16, 16),
 
 -- Tuyến HT015: Hà Nội - Vinh
-(35, 'CTHT_HT015_01', 1, 1, 17),
-(36, 'CTHT_HT015_02', 2, 2, 17),
+('CTHT_HT015_01', 1, 1, 17),
+('CTHT_HT015_02', 2, 2, 17),
 
 -- Tuyến HT016: Vinh - Quảng Bình
-(37, 'CTHT_HT016_01', 1, 2, 18),
-(38, 'CTHT_HT016_02', 2, 9, 18),
+('CTHT_HT016_01', 1, 2, 18),
+('CTHT_HT016_02', 2, 9, 18),
 
 -- Tuyến HT017: Quảng Bình - Huế
-(39, 'CTHT_HT017_01', 1, 9, 19),
-(40, 'CTHT_HT017_02', 2, 10, 19),
+('CTHT_HT017_01', 1, 9, 19),
+('CTHT_HT017_02', 2, 10, 19),
 
 -- Tuyến HT018: Hà Nội - Thanh Hóa
-(41, 'CTHT_HT018_01', 1, 1, 20),
-(42, 'CTHT_HT018_02', 2, 8, 20),
+('CTHT_HT018_01', 1, 1, 20),
+('CTHT_HT018_02', 2, 8, 20),
 
 -- Tuyến HT019: Thanh Hóa - Quảng Bình
-(43, 'CTHT_HT019_01', 1, 8, 21),
-(44, 'CTHT_HT019_02', 2, 9, 21),
+('CTHT_HT019_01', 1, 8, 21),
+('CTHT_HT019_02', 2, 9, 21),
 
 -- Tuyến HT020: Sài Gòn - Bình Thuận
-(45, 'CTHT_HT020_01', 1, 4, 22),
-(46, 'CTHT_HT020_02', 2, 17, 22),
+('CTHT_HT020_01', 1, 4, 22),
+('CTHT_HT020_02', 2, 17, 22),
 
 -- Tuyến HT021: Bình Thuận - Nha Trang
-(47, 'CTHT_HT021_01', 1, 17, 23),
-(48, 'CTHT_HT021_02', 2, 16, 23),
+('CTHT_HT021_01', 1, 17, 23),
+('CTHT_HT021_02', 2, 16, 23),
 
 -- Tuyến HT022: Nha Trang - Phú Yên
-(49, 'CTHT_HT022_01', 1, 16, 24),
-(50, 'CTHT_HT022_02', 2, 15, 24),
+('CTHT_HT022_01', 1, 16, 24),
+('CTHT_HT022_02', 2, 15, 24),
 
 -- Tuyến HT023: Phú Yên - Quy Nhơn
-(51, 'CTHT_HT023_01', 1, 15, 25),
-(52, 'CTHT_HT023_02', 2, 13, 25),
+('CTHT_HT023_01', 1, 15, 25),
+('CTHT_HT023_02', 2, 13, 25),
 
 -- Tuyến HT024: Quy Nhơn - Diêu Trì
-(53, 'CTHT_HT024_01', 1, 13, 26),
-(54, 'CTHT_HT024_02', 2, 14, 26),
+('CTHT_HT024_01', 1, 13, 26),
+('CTHT_HT024_02', 2, 14, 26),
 
 -- Tuyến HT025: Diêu Trì - Đà Nẵng
-(55, 'CTHT_HT025_01', 1, 14, 27),
-(56, 'CTHT_HT025_02', 2, 3, 27),
+('CTHT_HT025_01', 1, 14, 27),
+('CTHT_HT025_02', 2, 3, 27),
 
 -- Tuyến HT026: Đà Nẵng - Hà Nội
-(57, 'CTHT_HT026_01', 1, 3, 28),
-(58, 'CTHT_HT026_02', 2, 1, 28),
+('CTHT_HT026_01', 1, 3, 28),
+('CTHT_HT026_02', 2, 1, 28),
 
 -- Tuyến HT027: Hà Nội - Nam Định
-(59, 'CTHT_HT027_01', 1, 1, 29),
-(60, 'CTHT_HT027_02', 2, 6, 29),
+('CTHT_HT027_01', 1, 1, 29),
+('CTHT_HT027_02', 2, 6, 29),
 
 -- Tuyến HT028: Nam Định - Ninh Bình
-(61, 'CTHT_HT028_01', 1, 6, 30),
-(62, 'CTHT_HT028_02', 2, 7, 30),
+('CTHT_HT028_01', 1, 6, 30),
+('CTHT_HT028_02', 2, 7, 30),
 
 -- Tuyến HT029: Ninh Bình - Vinh
-(63, 'CTHT_HT029_01', 1, 7, 31),
-(64, 'CTHT_HT029_02', 2, 2, 31),
+('CTHT_HT029_01', 1, 7, 31),
+('CTHT_HT029_02', 2, 2, 31),
 
 
 -- Tuyến HT030: Vinh - Đồng Hới (hanhTrinhId = 32)
-(65, 'CTHT_HT030_01', 1, 2, 32),
-(66, 'CTHT_HT030_02', 2, 9, 32),
+('CTHT_HT030_01', 1, 2, 32),
+('CTHT_HT030_02', 2, 9, 32),
 
 -- Tuyến HT031: Đồng Hới - Đông Hà (hanhTrinhId = 33)
-(67, 'CTHT_HT031_01', 1, 9, 33),
-(68, 'CTHT_HT031_02', 2, 30, 33),
+('CTHT_HT031_01', 1, 9, 33),
+('CTHT_HT031_02', 2, 30, 33),
 
 -- Tuyến HT032: Đông Hà - Huế (hanhTrinhId = 34)
-(69, 'CTHT_HT032_01', 1, 30, 34),
-(70, 'CTHT_HT032_02', 2, 10, 34),
+('CTHT_HT032_01', 1, 30, 34),
+('CTHT_HT032_02', 2, 10, 34),
 
 -- Tuyến HT033: Huế - Đà Nẵng (hanhTrinhId = 35)
-(71, 'CTHT_HT033_01', 1, 10, 35),
-(72, 'CTHT_HT033_02', 2, 3, 35),
+('CTHT_HT033_01', 1, 10, 35),
+('CTHT_HT033_02', 2, 3, 35),
 
 -- Tuyến HT034: Đà Nẵng - Tam Kỳ (hanhTrinhId = 36)
-(73, 'CTHT_HT034_01', 1, 3, 36),
-(74, 'CTHT_HT034_02', 2, 11, 36),
+('CTHT_HT034_01', 1, 3, 36),
+('CTHT_HT034_02', 2, 11, 36),
 
 -- Tuyến HT035: Tam Kỳ - Quảng Ngãi (hanhTrinhId = 37)
-(75, 'CTHT_HT035_01', 1, 11, 37),
-(76, 'CTHT_HT035_02', 2, 12, 37),
+('CTHT_HT035_01', 1, 11, 37),
+('CTHT_HT035_02', 2, 12, 37),
 
 -- Tuyến HT036: Quảng Ngãi - Bồng Sơn (hanhTrinhId = 38)
-(77, 'CTHT_HT036_01', 1, 12, 38),
-(78, 'CTHT_HT036_02', 2, 13, 38),
+('CTHT_HT036_01', 1, 12, 38),
+('CTHT_HT036_02', 2, 13, 38),
 
 -- Tuyến HT037: Bồng Sơn - Diêu Trì (hanhTrinhId = 39)
-(79, 'CTHT_HT037_01', 1, 13, 39),
-(80, 'CTHT_HT037_02', 2, 14, 39),
+('CTHT_HT037_01', 1, 13, 39),
+('CTHT_HT037_02', 2, 14, 39),
 
 -- Tuyến HT038: Diêu Trì - Tuy Hòa (hanhTrinhId = 40)
-(81, 'CTHT_HT038_01', 1, 14, 40),
-(82, 'CTHT_HT038_02', 2, 15, 40),
+('CTHT_HT038_01', 1, 14, 40),
+('CTHT_HT038_02', 2, 15, 40),
 
 -- Tuyến HT039: Tuy Hòa - Nha Trang (hanhTrinhId = 41)
-(83, 'CTHT_HT039_01', 1, 15, 41),
-(84, 'CTHT_HT039_02', 2, 16, 41),
+('CTHT_HT039_01', 1, 15, 41),
+('CTHT_HT039_02', 2, 16, 41),
 
 -- Tuyến HT040: Nha Trang - Tháp Chàm (hanhTrinhId = 42)
-(85, 'CTHT_HT040_01', 1, 16, 42),
-(86, 'CTHT_HT040_02', 2, 17, 42),
+('CTHT_HT040_01', 1, 16, 42),
+('CTHT_HT040_02', 2, 17, 42),
 
 -- Tuyến HT041: Tháp Chàm - Bình Thuận (hanhTrinhId = 43)
-(87, 'CTHT_HT041_01', 1, 17, 43),
-(88, 'CTHT_HT041_02', 2, 18, 43), -- Đã sửa từ Ga 17 thành Ga 18 để tránh trùng lặp điểm đi/đến
+('CTHT_HT041_01', 1, 17, 43),
+('CTHT_HT041_02', 2, 18, 43), -- Đã sửa từ Ga 17 thành Ga 18 để tránh trùng lặp điểm đi/đến
 
 -- Tuyến HT042: Bình Thuận - Long Khánh (hanhTrinhId = 44)
-(89, 'CTHT_HT042_01', 1, 17, 44),
-(90, 'CTHT_HT042_02', 2, 19, 44),
+('CTHT_HT042_01', 1, 17, 44),
+('CTHT_HT042_02', 2, 19, 44),
 
 -- Tuyến HT043: Long Khánh - Đà Nẵng (hanhTrinhId = 45)
-(91, 'CTHT_HT043_01', 1, 19, 45),
-(92, 'CTHT_HT043_02', 2, 3, 45),
+('CTHT_HT043_01', 1, 19, 45),
+('CTHT_HT043_02', 2, 3, 45),
 
 -- Tuyến HT044: Biên Hòa - Sài Gòn (hanhTrinhId = 46)
-(93, 'CTHT_HT044_01', 1, 20, 46),
-(94, 'CTHT_HT044_02', 2, 4, 46),
+('CTHT_HT044_01', 1, 20, 46),
+('CTHT_HT044_02', 2, 4, 46),
 
 -- Tuyến HT045: Hà Nội - Phủ Lý (hanhTrinhId = 47)
-(95, 'CTHT_HT045_01', 1, 1, 47),
-(96, 'CTHT_HT045_02', 2, 25, 47),
+('CTHT_HT045_01', 1, 1, 47),
+('CTHT_HT045_02', 2, 25, 47),
 
 -- Tuyến HT046: Phủ Lý - Nam Định (hanhTrinhId = 48)
-(97, 'CTHT_HT046_01', 1, 25, 48),
-(98, 'CTHT_HT046_02', 2, 6, 48),
+('CTHT_HT046_01', 1, 25, 48),
+('CTHT_HT046_02', 2, 6, 48),
 
 -- Tuyến HT047: Nam Định - Ninh Bình (hanhTrinhId = 49)
-(99, 'CTHT_HT047_01', 1, 6, 49),
-(100, 'CTHT_HT047_02', 2, 7, 49),
+('CTHT_HT047_01', 1, 6, 49),
+('CTHT_HT047_02', 2, 7, 49),
 
 -- Tuyến HT048: Ninh Bình - Đồng Hới (hanhTrinhId = 50)
-(101, 'CTHT_HT048_01', 1, 7, 50),
-(102, 'CTHT_HT048_02', 2, 9, 50),
+('CTHT_HT048_01', 1, 7, 50),
+('CTHT_HT048_02', 2, 9, 50),
 
 -- Tuyến HT049: Bỉm Sơn - Thanh Hóa (hanhTrinhId = 51)
-(103, 'CTHT_HT049_01', 1, 29, 51),
-(104, 'CTHT_HT049_02', 2, 8, 51);
+('CTHT_HT049_01', 1, 29, 51),
+('CTHT_HT049_02', 2, 8, 51);
 
 -- Them lich trinh 
--- ==============================================================================
--- BỔ SUNG 50 BẢN GHI CHO BẢNG LỊCH TRÌNH (LichTrinh) THEO ĐÚNG MẪU CHUẨN CSV
--- Đã cập nhật trangThai thành hệ thống chuẩn: DaHoanThanh, DangChay, ChuaChay
--- ==============================================================================
 INSERT INTO LichTrinh (id, maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) VALUES
-(2, 'LT_SE1_20260602', '2026-06-02 08:00:00', 'DaHoanThanh', 1, 1, 103),
-(3, 'LT_DT000_20260602', '2026-06-02 12:00:00', 'DaHoanThanh', 2, 2, 14),
-(4, 'LT_DT001_20260603', '2026-06-03 08:00:00', 'DaHoanThanh', 3, 3, 20),
-(5, 'LT_DT002_20260603', '2026-06-03 12:00:00', 'DaHoanThanh', 4, 4, 5),
-(6, 'LT_DT003_20260604', '2026-06-04 08:00:00', 'DaHoanThanh', 5, 5, 23),
-(7, 'LT_DT004_20260604', '2026-06-04 12:00:00', 'DaHoanThanh', 6, 6, 27),
-(8, 'LT_DT005_20260605', '2026-06-05 08:00:00', 'DaHoanThanh', 7, 7, 29),
-(9, 'LT_DT006_20260605', '2026-06-05 12:00:00', 'DaHoanThanh', 8, 8, 31),
-(10, 'LT_DT007_20260606', '2026-06-06 08:00:00', 'DaHoanThanh', 9, 9, 6),
-(11, 'LT_DT008_20260606', '2026-06-06 12:00:00', 'DaHoanThanh', 10, 10, 40),
-(12, 'LT_DT009_20260607', '2026-06-07 08:00:00', 'DaHoanThanh', 11, 11, 42),
-(13, 'LT_DT010_20260607', '2026-06-07 12:00:00', 'DaHoanThanh', 12, 12, 7),
-(14, 'LT_DT011_20260608', '2026-06-08 08:00:00', 'DaHoanThanh', 13, 13, 47),
-(15, 'LT_DT012_20260608', '2026-06-08 12:00:00', 'DangChay', 14, 14, 8),
-(16, 'LT_DT013_20260609', '2026-06-09 08:00:00', 'DangChay', 15, 15, 58),
-(17, 'LT_DT014_20260609', '2026-06-09 12:00:00', 'DangChay', 16, 16, 60),
-(18, 'LT_DT015_20260610', '2026-06-10 08:00:00', 'DangChay', 17, 17, 65),
-(19, 'LT_DT016_20260610', '2026-06-10 12:00:00', 'DangChay', 18, 18, 67),
-(20, 'LT_DT017_20260611', '2026-06-11 08:00:00', 'DangChay', 19, 19, 81),
-(21, 'LT_DT018_20260611', '2026-06-11 12:00:00', 'DangChay', 20, 20, 86),
-(22, 'LT_DT019_20260612', '2026-06-12 08:00:00', 'DangChay', 21, 21, 12),
-(23, 'LT_DT020_20260612', '2026-06-12 12:00:00', 'DangChay', 22, 22, 93),
-(24, 'LT_DT021_20260613', '2026-06-13 08:00:00', 'DangChay', 23, 23, 95),
-(25, 'LT_DT022_20260613', '2026-06-13 12:00:00', 'DangChay', 24, 24, 96),
-(26, 'LT_DT023_20260614', '2026-06-14 08:00:00', 'DangChay', 25, 25, 97),
-(27, 'LT_DT024_20260614', '2026-06-14 12:00:00', 'DangChay', 26, 26, 100),
-(28, 'LT_DT025_20260615', '2026-06-15 08:00:00', 'DangChay', 27, 27, 1),
-(29, 'LT_DT026_20260615', '2026-06-15 12:00:00', 'DangChay', 28, 28, 103),
-(30, 'LT_DT027_20260616', '2026-06-16 08:00:00', 'ChuaChay', 29, 29, 14),
-(31, 'LT_DT028_20260616', '2026-06-16 12:00:00', 'ChuaChay', 30, 30, 20),
-(32, 'LT_DT029_20260617', '2026-06-17 08:00:00', 'ChuaChay', 31, 31, 5),
-(33, 'LT_DT030_20260617', '2026-06-17 12:00:00', 'ChuaChay', 32, 32, 23),
-(34, 'LT_DT031_20260618', '2026-06-18 08:00:00', 'ChuaChay', 33, 33, 27),
-(35, 'LT_DT032_20260618', '2026-06-18 12:00:00', 'ChuaChay', 34, 34, 29),
-(36, 'LT_DT033_20260619', '2026-06-19 08:00:00', 'ChuaChay', 35, 35, 31),
-(37, 'LT_DT034_20260619', '2026-06-19 12:00:00', 'ChuaChay', 36, 36, 6),
-(38, 'LT_DT035_20260620', '2026-06-20 08:00:00', 'ChuaChay', 37, 37, 40),
-(39, 'LT_DT036_20260620', '2026-06-20 12:00:00', 'ChuaChay', 38, 38, 42),
-(40, 'LT_DT037_20260621', '2026-06-21 08:00:00', 'ChuaChay', 39, 39, 7),
-(41, 'LT_DT038_20260621', '2026-06-21 12:00:00', 'ChuaChay', 40, 40, 47),
-(42, 'LT_DT039_20260622', '2026-06-22 08:00:00', 'ChuaChay', 41, 41, 8),
-(43, 'LT_DT040_20260622', '2026-06-22 12:00:00', 'ChuaChay', 42, 42, 58),
-(44, 'LT_DT041_20260623', '2026-06-23 08:00:00', 'ChuaChay', 43, 43, 60),
-(45, 'LT_DT042_20260623', '2026-06-23 12:00:00', 'ChuaChay', 44, 44, 65),
-(46, 'LT_DT043_20260624', '2026-06-24 08:00:00', 'ChuaChay', 45, 45, 67),
-(47, 'LT_DT044_20260624', '2026-06-24 12:00:00', 'ChuaChay', 46, 46, 81),
-(48, 'LT_DT045_20260625', '2026-06-25 08:00:00', 'ChuaChay', 47, 47, 86),
-(49, 'LT_DT046_20260625', '2026-06-25 12:00:00', 'ChuaChay', 48, 48, 12),
-(50, 'LT_DT047_20260626', '2026-06-26 08:00:00', 'ChuaChay', 49, 49, 93),
-(51, 'LT_DT048_20260626', '2026-06-26 12:00:00', 'ChuaChay', 50, 50, 95),
-(52, 'LT_DT049_20260627', '2026-06-27 08:00:00', 'ChuaChay', 51, 51, 96),
-(53, 'LT_DT050_20260627', '2026-06-27 12:00:00', 'ChuaChay', 52, 52, 97),
-(54, 'LT_DT051_20260628', '2026-06-28 08:00:00', 'DaHoanThanh', 53, 53, 100),
-(55, 'LT_DT052_20260628', '2026-06-28 12:00:00', 'DangChay', 54, 54, 1),
-(56, 'LT_DT053_20260629', '2026-06-29 08:00:00', 'ChuaChay', 55, 55, 103),
-(57, 'LT_DT054_20260629', '2026-06-29 12:00:00', 'DaHoanThanh', 56, 56, 14),
-(58, 'LT_DT055_20260630', '2026-06-30 08:00:00', 'ChuaChay', 57, 57, 20),
-(59, 'LT_DT056_20260630', '2026-06-30 12:00:00', 'ChuaChay', 58, 58, 5),
-(60, 'LT_DT057_20260701', '2026-07-01 08:00:00', 'BiHuy', 59, 59, 23),
-(61, 'LT_DT058_20260701', '2026-07-01 12:00:00', 'ChuaChay', 60, 60, 27),
-(62, 'LT_DT059_20260702', '2026-07-02 08:00:00', 'ChuaChay', 61, 61, 29),
-(63, 'LT_SE1_20260702', '2026-07-02 12:00:00', 'DaHoanThanh', 1, 1, 31),
-(64, 'LT_DT000_20260703', '2026-07-03 08:00:00', 'ChuaChay', 2, 2, 6),
-(65, 'LT_DT001_20260703', '2026-07-03 12:00:00', 'DangChay', 3, 3, 40),
-(66, 'LT_DT002_20260704', '2026-07-04 08:00:00', 'DaHoanThanh', 4, 4, 42),
-(67, 'LT_DT003_20260704', '2026-07-04 12:00:00', 'ChuaChay', 5, 5, 7),
-(68, 'LT_DT004_20260705', '2026-07-05 08:00:00', 'ChuaChay', 6, 6, 47),
-(69, 'LT_DT005_20260705', '2026-07-05 12:00:00', 'DaHoanThanh', 7, 7, 8),
-(70, 'LT_DT006_20260706', '2026-07-06 08:00:00', 'DangChay', 8, 8, 58),
-(71, 'LT_DT007_20260706', '2026-07-06 12:00:00', 'ChuaChay', 9, 9, 60),
-(72, 'LT_DT008_20260707', '2026-07-07 08:00:00', 'ChuaChay', 10, 10, 65),
-(73, 'LT_DT009_20260707', '2026-07-07 12:00:00', 'DaHoanThanh', 11, 11, 67),
-(74, 'LT_DT010_20260708', '2026-07-08 08:00:00', 'ChuaChay', 12, 12, 81),
-(75, 'LT_DT011_20260708', '2026-07-08 12:00:00', 'DangChay', 13, 13, 86),
-(76, 'LT_DT012_20260709', '2026-07-09 08:00:00', 'ChuaChay', 14, 14, 12),
-(77, 'LT_DT013_20260709', '2026-07-09 12:00:00', 'ChuaChay', 15, 15, 93),
-(78, 'LT_DT014_20260710', '2026-07-10 08:00:00', 'DaHoanThanh', 16, 16, 95),
-(79, 'LT_DT015_20260710', '2026-07-10 12:00:00', 'ChuaChay', 17, 17, 96),
-(80, 'LT_DT016_20260711', '2026-07-11 08:00:00', 'DangChay', 18, 18, 97),
-(81, 'LT_DT017_20260711', '2026-07-11 12:00:00', 'ChuaChay', 19, 19, 100),
-(82, 'LT_DT018_20260712', '2026-07-12 08:00:00', 'ChuaChay', 20, 20, 1),
-(83, 'LT_DT019_20260712', '2026-07-12 12:00:00', 'DaHoanThanh', 21, 21, 103),
-(84, 'LT_DT020_20260713', '2026-07-13 08:00:00', 'ChuaChay', 22, 22, 14),
-(85, 'LT_DT021_20260713', '2026-07-13 12:00:00', 'DangChay', 23, 23, 20),
-(86, 'LT_DT022_20260714', '2026-07-14 08:00:00', 'ChuaChay', 24, 24, 5),
-(87, 'LT_DT023_20260714', '2026-07-14 12:00:00', 'DaHoanThanh', 25, 25, 23),
-(88, 'LT_DT024_20260715', '2026-07-15 08:00:00', 'ChuaChay', 26, 26, 27),
-(89, 'LT_DT025_20260715', '2026-07-15 12:00:00', 'ChuaChay', 27, 27, 29),
-(90, 'LT_DT026_20260716', '2026-07-16 08:00:00', 'BiHuy', 28, 28, 31),
-(91, 'LT_DT027_20260716', '2026-07-16 12:00:00', 'ChuaChay', 29, 29, 6),
-(92, 'LT_DT028_20260717', '2026-07-17 08:00:00', 'ChuaChay', 30, 30, 40),
-(93, 'LT_DT029_20260717', '2026-07-17 12:00:00', 'DaHoanThanh', 31, 31, 42),
-(94, 'LT_DT030_20260718', '2026-07-18 08:00:00', 'ChuaChay', 32, 32, 7),
-(95, 'LT_DT031_20260718', '2026-07-18 12:00:00', 'DangChay', 33, 33, 47),
-(96, 'LT_DT032_20260719', '2026-07-19 08:00:00', 'DaHoanThanh', 34, 34, 8),
-(97, 'LT_DT033_20260719', '2026-07-19 12:00:00', 'ChuaChay', 35, 35, 58),
-(98, 'LT_DT034_20260720', '2026-07-20 08:00:00', 'ChuaChay', 36, 36, 60),
-(99, 'LT_DT035_20260720', '2026-07-20 12:00:00', 'DaHoanThanh', 37, 37, 65),
-(100, 'LT_DT036_20260721', '2026-07-21 08:00:00', 'DangChay', 38, 38, 67),
-(101, 'LT_DT037_20260721', '2026-07-21 12:00:00', 'ChuaChay', 39, 39, 81);
+(1, 'LT_SE1_20260601', '2026-06-01 19:30:00', 'ChuaChay', 1, 1, 1),
+(2, 'LT_SE1_20260602', '2026-06-02 08:00:00', 'DaHoanThanh', 1, 1, 133),
+(3, 'LT_DT000_20260602', '2026-06-02 12:00:00', 'DaHoanThanh', 2, 2, 134),
+(4, 'LT_DT001_20260603', '2026-06-03 08:00:00', 'DaHoanThanh', 3, 3, 135),
+(5, 'LT_DT002_20260603', '2026-06-03 12:00:00', 'DaHoanThanh', 4, 4, 136),
+(6, 'LT_DT003_20260604', '2026-06-04 08:00:00', 'DaHoanThanh', 5, 5, 137),
+(7, 'LT_DT004_20260604', '2026-06-04 12:00:00', 'DaHoanThanh', 6, 6, 138),
+(8, 'LT_DT005_20260605', '2026-06-05 08:00:00', 'DaHoanThanh', 7, 7, 139),
+(9, 'LT_DT006_20260605', '2026-06-05 12:00:00', 'DaHoanThanh', 8, 8, 140),
+(10, 'LT_DT007_20260606', '2026-06-06 08:00:00', 'DaHoanThanh', 9, 9, 141),
+(11, 'LT_DT008_20260606', '2026-06-06 12:00:00', 'DaHoanThanh', 10, 10, 142),
+(12, 'LT_DT009_20260607', '2026-06-07 08:00:00', 'DaHoanThanh', 11, 11, 133),
+(13, 'LT_DT010_20260607', '2026-06-07 12:00:00', 'DaHoanThanh', 12, 12, 134),
+(14, 'LT_DT011_20260608', '2026-06-08 08:00:00', 'DaHoanThanh', 13, 13, 135),
+(15, 'LT_DT012_20260608', '2026-06-08 12:00:00', 'DangChay', 14, 14, 136),
+(16, 'LT_DT013_20260609', '2026-06-09 08:00:00', 'DangChay', 15, 15, 137),
+(17, 'LT_DT014_20260609', '2026-06-09 12:00:00', 'DangChay', 16, 16, 138),
+(18, 'LT_DT015_20260610', '2026-06-10 08:00:00', 'DangChay', 17, 17, 139),
+(19, 'LT_DT016_20260610', '2026-06-10 12:00:00', 'DangChay', 18, 18, 140),
+(20, 'LT_DT017_20260611', '2026-06-11 08:00:00', 'DangChay', 19, 19, 141),
+(21, 'LT_DT018_20260611', '2026-06-11 12:00:00', 'DangChay', 20, 20, 142),
+(22, 'LT_DT019_20260612', '2026-06-12 08:00:00', 'DangChay', 21, 21, 133),
+(23, 'LT_DT020_20260612', '2026-06-12 12:00:00', 'DangChay', 22, 22, 134),
+(24, 'LT_DT021_20260613', '2026-06-13 08:00:00', 'DangChay', 23, 23, 135),
+(25, 'LT_DT022_20260613', '2026-06-12 12:00:00', 'DangChay', 24, 24, 136),
+(26, 'LT_DT023_20260614', '2026-06-14 08:00:00', 'DangChay', 25, 25, 137),
+(27, 'LT_DT024_20260614', '2026-06-14 12:00:00', 'DangChay', 26, 26, 138),
+(28, 'LT_DT025_20260615', '2026-06-15 08:00:00', 'DangChay', 27, 27, 139),
+(29, 'LT_DT026_20260615', '2026-06-15 12:00:00', 'DangChay', 28, 28, 140),
+(30, 'LT_DT027_20260616', '2026-06-16 08:00:00', 'ChuaChay', 29, 29, 141),
+(31, 'LT_DT028_20260616', '2026-06-16 12:00:00', 'ChuaChay', 30, 30, 142),
+(32, 'LT_DT029_20260617', '2026-06-17 08:00:00', 'ChuaChay', 31, 31, 133),
+(33, 'LT_DT030_20260617', '2026-06-17 12:00:00', 'ChuaChay', 32, 32, 134),
+(34, 'LT_DT031_20260618', '2026-06-18 08:00:00', 'ChuaChay', 33, 33, 135),
+(35, 'LT_DT032_20260618', '2026-06-18 12:00:00', 'ChuaChay', 34, 34, 136),
+(36, 'LT_DT033_20260619', '2026-06-19 08:00:00', 'ChuaChay', 35, 35, 137),
+(37, 'LT_DT034_20260619', '2026-06-19 12:00:00', 'ChuaChay', 36, 36, 138),
+(38, 'LT_DT035_20260620', '2026-06-20 08:00:00', 'ChuaChay', 37, 37, 139),
+(39, 'LT_DT036_20260620', '2026-06-20 12:00:00', 'ChuaChay', 38, 38, 140),
+(40, 'LT_DT037_20260621', '2026-06-21 08:00:00', 'ChuaChay', 39, 39, 141),
+(41, 'LT_DT038_20260621', '2026-06-21 12:00:00', 'ChuaChay', 40, 40, 142),
+(42, 'LT_DT039_20260622', '2026-06-22 08:00:00', 'ChuaChay', 41, 41, 133),
+(43, 'LT_DT040_20260622', '2026-06-22 12:00:00', 'ChuaChay', 42, 42, 134),
+(44, 'LT_DT041_20260623', '2026-06-23 08:00:00', 'ChuaChay', 43, 43, 135),
+(45, 'LT_DT042_20260623', '2026-06-23 12:00:00', 'ChuaChay', 44, 44, 136),
+(46, 'LT_DT043_20260624', '2026-06-24 08:00:00', 'ChuaChay', 45, 45, 137),
+(47, 'LT_DT044_20260624', '2026-06-24 12:00:00', 'ChuaChay', 46, 46, 138),
+(48, 'LT_DT045_20260625', '2026-06-25 08:00:00', 'ChuaChay', 47, 47, 139),
+(49, 'LT_DT046_20260625', '2026-06-25 12:00:00', 'ChuaChay', 48, 48, 140),
+(50, 'LT_DT047_20260626', '2026-06-26 08:00:00', 'ChuaChay', 49, 49, 141),
+(51, 'LT_DT048_20260626', '2026-06-26 12:00:00', 'ChuaChay', 50, 50, 142),
+(52, 'LT_DT049_20260627', '2026-06-27 08:00:00', 'ChuaChay', 51, 51, 133),
+(53, 'LT_DT050_20260627', '2026-06-27 12:00:00', 'ChuaChay', 52, 52, 134),
+(54, 'LT_DT051_20260628', '2026-06-28 08:00:00', 'DaHoanThanh', 53, 53, 135),
+(55, 'LT_DT052_20260628', '2026-06-28 12:00:00', 'DangChay', 54, 54, 136),
+(56, 'LT_DT053_20260629', '2026-06-29 08:00:00', 'ChuaChay', 55, 55, 137),
+(57, 'LT_DT054_20260629', '2026-06-29 12:00:00', 'DaHoanThanh', 56, 56, 138),
+(58, 'LT_DT055_20260630', '2026-06-30 08:00:00', 'ChuaChay', 57, 57, 139),
+(59, 'LT_DT056_20260630', '2026-06-30 12:00:00', 'ChuaChay', 58, 58, 140),
+(60, 'LT_DT057_20260701', '2026-07-01 08:00:00', 'BiHuy', 59, 59, 141),
+(61, 'LT_DT058_20260701', '2026-07-01 12:00:00', 'ChuaChay', 60, 60, 142),
+(62, 'LT_DT059_20260702', '2026-07-02 08:00:00', 'ChuaChay', 61, 61, 133),
+(63, 'LT_SE1_20260702', '2026-07-02 12:00:00', 'DaHoanThanh', 1, 1, 134),
+(64, 'LT_DT000_20260703', '2026-07-03 08:00:00', 'ChuaChay', 2, 2, 135),
+(65, 'LT_DT001_20260703', '2026-07-03 12:00:00', 'DangChay', 3, 3, 136),
+(66, 'LT_DT002_20260704', '2026-07-04 08:00:00', 'DaHoanThanh', 4, 4, 137),
+(67, 'LT_DT003_20260704', '2026-07-04 12:00:00', 'ChuaChay', 5, 5, 138),
+(68, 'LT_DT004_20260705', '2026-07-05 08:00:00', 'ChuaChay', 6, 6, 139),
+(69, 'LT_DT005_20260705', '2026-07-05 12:00:00', 'DaHoanThanh', 7, 7, 140),
+(70, 'LT_DT006_20260706', '2026-07-06 08:00:00', 'DangChay', 8, 8, 141),
+(71, 'LT_DT007_20260706', '2026-07-06 12:00:00', 'ChuaChay', 9, 9, 142),
+(72, 'LT_DT008_20260707', '2026-07-07 08:00:00', 'ChuaChay', 10, 10, 133),
+(73, 'LT_DT009_20260707', '2026-07-07 12:00:00', 'DaHoanThanh', 11, 11, 134),
+(74, 'LT_DT010_20260708', '2026-07-08 08:00:00', 'ChuaChay', 12, 12, 135),
+(75, 'LT_DT011_20260708', '2026-07-08 12:00:00', 'DangChay', 13, 13, 136),
+(76, 'LT_DT012_20260709', '2026-07-09 08:00:00', 'ChuaChay', 14, 14, 137),
+(77, 'LT_DT013_20260709', '2026-07-09 12:00:00', 'ChuaChay', 15, 15, 138),
+(78, 'LT_DT014_20260710', '2026-07-10 08:00:00', 'DaHoanThanh', 16, 16, 139),
+(79, 'LT_DT015_20260710', '2026-07-10 12:00:00', 'ChuaChay', 17, 17, 140),
+(80, 'LT_DT016_20260711', '2026-07-11 08:00:00', 'DangChay', 18, 18, 141),
+(81, 'LT_DT017_20260711', '2026-07-11 12:00:00', 'ChuaChay', 19, 19, 142),
+(82, 'LT_DT018_20260712', '2026-07-12 08:00:00', 'ChuaChay', 20, 20, 133),
+(83, 'LT_DT019_20260712', '2026-07-12 12:00:00', 'DaHoanThanh', 21, 21, 134),
+(84, 'LT_DT020_20260713', '2026-07-13 08:00:00', 'ChuaChay', 22, 22, 135),
+(85, 'LT_DT021_20260713', '2026-07-13 12:00:00', 'DangChay', 23, 23, 136),
+(86, 'LT_DT022_20260714', '2026-07-14 08:00:00', 'ChuaChay', 24, 24, 137),
+(87, 'LT_DT023_20260714', '2026-07-14 12:00:00', 'DaHoanThanh', 25, 25, 138),
+(88, 'LT_DT024_20260715', '2026-07-15 08:00:00', 'ChuaChay', 26, 26, 139),
+(89, 'LT_DT025_20260715', '2026-07-15 12:00:00', 'ChuaChay', 27, 27, 140),
+(90, 'LT_DT026_20260716', '2026-07-16 08:00:00', 'BiHuy', 28, 28, 141),
+(91, 'LT_DT027_20260716', '2026-07-16 12:00:00', 'ChuaChay', 29, 29, 142),
+(92, 'LT_DT028_20260717', '2026-07-17 08:00:00', 'ChuaChay', 30, 30, 133),
+(93, 'LT_DT029_20260717', '2026-07-17 12:00:00', 'DaHoanThanh', 31, 31, 134),
+(94, 'LT_DT030_20260718', '2026-07-18 08:00:00', 'ChuaChay', 32, 32, 135),
+(95, 'LT_DT031_20260718', '2026-07-18 12:00:00', 'DangChay', 33, 33, 136),
+(96, 'LT_DT032_20260719', '2026-07-19 08:00:00', 'DaHoanThanh', 34, 34, 137),
+(97, 'LT_DT033_20260719', '2026-07-19 12:00:00', 'ChuaChay', 35, 35, 138),
+(98, 'LT_DT034_20260720', '2026-07-20 08:00:00', 'ChuaChay', 36, 36, 139),
+(99, 'LT_DT035_20260720', '2026-07-20 12:00:00', 'DaHoanThanh', 37, 37, 140),
+(100, 'LT_DT036_20260721', '2026-07-21 08:00:00', 'DangChay', 38, 38, 141),
+(101, 'LT_DT037_20260721', '2026-07-21 12:00:00', 'ChuaChay', 39, 39, 142);
+
+-- Them chi tiet lich trinh 
+INSERT INTO ChiTietLichTrinh (id, maCTLT, gioDen, gioDi, nhaGaId, lichTrinhId) VALUES
+(1, 'CTLT_HN', NULL, '2026-06-01 19:30:00', 1, 1),                 -- Xuất phát Ga Hà Nội
+(2, 'CTLT_VI', '2026-06-02 01:15:00', '2026-06-02 01:25:00', 2, 1), -- Dừng Ga Vinh 10p
+(3, 'CTLT_DN', '2026-06-02 08:30:00', '2026-06-02 08:45:00', 3, 1), -- Dừng Ga Đà Nẵng 15p
+(4, 'CTLT_SG', '2026-06-02 21:00:00', NULL, 4, 1),                 -- Kết thúc Ga Sài Gòn
+
+-- Lịch trình 2 (Khởi hành: 2026-06-02 08:00:00)
+(5, 'CTLT_LT02_GA01', NULL, '2026-06-02 08:00:00', 1, 2),
+(6, 'CTLT_LT02_GA02', '2026-06-02 11:30:00', '2026-06-02 11:45:00', 2, 2),
+(7, 'CTLT_LT02_GA03', '2026-06-02 15:00:00', NULL, 3, 2),
+
+-- Lịch trình 3 (Khởi hành: 2026-06-02 12:00:00)
+(8, 'CTLT_LT03_GA04', NULL, '2026-06-02 12:00:00', 4, 3),
+(9, 'CTLT_LT03_GA05', '2026-06-02 16:20:00', NULL, 5, 3),
+
+-- Lịch trình 4 (Khởi hành: 2026-06-03 08:00:00)
+(10, 'CTLT_LT04_GA01', NULL, '2026-06-03 08:00:00', 1, 4),
+(11, 'CTLT_LT04_GA06', '2026-06-03 10:15:00', NULL, 6, 4),
+
+-- Lịch trình 5 (Khởi hành: 2026-06-03 12:00:00)
+(12, 'CTLT_LT05_GA01', NULL, '2026-06-03 12:00:00', 1, 5),
+(13, 'CTLT_LT05_GA07', '2026-06-03 14:45:00', NULL, 7, 5),
+
+-- Lịch trình 6 (Khởi hành: 2026-06-04 08:00:00)
+(14, 'CTLT_LT06_GA01', NULL, '2026-06-04 08:00:00', 1, 6),
+(15, 'CTLT_LT06_GA08', '2026-06-04 11:10:00', NULL, 8, 6),
+
+-- Lịch trình 7 (Khởi hành: 2026-06-04 12:00:00)
+(16, 'CTLT_LT07_GA04', NULL, '2026-06-04 12:00:00', 4, 7),
+(17, 'CTLT_LT07_GA16', '2026-06-04 17:30:00', NULL, 16, 7),
+
+-- Lịch trình 8 (Khởi hành: 2026-06-05 08:00:00)
+(18, 'CTLT_LT08_GA04', NULL, '2026-06-05 08:00:00', 4, 8),
+(19, 'CTLT_LT08_GA13', '2026-06-05 14:50:00', NULL, 13, 8),
+
+-- Lịch trình 9 (Khởi hành: 2026-06-05 12:00:00)
+(20, 'CTLT_LT09_GA04', NULL, '2026-06-05 12:00:00', 4, 9),
+(21, 'CTLT_LT09_GA03', '2026-06-05 21:15:00', NULL, 3, 9),
+
+-- Lịch trình 10 (Khởi hành: 2026-06-06 08:00:00)
+(22, 'CTLT_LT10_GA04', NULL, '2026-06-06 08:00:00', 4, 10),
+(23, 'CTLT_LT10_GA10', '2026-06-06 19:40:00', NULL, 10, 10),
+
+-- Lịch trình 11 (Khởi hành: 2026-06-06 12:00:00)
+(24, 'CTLT_LT11_GA03', NULL, '2026-06-06 12:00:00', 3, 11),
+(25, 'CTLT_LT11_GA10', '2026-06-06 14:15:00', NULL, 10, 11),
+
+-- Lịch trình 12 (Khởi hành: 2026-06-07 08:00:00)
+(26, 'CTLT_LT12_GA10', NULL, '2026-06-07 08:00:00', 10, 12),
+(27, 'CTLT_LT12_GA02', '2026-06-07 13:30:00', NULL, 2, 12),
+
+-- Lịch trình 13 (Khởi hành: 2026-06-07 12:00:00)
+(28, 'CTLT_LT13_GA02', NULL, '2026-06-07 12:00:00', 2, 13),
+(29, 'CTLT_LT13_GA08', '2026-06-07 14:25:00', NULL, 8, 13),
+
+-- Lịch trình 14 (Khởi hành: 2026-06-08 08:00:00)
+(30, 'CTLT_LT14_GA08', NULL, '2026-06-08 08:00:00', 8, 14),
+(31, 'CTLT_LT14_GA06', '2026-06-08 10:05:00', NULL, 6, 14),
+
+-- Lịch trình 15 (Khởi hành: 2026-06-08 12:00:00)
+(32, 'CTLT_LT15_GA04', NULL, '2026-06-08 12:00:00', 4, 15),
+(33, 'CTLT_LT15_GA18', '2026-06-08 15:10:00', NULL, 18, 15),
+
+-- Lịch trình 16 (Khởi hành: 2026-06-09 08:00:00)
+(34, 'CTLT_LT16_GA16', NULL, '2026-06-09 08:00:00', 16, 16),
+(35, 'CTLT_LT16_GA03', '2026-06-09 15:45:00', NULL, 3, 16),
+
+-- Lịch trình 17 (Khởi hành: 2026-06-09 12:00:00)
+(36, 'CTLT_LT17_GA03', NULL, '2026-06-09 12:00:00', 3, 17),
+(37, 'CTLT_LT17_GA13', '2026-06-09 17:15:00', NULL, 13, 17),
+
+-- Lịch trình 18 (Khởi hành: 2026-06-10 08:00:00)
+(38, 'CTLT_LT18_GA13', NULL, '2026-06-10 08:00:00', 13, 18),
+(39, 'CTLT_LT18_GA16', '2026-06-10 12:20:00', NULL, 16, 18),
+
+-- Lịch trình 19 (Khởi hành: 2026-06-10 12:00:00)
+(40, 'CTLT_LT19_GA01', NULL, '2026-06-10 12:00:00', 1, 19),
+(41, 'CTLT_LT19_GA02', '2026-06-10 16:45:00', NULL, 2, 19),
+
+-- Lịch trình 20 (Khởi hành: 2026-06-11 08:00:00)
+(42, 'CTLT_LT20_GA02', NULL, '2026-06-11 08:00:00', 2, 20),
+(43, 'CTLT_LT20_GA09', '2026-06-11 11:50:00', NULL, 9, 20),
+
+-- Lịch trình 21 (Khởi hành: 2026-06-11 12:00:00)
+(44, 'CTLT_LT21_GA09', NULL, '2026-06-11 12:00:00', 9, 21),
+(45, 'CTLT_LT21_GA10', '2026-06-11 15:10:00', NULL, 10, 21),
+
+-- Lịch trình 22 (Khởi hành: 2026-06-12 08:00:00)
+(46, 'CTLT_LT22_GA01', NULL, '2026-06-12 08:00:00', 1, 22),
+(47, 'CTLT_LT22_GA08', '2026-06-12 10:40:00', NULL, 8, 22),
+
+-- Lịch trình 23 (Khởi hành: 2026-06-12 12:00:00)
+(48, 'CTLT_LT23_GA08', NULL, '2026-06-12 12:00:00', 8, 23),
+(49, 'CTLT_LT23_GA09', '2026-06-12 17:30:00', NULL, 9, 23),
+
+-- Lịch trình 24 (Khởi hành: 2026-06-13 08:00:00)
+(50, 'CTLT_LT24_GA04', NULL, '2026-06-13 08:00:00', 4, 24),
+(51, 'CTLT_LT24_GA17', '2026-06-13 10:50:00', NULL, 17, 24),
+
+-- Lịch trình 25 (Khởi hành: 2026-06-13 12:00:00)
+(52, 'CTLT_LT25_GA17', NULL, '2026-06-13 12:00:00', 17, 25),
+(53, 'CTLT_LT25_GA16', '2026-06-13 16:15:00', NULL, 16, 25),
+(54, 'CTLT_LT26_GA16', NULL, '2026-06-14 08:00:00', 16, 26);
+
 -- Them Hoa don 
 INSERT INTO HoaDon (id, maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, tongTien, trangThai, nhanVienId, khachHangId) VALUES
+(1, 'HD_0001', 'MuaVe', '2026-05-27 10:00:00', 'ChuyenKhoan', 1250000, 'DaThanhToan', 2, 1),
+(2, 'HD_0002', 'PhatTraVe', '2026-05-27 15:30:00', 'TienMat', 45000, 'DaThanhToan', 2, 1),
 (3, 'HD_0003', 'MuaVe', '2026-06-01 09:14:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 35, 570),
 (4, 'HD_0004', 'MuaVe', '2026-06-01 12:27:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 17, 479),
 (5, 'HD_0005', 'MuaVe', '2026-06-01 15:38:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 16, 547),
@@ -949,6 +1320,8 @@ INSERT INTO HoaDon (id, maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, t
 
 -- Thêm vé tàu 
 INSERT INTO VeTau (id, maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lichTrinhId, nhanVienId, khachHangId, gheNgoiId, chinhSachGiaId, hoaDonId) VALUES
+(1, 'VE_0001', 'NguoiLon', 450000, 'DaBan', '2026-05-27 10:00:00', 1, 2, 1, 3, 1, 1),  
+(2, 'VE_0002', 'NguoiLon', 800000, 'DaBan', '2026-05-27 10:00:00', 1, 2, 1, 5, 1, 1), 
 (3, 'VE_0003', 'NguoiLon', 350000, 'DaBan', '2026-06-01 09:14:00', 16, 35, 570, 29, 1, 3),
 (4, 'VE_0004', 'NguoiLon', 350000, 'DaDoi', '2026-06-01 12:27:00', 6, 17, 479, 76, 1, 4),
 (5, 'VE_0005', 'NguoiGia', 250000, 'DaBan', '2026-06-01 15:38:00', 6, 16, 547, 28, 1, 5),
@@ -998,8 +1371,7 @@ INSERT INTO VeTau (id, maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lich
 (49, 'VE_0049', 'TreEm', 150000, 'DaBan', '2026-06-12 15:38:00', 19, 18, 555, 34, 1, 49),
 (50, 'VE_0050', 'NguoiLon', 900000, 'DaBan', '2026-06-12 18:13:00', 2, 154, 567, 36, 1, 50),
 (51, 'VE_0051', 'NguoiLon', 600000, 'DaBan', '2026-06-13 09:08:00', 33, 154, 558, 20, 1, 51),
-(52, 'VE_0052', 'NguoiLon', 750000, 'DaBan', '2026-06-13 12:00:00', 26, 82, 555, 50, 1, 52);
-INSERT INTO VeTau (id, maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lichTrinhId, nhanVienId, khachHangId, gheNgoiId, chinhSachGiaId, hoaDonId) VALUES
+(52, 'VE_0052', 'NguoiLon', 750000, 'DaBan', '2026-06-13 12:00:00', 26, 82, 555, 50, 1, 52),
 (53, 'VE_0053', 'NguoiLon', 750000, 'DaBan', '2026-06-13 15:16:00', 39, 34, 595, 35, 1, 53),
 (54, 'VE_0054', 'TreEm', 450000, 'DaBan', '2026-06-13 18:18:00', 5, 38, 532, 70, 1, 54),
 (55, 'VE_0055', 'NguoiLon', 900000, 'DaBan', '2026-06-14 09:52:00', 17, 98, 514, 56, 1, 55),
@@ -1053,6 +1425,7 @@ INSERT INTO VeTau (id, maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lich
 
 -- Them PhieuTraVe (Tham chiếu VeTau, NhanVien, HoaDon)
 INSERT INTO PhieuTraVe (id, maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach, veTauId, nhanVienId, hoaDonId) VALUES
+(1, 'PT_0001', '2026-05-27 15:30:00', 45000, 405000, 1, 2, 2),
 (2, 'PTV_662636', '2026-06-01 10:15:00', 70000, 280000, 3, 35, 3),
 (3, 'PTV_229592', '2026-06-01 13:30:00', 105000, 245000, 4, 17, 4),
 (4, 'PTV_576877', '2026-06-01 16:45:00', 50000, 200000, 5, 16, 5),
@@ -1102,8 +1475,7 @@ INSERT INTO PhieuTraVe (id, maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach,
 (48, 'PTV_803055', '2026-06-12 16:32:00', 45000, 105000, 49, 18, 49),
 (49, 'PTV_879238', '2026-06-12 19:13:00', 180000, 720000, 50, 154, 50),
 (50, 'PTV_830316', '2026-06-13 10:08:00', 120000, 480000, 51, 154, 51),
-(51, 'PTV_666432', '2026-06-13 13:00:00', 225000, 525000, 52, 82, 52);
-INSERT INTO PhieuTraVe (id, maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach, veTauId, nhanVienId, hoaDonId) VALUES
+(51, 'PTV_666432', '2026-06-13 13:00:00', 225000, 525000, 52, 82, 52),
 (52, 'PTV_539486', '2026-06-13 16:00:00', 225000, 525000, 53, 34, 53),
 (53, 'PTV_715870', '2026-06-13 19:18:00', 90000, 360000, 54, 38, 54),
 (54, 'PTV_878325', '2026-06-14 10:31:00', 180000, 720000, 55, 98, 55),
@@ -1156,6 +1528,7 @@ INSERT INTO PhieuTraVe (id, maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach,
 (101, 'PTV_692002', '2026-06-25 19:34:00', 150000, 600000, 102, 19, 102);
 -- Them BaoCao (Tham chiếu QuanLy)
 INSERT INTO BaoCao (id, maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayKetThuc, quanLyId) VALUES
+(1, 'BC_JUNE_2026', '2026-06-03 08:00:00', 1250000, '2026-06-01', '2026-06-02', 1),
 (2, 'BC_DAILY_0002', '2026-06-03 18:00:00', 4500000, '2026-06-02', '2026-06-03', 14),
 (3, 'BC_DAILY_0003', '2026-06-04 08:00:00', 12500000, '2026-06-03', '2026-06-04', 20),
 (4, 'BC_DAILY_0004', '2026-06-05 17:30:00', 8900000, '2026-06-04', '2026-06-05', 5),
@@ -1205,8 +1578,7 @@ INSERT INTO BaoCao (id, maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayK
 (48, 'BC_DAILY_0043', '2026-07-15 18:00:00', 34100000, '2026-07-14', '2026-07-15', 12),
 (49, 'BC_DAILY_0044', '2026-07-16 11:40:00', 16900000, '2026-07-15', '2026-07-16', 93),
 (50, 'BC_DAILY_0045', '2026-07-17 15:30:00', 19450000, '2026-07-16', '2026-07-17', 95),
-(51, 'BC_DAILY_0046', '2026-07-18 09:05:00', 25200000, '2026-07-17', '2026-07-18', 96);
-INSERT INTO BaoCao (id, maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayKetThuc, quanLyId) VALUES
+(51, 'BC_DAILY_0046', '2026-07-18 09:05:00', 25200000, '2026-07-17', '2026-07-18', 96),
 (52, 'BC_DAILY_0047', '2026-07-19 16:45:00', 28150000, '2026-07-18', '2026-07-19', 97),
 (53, 'BC_DAILY_0048', '2026-07-20 08:10:00', 32400000, '2026-07-19', '2026-07-20', 100),
 (54, 'BC_DAILY_0049', '2026-07-21 17:25:00', 15650000, '2026-07-20', '2026-07-21', 103),
@@ -1259,6 +1631,7 @@ INSERT INTO BaoCao (id, maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayK
 (101, 'BC_MONTH_082026', '2026-09-01 10:00:00', 684100000, '2026-08-01', '2026-08-31', 86);
 -- Them ChiTietBaoCao (Tham chiếu LichTrinh, BaoCao)
 INSERT INTO ChiTietBaoCao (id, maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lichTrinhId, baoCaoId) VALUES
+(1, 'CTBC_SE1_01', 2, 1250000, 25.00, 1, 1),
 (2, 'CTBC_LT01_BC002', 24, 3600000, 78.2, 1, 2),
 (3, 'CTBC_LT02_BC003', 41, 10250000, 39.07, 2, 3),
 (4, 'CTBC_LT03_BC004', 23, 3450000, 68.38, 3, 4),
@@ -1308,8 +1681,7 @@ INSERT INTO ChiTietBaoCao (id, maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lich
 (48, 'CTBC_LT47_BC048', 72, 10800000, 93.57, 47, 48),
 (49, 'CTBC_LT48_BC049', 78, 19500000, 38.35, 48, 49),
 (50, 'CTBC_LT49_BC050', 70, 17500000, 47.23, 49, 50),
-(51, 'CTBC_LT50_BC051', 64, 16000000, 90.38, 50, 51);
-INSERT INTO ChiTietBaoCao (id, maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lichTrinhId, baoCaoId) VALUES
+(51, 'CTBC_LT50_BC051', 64, 16000000, 90.38, 50, 51),
 (52, 'CTBC_LT51_BC052', 35, 12250000, 55.93, 51, 52),
 (53, 'CTBC_LT01_BC053', 57, 25650000, 88.47, 1, 53),
 (54, 'CTBC_LT02_BC054', 67, 10050000, 46.11, 2, 54),
@@ -1360,3 +1732,11 @@ INSERT INTO ChiTietBaoCao (id, maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lich
 (99, 'CTBC_LT47_BC099', 23, 5750000, 47.19, 47, 99),
 (100, 'CTBC_LT48_BC100', 23, 5750000, 47.7, 48, 100),
 (101, 'CTBC_LT49_BC101', 36, 12600000, 43.23, 49, 101);
+
+
+-- Bật lại kiểm tra khóa ngoại sau khi hoàn tất
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ============================================================================
+-- KẾT THÚC SCRIPT KHỞI TẠO CƠ SỞ DỮ LIỆU
+-- ============================================================================

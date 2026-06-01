@@ -5,6 +5,7 @@
 
 -- Bật tắt kiểm tra khóa ngoại để an toàn khi DROP và CREATE
 SET FOREIGN_KEY_CHECKS = 0;
+SET NAMES utf8mb4;
 
 -- Xóa bảng cũ nếu tồn tại để tránh xung đột khi chạy lại script (Thứ tự xóa ngược với thứ tự tạo)
 DROP TABLE IF EXISTS ChiTietBaoCao;
@@ -276,11 +277,11 @@ INSERT INTO KhachHang (maKH, hoTen, soCCCD, soDienThoai, email) VALUES
 INSERT INTO HanhTrinh (maHanhTrinh, tenHanhTrinh, quangDuong) VALUES
 ('HT_HNSG', 'Tuyến Bắc Nam - Hà Nội Sài Gòn', 1726.00);
 
-INSERT INTO NhaGa (maGa, tenNhaGa, soDienThoai, quanLyId) VALUES
-('GA_HANOI', 'Ga Hà Nội', '02439423697', 1),
-('GA_VINH', 'Ga Vinh', '02383844755', 1),
-('GA_DANANG', 'Ga Đà Nẵng', '02363821175', 1),
-('GA_SAIGON', 'Ga Sài Gòn', '02838436528', 1);
+INSERT INTO NhaGa (maGa, tenNhaGa, diaChi, soDienThoai, quanLyId) VALUES
+('GA_HANOI', 'Ga Hà Nội', 'Số 120 Lê Duẩn, Đống Đa, Hà Nội', '02439423697', 1),
+('GA_VINH', 'Ga Vinh', 'Số 1 Lê Lợi, Vinh, Nghệ An', '02383844755', 1),
+('GA_DANANG', 'Ga Đà Nẵng', 'Số 202 Hải Phòng, Thanh Khê, Đà Nẵng', '02363821175', 1),
+('GA_SAIGON', 'Ga Sài Gòn', 'Số 1 Nguyễn Thông, Quận 3, TP.HCM', '02838436528', 1);
 
 -- Chi tiết hành trình
 INSERT INTO ChiTietHanhTrinh (maCTHT, thuTuGa, nhaGaId, hanhTrinhId) VALUES

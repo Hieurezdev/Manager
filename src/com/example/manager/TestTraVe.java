@@ -5,14 +5,12 @@ import com.example.manager.boundary.TraVeFrm;
 import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.PhieuTraVeDAO;
 import com.example.manager.dao.VeTauDAO;
-import com.example.manager.dao.HoaDonDAO;
 import com.example.manager.entity.*;
 import com.example.manager.enums.*;
-
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ public class TestTraVe {
 
     public static void main(String[] args) {
         System.out.println("=== BAT DAU KIEM THU MO-DUL TRA VE ===");
-        
+
         Connection con = DBConnection.getConnection();
         if (con != null) {
             System.out.println("-> Phat hien CSDL MySQL active. Tu dong thiet lap du lieu test CSDL...");
@@ -42,7 +40,7 @@ public class TestTraVe {
             testNgoaiLeVeKhongTonTai();
             testNgoaiLeVeDaHuyTruocDo();
             testNgoaiLeVeQuaHanHoanTra();
-            
+
             System.out.println("=== DAT: TAT CA CAC CA KIEM THU TRA VE DEU DA VUOT QUA (ALL TESTS PASSED) ===");
         } finally {
             Connection cleanCon = DBConnection.getConnection();
@@ -61,7 +59,7 @@ public class TestTraVe {
     private static void setupRealDatabase(Connection con) {
         try (Statement stmt = con.createStatement()) {
             stmt.execute("SET SESSION sql_mode = 'ANSI_QUOTES'");
-            
+
             // Xóa sạch dữ liệu test để tránh trùng lặp
             stmt.executeUpdate("DELETE FROM PhieuTraVe WHERE maPhieuTra IN ('PTV_TEST_10H', 'PTV_TEST_2H')");
             stmt.executeUpdate("DELETE FROM PhieuTraVe WHERE veTauId = (SELECT id FROM VeTau WHERE maVe = 'VE_0002')");
@@ -75,19 +73,19 @@ public class TestTraVe {
             stmt.executeUpdate("UPDATE GheNgoi SET trangThai = 'DaDat' WHERE id = 5");
 
             // Chèn Ghế Ngồi mẫu
-            stmt.executeUpdate("INSERT INTO GheNgoi (maGhe, soGhe, viTri, trangThai, toaTauId) VALUES " +
-                    "('G_TEST_10', 10, 'CuaSo', 'DaDat', 1), " +
-                    "('G_TEST_20', 20, 'CuaSo', 'DaDat', 1)");
+            stmt.executeUpdate("INSERT INTO GheNgoi (maGhe, soGhe, viTri, trangThai, toaTauId) VALUES "
+                    + "('G_TEST_10', 10, 'CuaSo', 'DaDat', 1), "
+                    + "('G_TEST_20', 20, 'CuaSo', 'DaDat', 1)");
 
             // Chèn Lịch trình mẫu (DATE_ADD relative to NOW())
-            stmt.executeUpdate("INSERT INTO LichTrinh (maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) VALUES " +
-                    "('LT_TEST_10H', DATE_ADD(NOW(), INTERVAL 10 HOUR), 'ChuaChay', 1, 1, 1), " +
-                    "('LT_TEST_2H', DATE_ADD(NOW(), INTERVAL 2 HOUR), 'ChuaChay', 1, 1, 1)");
+            stmt.executeUpdate("INSERT INTO LichTrinh (maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) VALUES "
+                    + "('LT_TEST_10H', DATE_ADD(NOW(), INTERVAL 10 HOUR), 'ChuaChay', 1, 1, 1), "
+                    + "('LT_TEST_2H', DATE_ADD(NOW(), INTERVAL 2 HOUR), 'ChuaChay', 1, 1, 1)");
 
             // Chèn Vé Tàu mẫu
-            stmt.executeUpdate("INSERT INTO VeTau (maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lichTrinhId, nhanVienId, khachHangId, gheNgoiId, chinhSachGiaId, hoaDonId) VALUES " +
-                    "('VE_TEST_10H', 'NguoiLon', 500000, 'DaBan', DATE_SUB(NOW(), INTERVAL 1 DAY), (SELECT id FROM LichTrinh WHERE maLichTrinh='LT_TEST_10H'), 2, 1, (SELECT id FROM GheNgoi WHERE maGhe='G_TEST_10'), 1, 1), " +
-                    "('VE_TEST_2H', 'NguoiLon', 500000, 'DaBan', DATE_SUB(NOW(), INTERVAL 1 DAY), (SELECT id FROM LichTrinh WHERE maLichTrinh='LT_TEST_2H'), 2, 1, (SELECT id FROM GheNgoi WHERE maGhe='G_TEST_20'), 1, 1)");
+            stmt.executeUpdate("INSERT INTO VeTau (maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lichTrinhId, nhanVienId, khachHangId, gheNgoiId, chinhSachGiaId, hoaDonId) VALUES "
+                    + "('VE_TEST_10H', 'NguoiLon', 500000, 'DaBan', DATE_SUB(NOW(), INTERVAL 1 DAY), (SELECT id FROM LichTrinh WHERE maLichTrinh='LT_TEST_10H'), 2, 1, (SELECT id FROM GheNgoi WHERE maGhe='G_TEST_10'), 1, 1), "
+                    + "('VE_TEST_2H', 'NguoiLon', 500000, 'DaBan', DATE_SUB(NOW(), INTERVAL 1 DAY), (SELECT id FROM LichTrinh WHERE maLichTrinh='LT_TEST_2H'), 2, 1, (SELECT id FROM GheNgoi WHERE maGhe='G_TEST_20'), 1, 1)");
 
         } catch (SQLException e) {
             System.err.println("Setup real database failed: " + e.getMessage());
@@ -103,7 +101,7 @@ public class TestTraVe {
             stmt.executeUpdate("DELETE FROM VeTau WHERE maVe IN ('VE_TEST_10H', 'VE_TEST_2H')");
             stmt.executeUpdate("DELETE FROM LichTrinh WHERE maLichTrinh IN ('LT_TEST_10H', 'LT_TEST_2H')");
             stmt.executeUpdate("DELETE FROM GheNgoi WHERE maGhe IN ('G_TEST_10', 'G_TEST_20')");
-            
+
             // Reset vé VE_0002 và ghế số 5 về ban đầu
             stmt.executeUpdate("UPDATE VeTau SET trangThai = 'DaBan' WHERE maVe = 'VE_0002'");
             stmt.executeUpdate("UPDATE GheNgoi SET trangThai = 'DaDat' WHERE id = 5");
@@ -115,7 +113,7 @@ public class TestTraVe {
     private static void initMockDatabase() {
         VeTauDAO.mockVeTauList.clear();
         PhieuTraVeDAO.mockPhieuTraVeList.clear();
-        HoaDonDAO.mockHoaDonList.clear();
+        //HoaDonDAO.mockHoaDonList.clear();
 
         NhaGa gaHN = new NhaGa("GA-HN", "Ga Ha Noi", "", "024");
         NhaGa gaSG = new NhaGa("GA-SG", "Ga Sai Gon", "", "028");

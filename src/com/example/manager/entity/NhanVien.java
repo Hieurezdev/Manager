@@ -4,18 +4,19 @@ public class NhanVien extends TaiKhoan {
     private String maNhanVien;
     private String soDienThoai;
 
+    // === Constructor mặc định từ GitHub ===
     public NhanVien() {
         super();
     }
 
-    public NhanVien(String maTaiKhoan, String tenDangNhap, String matKhau,
-                    String hoTen, String vaiTro, String trangThai,
+    // === Constructor đầy đủ tham số từ GitHub (Quản lý cả Tài Khoản) ===
+    public NhanVien(String maTaiKhoan, String tenDangNhap, String matKhau, String hoTen, String vaiTro, String trangThai,
                     String maNhanVien, String soDienThoai) {
         super(maTaiKhoan, tenDangNhap, matKhau, hoTen, vaiTro, trangThai);
         this.maNhanVien = maNhanVien;
         this.soDienThoai = soDienThoai;
     }
-
+    
     public String getMaNhanVien() { return maNhanVien; }
     public void setMaNhanVien(String maNhanVien) { this.maNhanVien = maNhanVien; }
 

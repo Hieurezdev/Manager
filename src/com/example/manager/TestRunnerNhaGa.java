@@ -5,16 +5,13 @@ import com.example.manager.boundary.QuanLyChiTietGaFrm;
 import com.example.manager.boundary.QuanLyChungFrm;
 import com.example.manager.boundary.QuanLyGaFrm;
 import com.example.manager.boundary.ThemGaFrm;
-import com.example.manager.dao.NhaGaDAO;
 import com.example.manager.entity.NhaGa;
-
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
- * Manual test runner for module "Quản lý nhà ga".
- * Follows the same assertion style as TestRunner.java in this codebase.
- * Covers every opt-block in the sequence diagram.
+ * Manual test runner for module "Quản lý nhà ga". Follows the same assertion
+ * style as TestRunner.java in this codebase. Covers every opt-block in the
+ * sequence diagram.
  */
 public class TestRunnerNhaGa {
 
@@ -40,7 +37,7 @@ public class TestRunnerNhaGa {
         frm.setTxtTDN("admin");
         frm.setTxtMK("1234");
 
-        QuanLyChungFrm chungFrm = frm.dangNhap();
+        QuanLyChungFrm chungFrm = (QuanLyChungFrm) frm.dangNhap();
 
         expect(frm.isDangNhapThanhCong(), "Dang nhap hop le phai thanh cong");
         expect(chungFrm != null, "Phai mo QuanLyChungFrm sau khi dang nhap");
@@ -52,7 +49,7 @@ public class TestRunnerNhaGa {
         frm.setTxtTDN("");
         frm.setTxtMK("");
 
-        QuanLyChungFrm chungFrm = frm.dangNhap();
+        QuanLyChungFrm chungFrm = (QuanLyChungFrm) frm.dangNhap();
 
         expect(!frm.isDangNhapThanhCong(), "Dang nhap thieu thong tin phai that bai");
         expect(chungFrm == null, "Khong duoc mo QuanLyChungFrm khi dang nhap sai");
