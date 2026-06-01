@@ -56,7 +56,7 @@ public class HanhTrinh {
 
     // ĐỒNG BỘ: Trả lại hàm bốc ga trung gian cho bạn ông làm Thống kê không bị gãy code
     public List<ChiTietHanhTrinh> getDanhSachGaTrungGian() {
-        com.example.manager.dao.HanhTrinhDAO dao = new com.example.manager.dao.HanhTrinhDAO(null);
+        com.example.manager.dao.HanhTrinhDAO dao = new com.example.manager.dao.HanhTrinhDAO(com.example.manager.dao.DBConnection.getConnection());
         return dao.getGaTrungGian(this.maHanhTrinh);
     }
 

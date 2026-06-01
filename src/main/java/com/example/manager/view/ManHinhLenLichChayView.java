@@ -139,6 +139,8 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
         btnXacNhanReal.setFont(new Font("Arial", Font.BOLD, 12));
         btnXacNhanReal.setBackground(new Color(40, 167, 69));
         btnXacNhanReal.setForeground(Color.WHITE);
+        btnXacNhanReal.setOpaque(true);
+        btnXacNhanReal.setBorderPainted(false);
         btnXacNhanReal.addActionListener(this);
 
         pnlSouth.add(btnQuayLai);
@@ -186,10 +188,7 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
 
     private void callAfterChonTau() {
         try {
-            // Thay vì gọi DAO.con bị lỗi protected, ta truyền thẳng null vào Constructor.
-            // Nếu hệ thống chạy thật và đã có kết nối trước đó, bạn có thể truyền Connection hợp lệ vào đây.
-            java.sql.Connection currentCon = null;
-            com.example.manager.dao.HanhTrinhDAO hanhTrinhDAO = new com.example.manager.dao.HanhTrinhDAO(currentCon);
+            com.example.manager.dao.HanhTrinhDAO hanhTrinhDAO = new com.example.manager.dao.HanhTrinhDAO(com.example.manager.dao.DBConnection.getConnection());
 
             // Gọi hàm bốc dữ liệu có sẵn của bạn
             this.danhSachHanhTrinh = hanhTrinhDAO.getAllHanhTrinh();
