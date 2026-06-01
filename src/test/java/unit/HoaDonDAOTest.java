@@ -50,4 +50,17 @@ public class HoaDonDAOTest {
         
         verify(mockConnection, times(1)).commit();
     }
+
+    @Test
+    public void testCreateHoaDon_ValidRefundTransactionSavedSuccessfully() throws Exception {
+        when(mockPreparedStatement.executeUpdate()).thenReturn(1);
+        HoaDon hd = new HoaDon();
+        hd.setMaHoaDon("HD_TRA_001");
+        hd.setLoaiHoaDon("Tra ve");
+        hd.setNgayTao(java.time.LocalDateTime.now());
+        hd.setTongTien(100000);
+        
+        boolean result = hoaDonDAO.createHoaDon(hd);
+        assertTrue(result);
+    }
 }

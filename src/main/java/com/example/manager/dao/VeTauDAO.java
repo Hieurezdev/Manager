@@ -155,6 +155,11 @@ public class VeTauDAO extends DAO {
                     HanhTrinh ht = new HanhTrinh();
                     ht.setMaHanhTrinh(rs.getString("maHanhTrinh"));
                     ht.setTenHanhTrinh(rs.getString("tenHanhTrinh"));
+                    
+                    // Fetch ChiTietHanhTrinh so that getGaDau() and getGaCuoi() work
+                    HanhTrinhDAO htDAO = new HanhTrinhDAO(con);
+                    ht.setChiTietHanhTrinh(htDAO.getGaTrungGian(ht.getMaHanhTrinh()));
+                    
                     lt.setHanhTrinh(ht);
 
                     // Khoi tao Doan tau

@@ -27,4 +27,17 @@ public class PhieuTraVeDAOTest {
         int tienPhat = phieuTraVeDAO.tinhTienPhat(veTau);
         assertEquals(100000, tienPhat); // 10% cua 1000000
     }
+
+    @Test
+    public void testTinhTienPhat_InvalidPenaltyDueToLateCancellation() {
+        VeTau veTau = new VeTau();
+        veTau.setGiaVe(1000000);
+        LichTrinh lt = new LichTrinh();
+        // Sát giờ: Chỉ còn cách lúc chạy 2 tiếng (< 4 tiếng)
+        lt.setNgayKhoiHanh(LocalDateTime.now().plusHours(2));
+        veTau.setLichTrinh(lt);
+        
+        int tienPhat = phieuTraVeDAO.tinhTienPhat(veTau);
+        assertEquals(-1, tienPhat);
+    }
 }

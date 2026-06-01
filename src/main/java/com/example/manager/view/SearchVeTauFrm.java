@@ -300,6 +300,13 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
      */
     public TraVeFrm moManHinhTraVe(VeTau ve) {
         TraVeFrm traVeFrm = new TraVeFrm(ve);
+        
+        // NẾU VÉ BỊ CHẶN LẠI (SÁT GIỜ) THÌ KHÔNG HIỂN THỊ FORM HÓA ĐƠN NỮA
+        if (!traVeFrm.isBtnXacNhanEnabled()) {
+            // Constructor của TraVeFrm đã hiển thị sẵn popup báo lỗi rồi, nên ở đây chỉ cần return, không mở giao diện Hóa đơn nữa.
+            return traVeFrm;
+        }
+        
         try {
             // Gọi hiển thị đồ họa cửa sổ TraVeFrm lên nếu lớp đó đã được cấu trúc thành Swing JFrame/JDialog
             java.lang.reflect.Method showMethod = traVeFrm.getClass().getMethod("setVisible", boolean.class);

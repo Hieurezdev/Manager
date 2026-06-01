@@ -1596,3 +1596,26 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ============================================================================
 -- KẾT THÚC SCRIPT KHỞI TẠO CƠ SỞ DỮ LIỆU
 -- ============================================================================
+-- 1. FIX CHO TEST CASE 1 (Mã vé VE_0012)
+-- Đổi khách hàng về ID hợp lệ (Phạm Văn Anh - ID 1)
+UPDATE VeTau SET khachHangId = 1 WHERE maVe = 'VE_0012';
+UPDATE HoaDon SET khachHangId = 1 WHERE maHoaDon = 'HD_0012';
+-- Thêm chi tiết lịch trình cho chuyến tàu của vé này (lichTrinhId = 36)
+INSERT INTO ChiTietLichTrinh (maCTLT, gioDen, gioDi, nhaGaId, lichTrinhId) VALUES
+('CTLT_36_01', NULL, '2026-06-19 08:00:00', 10, 36), -- Ga đi: Huế
+('CTLT_36_02', '2026-06-19 11:30:00', NULL, 3, 36);  -- Ga đến: Đà Nẵng
+
+-- 2. FIX CHO TEST CASE 3 (Mã vé VE_0006 - Vé đã trả)
+-- Đổi khách hàng về ID hợp lệ (Phạm Minh Đức - ID 2)
+UPDATE VeTau SET khachHangId = 2 WHERE maVe = 'VE_0006';
+UPDATE HoaDon SET khachHangId = 2 WHERE maHoaDon = 'HD_0006';
+-- Thêm chi tiết lịch trình cho chuyến tàu của vé này (lichTrinhId = 2)
+INSERT INTO ChiTietLichTrinh (maCTLT, gioDen, gioDi, nhaGaId, lichTrinhId) VALUES
+('CTLT_02_01', NULL, '2026-06-02 08:00:00', 1, 2), -- Ga đi: Hà Nội
+('CTLT_02_02', '2026-06-02 10:30:00', NULL, 5, 2); -- Ga đến: Hải Phòng
+
+-- Thay '2026-06-01 20:30:00' thành mốc thời gian chỉ sau thời điểm bạn bấm test khoảng 1-2 tiếng.
+UPDATE LichTrinh SET ngayKhoiHanh = '2026-06-01 20:30:00' WHERE id = 6;
+
+-- Cập nhật ID khách hàng hợp lệ để không bị lỗi NULL trên giao diện
+UPDATE VeTau SET khachHangId = 1 WHERE maVe = 'VE_0005';
