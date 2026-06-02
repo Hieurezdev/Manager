@@ -11,7 +11,7 @@ public class DBConnection {
     private static final String DB_PORT = getEnvOrDefault("DB_PORT", "3307");
     private static final String DB_NAME = getEnvOrDefault("DB_NAME", "manager_db");
     private static final String USER = getEnvOrDefault("DB_USER", "root");
-    private static final String PASSWORD = getEnvOrDefault("DB_PASSWORD", "123456");
+    private static final String PASSWORD = getEnvOrDefault("DB_PASSWORD", "Hch301105#");
     private static final String URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME
             + "?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true"
             + "&createDatabaseIfNotExist=true&characterEncoding=UTF-8";

@@ -48,7 +48,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
      * * Constructor mặc định phục vụ kiểm thử hệ thống từ GitHub
      */
     public QuanLyGaFrm() {
-        java.sql.Connection currentCon = null;
+        java.sql.Connection currentCon = com.example.manager.dao.DBConnection.getConnection();
         this.nhaGaDAO = new NhaGaDAO(currentCon);
 
         khoiTaoGiaoDien();
@@ -60,7 +60,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
      */
     public QuanLyGaFrm(JFrame parent) {
         this.menuGoc = parent;
-        java.sql.Connection currentCon = null;
+        java.sql.Connection currentCon = com.example.manager.dao.DBConnection.getConnection();
         this.nhaGaDAO = new NhaGaDAO(currentCon);
 
         setTitle("QUẢN LÝ THÔNG TIN NHÀ GA - PTIT RAILWAY");

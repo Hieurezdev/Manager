@@ -535,36 +535,36 @@ INSERT INTO DoanTau (maTau, tenTau, loaiTau, trangThai) VALUES
 
 -- Them du lieu vao bang QuanLy 
 INSERT INTO QuanLy (id, maQuanLy) VALUES
-(133, 'QL_HANOI_01'),
-(134, 'QL_HANOI_02'),
-(135, 'QL_HANOI_03'),
-(136, 'QL_HANOI_04'),
-(137, 'QL_HANOI_05'),
-(138, 'QL_HANOI_06'),
-(139, 'QL_HANOI_07'),
-(140, 'QL_HANOI_08'),
-(141, 'QL_HANOI_09'),
-(142, 'QL_HANOI_10');
+(1, 'QL_HANOI_01'),
+(2, 'QL_HANOI_02'),
+(3, 'QL_HANOI_03'),
+(4, 'QL_HANOI_04'),
+(5, 'QL_HANOI_05'),
+(6, 'QL_HANOI_06'),
+(7, 'QL_HANOI_07'),
+(8, 'QL_HANOI_08'),
+(9, 'QL_HANOI_09'),
+(10, 'QL_HANOI_10');
 
 -- Them du lieu vao bang NhanVien 
 INSERT INTO NhanVien (id, maNhanVien) VALUES
-(143, 'NV_QUAY_01'),
-(144, 'NV_QUAY_02'),
-(145, 'NV_QUAY_03'),
-(146, 'NV_QUAY_04'),
-(147, 'NV_QUAY_05'),
-(148, 'NV_QUAY_06'),
-(149, 'NV_QUAY_07'),
-(150, 'NV_QUAY_08'),
-(151, 'NV_QUAY_09'),
-(152, 'NV_QUAY_10'),
-(153, 'NV_QUAY_11'),
-(154, 'NV_QUAY_12'),
-(155, 'NV_QUAY_13'),
-(156, 'NV_QUAY_14'),
-(157, 'NV_QUAY_15'),
-(158, 'NV_QUAY_16'),
-(159, 'NV_QUAY_17');
+(11, 'NV_QUAY_01'),
+(12, 'NV_QUAY_02'),
+(13, 'NV_QUAY_03'),
+(14, 'NV_QUAY_04'),
+(15, 'NV_QUAY_05'),
+(16, 'NV_QUAY_06'),
+(17, 'NV_QUAY_07'),
+(18, 'NV_QUAY_08'),
+(19, 'NV_QUAY_09'),
+(20, 'NV_QUAY_10'),
+(21, 'NV_QUAY_11'),
+(22, 'NV_QUAY_12'),
+(23, 'NV_QUAY_13'),
+(24, 'NV_QUAY_14'),
+(25, 'NV_QUAY_15'),
+(26, 'NV_QUAY_16'),
+(27, 'NV_QUAY_17');
 -- Them Nha Ga
 -- ==============================================================================
 -- CẬP NHẬT LỆNH INSERT CHO BẢNG NHÀ GA (NhaGa)
@@ -572,35 +572,35 @@ INSERT INTO NhanVien (id, maNhanVien) VALUES
 -- ==============================================================================
 INSERT INTO NhaGa (id, maGa, tenNhaGa, diaChi, soDienThoai, quanLyId) VALUES
 (1, 'GA_HANOI', 'Ga Hà Nội', '120 Lê Duẩn, Đống Đa, Hà Nội', '02439423697', 1),
-(2, 'GA_VINH', 'Ga Vinh', 'Số 1 Lê Lợi, Phường Lê Lợi, TP. Vinh, Nghệ An', '02383844755', 5),
-(3, 'GA_DANANG', 'Ga Đà Nẵng', '200 Hải Phòng, Tân Chính, Thanh Khê, Đà Nẵng', '02363821175', 6),
-(4, 'GA_SAIGON', 'Ga Sài Gòn', '1 Nguyễn Thông, Phường 9, Quận 3, TP. Hồ Chí Minh', '02838436528', 7),
-(5, 'GA_HAIPHONG', 'Ga Hải Phòng', '75 Lương Khánh Thiện, Ngô Quyền, Hải Phòng', '02253921333', 8),
-(6, 'GA_NAMDINH', 'Ga Nam Định', '2 Trần Đăng Ninh, TP. Nam Định, Nam Định', '02283835222', 12),
-(7, 'GA_NINHBINH', 'Ga Ninh Bình', 'Ngõ 41 Hoàng Diệu, Thanh Bình, TP. Ninh Bình, Ninh Bình', '02293633222', 14),
-(8, 'GA_THANHHOA', 'Ga Thanh Hóa', '19 Dương Đình Nghệ, Tân Sơn, TP. Thanh Hóa, Thanh Hóa', '02373752222', 20),
-(9, 'GA_DONGHOI', 'Ga Đồng Hới', 'Tiểu khu 4, Phường Bắc Lý, TP. Đồng Hới, Quảng Bình', '02323822222', 23),
-(10, 'GA_HUE', 'Ga Huế', '2 Bùi Thị Xuân, Phường Đúc, TP. Huế, Thừa Thiên Huế', '02343822222', 27),
-(11, 'GA_TAMKY', 'Ga Tam Kỳ', 'Nguyễn Hoàng, Phường An Xuân, TP. Tam Kỳ, Quảng Nam', '02353822222', 29),
-(12, 'GA_QUANGNGAI', 'Ga Quảng Ngãi', '204 Nguyễn Chánh, Phường Trần Phú, TP. Quảng Ngãi, Quảng Ngãi', '02553822222', 31),
-(13, 'GA_QUYNHON', 'Ga Quy Nhơn', 'Lê Hồng Phong, Phường Ngô Mây, TP. Quy Nhơn, Bình Định', '02563822222', 40),
-(14, 'GA_DIEUTRI', 'Ga Diêu Trì', 'Thị trấn Diêu Trì, Huyện Tuy Phước, Bình Định', '02563833333', 42),
-(15, 'GA_TUYHOA', 'Ga Tuy Hòa', '271 Lê Trung Kiên, Phường 2, TP. Tuy Hòa, Phú Yên', '02573822222', 47),
-(16, 'GA_NHATRANG', 'Ga Nha Trang', '17 Thái Nguyên, Phước Tân, TP. Nha Trang, Khánh Hòa', '02583822222', 58),
-(17, 'GA_BINHTHUAN', 'Ga Bình Thuận', 'Xã Hàm Hiệp, Huyện Hàm Thuận Bắc, Bình Thuận', '02523822222', 60),
-(18, 'GA_PHANTHIET', 'Ga Phan Thiết', 'Phong Nẫm, TP. Phan Thiết, Bình Thuận', '02523833333', 65),
-(19, 'GA_LONGKHANH', 'Ga Long Khánh', 'Hùng Vương, Xuân An, TP. Long Khánh, Đồng Nai', '02513822222', 67),
-(20, 'GA_BIENHOA', 'Ga Biên Hòa', 'Hưng Đạo Vương, Trung Dũng, TP. Biên Hòa, Đồng Nai', '02513833333', 81),
-(21, 'GA_LAOCAI', 'Ga Lào Cai', 'Tổ 25, Phường Phố Mới, TP. Lào Cai, Lào Cai', '02143822222', 86),
-(22, 'GA_YENBAI', 'Ga Yên Bái', '218 Nguyễn Văn Cừ, Phường Đồng Tâm, TP. Yên Bái, Yên Bái', '02163822222', 12),
-(23, 'GA_THAINGUYEN', 'Ga Thái Nguyên', 'Phường Quang Trung, TP. Thái Nguyên, Thái Nguyên', '02083822222', 93),
-(24, 'GA_LANGSON', 'Ga Lạng Sơn', 'Lê Lợi, Phường Vĩnh Trại, TP. Lạng Sơn, Lạng Sơn', '02053822222', 95),
-(25, 'GA_PHULY', 'Ga Phủ Lý', 'Phường Hai Bà Trưng, TP. Phủ Lý, Hà Nam', '02263822222', 96),
-(26, 'GA_HAIDUONG', 'Ga Hải Dương', 'Hồng Quang, Phường Quang Trung, TP. Hải Dương, Hải Dương', '02203822222', 97),
-(27, 'GA_HALONG', 'Ga Hạ Long', 'Giếng Đáy, TP. Hạ Long, Quảng Ninh', '02033822222', 100),
-(28, 'GA_DONGDANG', 'Ga Đồng Đăng', 'Thị trấn Đồng Đăng, Huyện Cao Lộc, Lạng Sơn', '02053833333', 103),
-(29, 'GA_BIMSON', 'Ga Bỉm Sơn', 'Phường Ngọc Trạo, Thị xã Bỉm Sơn, Thanh Hóa', '02373833333', 14),
-(30, 'GA_DONGHA', 'Ga Đông Hà', '2 Hùng Vương, Phường 1, TP. Đông Hà, Quảng Trị', '02333822222', 1);
+(2, 'GA_VINH', 'Ga Vinh', 'Số 1 Lê Lợi, Phường Lê Lợi, TP. Vinh, Nghệ An', '02383844755', 1),
+(3, 'GA_DANANG', 'Ga Đà Nẵng', '200 Hải Phòng, Tân Chính, Thanh Khê, Đà Nẵng', '02363821175', 1),
+(4, 'GA_SAIGON', 'Ga Sài Gòn', '1 Nguyễn Thông, Phường 9, Quận 3, TP. Hồ Chí Minh', '02838436528', 2),
+(5, 'GA_HAIPHONG', 'Ga Hải Phòng', '75 Lương Khánh Thiện, Ngô Quyền, Hải Phòng', '02253921333', 2),
+(6, 'GA_NAMDINH', 'Ga Nam Định', '2 Trần Đăng Ninh, TP. Nam Định, Nam Định', '02283835222', 2),
+(7, 'GA_NINHBINH', 'Ga Ninh Bình', 'Ngõ 41 Hoàng Diệu, Thanh Bình, TP. Ninh Bình, Ninh Bình', '02293633222', 3),
+(8, 'GA_THANHHOA', 'Ga Thanh Hóa', '19 Dương Đình Nghệ, Tân Sơn, TP. Thanh Hóa, Thanh Hóa', '02373752222', 3),
+(9, 'GA_DONGHOI', 'Ga Đồng Hới', 'Tiểu khu 4, Phường Bắc Lý, TP. Đồng Hới, Quảng Bình', '02323822222', 3),
+(10, 'GA_HUE', 'Ga Huế', '2 Bùi Thị Xuân, Phường Đúc, TP. Huế, Thừa Thiên Huế', '02343822222', 4),
+(11, 'GA_TAMKY', 'Ga Tam Kỳ', 'Nguyễn Hoàng, Phường An Xuân, TP. Tam Kỳ, Quảng Nam', '02353822222', 4),
+(12, 'GA_QUANGNGAI', 'Ga Quảng Ngãi', '204 Nguyễn Chánh, Phường Trần Phú, TP. Quảng Ngãi, Quảng Ngãi', '02553822222', 4),
+(13, 'GA_QUYNHON', 'Ga Quy Nhơn', 'Lê Hồng Phong, Phường Ngô Mây, TP. Quy Nhơn, Bình Định', '02563822222', 5),
+(14, 'GA_DIEUTRI', 'Ga Diêu Trì', 'Thị trấn Diêu Trì, Huyện Tuy Phước, Bình Định', '02563833333', 5),
+(15, 'GA_TUYHOA', 'Ga Tuy Hòa', '271 Lê Trung Kiên, Phường 2, TP. Tuy Hòa, Phú Yên', '02573822222', 5),
+(16, 'GA_NHATRANG', 'Ga Nha Trang', '17 Thái Nguyên, Phước Tân, TP. Nha Trang, Khánh Hòa', '02583822222', 6),
+(17, 'GA_BINHTHUAN', 'Ga Bình Thuận', 'Xã Hàm Hiệp, Huyện Hàm Thuận Bắc, Bình Thuận', '02523822222', 6),
+(18, 'GA_PHANTHIET', 'Ga Phan Thiết', 'Phong Nẫm, TP. Phan Thiết, Bình Thuận', '02523833333', 6),
+(19, 'GA_LONGKHANH', 'Ga Long Khánh', 'Hùng Vương, Xuân An, TP. Long Khánh, Đồng Nai', '02513822222', 7),
+(20, 'GA_BIENHOA', 'Ga Biên Hòa', 'Hưng Đạo Vương, Trung Dũng, TP. Biên Hòa, Đồng Nai', '02513833333', 7),
+(21, 'GA_LAOCAI', 'Ga Lào Cai', 'Tổ 25, Phường Phố Mới, TP. Lào Cai, Lào Cai', '02143822222', 7),
+(22, 'GA_YENBAI', 'Ga Yên Bái', '218 Nguyễn Văn Cừ, Phường Đồng Tâm, TP. Yên Bái, Yên Bái', '02163822222', 8),
+(23, 'GA_THAINGUYEN', 'Ga Thái Nguyên', 'Phường Quang Trung, TP. Thái Nguyên, Thái Nguyên', '02083822222', 8),
+(24, 'GA_LANGSON', 'Ga Lạng Sơn', 'Lê Lợi, Phường Vĩnh Trại, TP. Lạng Sơn, Lạng Sơn', '02053822222', 8),
+(25, 'GA_PHULY', 'Ga Phủ Lý', 'Phường Hai Bà Trưng, TP. Phủ Lý, Hà Nam', '02263822222', 9),
+(26, 'GA_HAIDUONG', 'Ga Hải Dương', 'Hồng Quang, Phường Quang Trung, TP. Hải Dương, Hải Dương', '02203822222', 9),
+(27, 'GA_HALONG', 'Ga Hạ Long', 'Giếng Đáy, TP. Hạ Long, Quảng Ninh', '02033822222', 9),
+(28, 'GA_DONGDANG', 'Ga Đồng Đăng', 'Thị trấn Đồng Đăng, Huyện Cao Lộc, Lạng Sơn', '02053833333', 10),
+(29, 'GA_BIMSON', 'Ga Bỉm Sơn', 'Phường Ngọc Trạo, Thị xã Bỉm Sơn, Thanh Hóa', '02373833333', 10),
+(30, 'GA_DONGHA', 'Ga Đông Hà', '2 Hùng Vương, Phường 1, TP. Đông Hà, Quảng Trị', '02333822222', 10);
 
 -- Them Toa Tau
 INSERT INTO ToaTau (maToa, tenToa, soThuTu, loaiToa, soLuongGheToiDa, moTa, doanTauId) VALUES
@@ -611,35 +611,35 @@ INSERT INTO ToaTau (maToa, tenToa, soThuTu, loaiToa, soLuongGheToiDa, moTa, doan
 ('TOA04_DT1', 'Toa 4 - Giường nằm khoang 4', 4, 'GiuongNam', 28, 'Khoang nằm VIP, đệm mềm', 1),
 ('TOA05_DT1', 'Toa 5 - Giường nằm khoang 6', 5, 'GiuongNam', 42, 'Khoang nằm tiêu chuẩn', 1),
 
--- Tàu Thống Nhất SE1 - bản ghi mới (id = 2)
+-- Tàu Thống Nhất SE2 (id = 2)
 ('TOA01_DT2', 'Toa 1 - Ngồi mềm điều hòa', 1, 'NgoiMem', 64, 'Toa ghế mềm chất lượng cao', 2),
 ('TOA02_DT2', 'Toa 2 - Ngồi mềm điều hòa', 2, 'NgoiMem', 64, 'Toa ghế mềm chất lượng cao', 2),
 ('TOA03_DT2', 'Toa 3 - Giường nằm khoang 4', 3, 'GiuongNam', 28, 'Khoang nằm VIP hạng thương gia', 2),
 ('TOA04_DT2', 'Toa 4 - Giường nằm khoang 4', 4, 'GiuongNam', 28, 'Khoang nằm VIP hạng thương gia', 2),
 ('TOA05_DT2', 'Toa 5 - Giường nằm khoang 6', 5, 'GiuongNam', 42, 'Khoang nằm gia đình', 2),
 
--- Tàu Thống Nhất SE2 (id = 3)
+-- Tàu Thống Nhất SE3 (id = 3)
 ('TOA01_DT3', 'Toa 1 - Ngồi cứng', 1, 'NgoiCung', 80, 'Toa thường không điều hòa', 3),
 ('TOA02_DT3', 'Toa 2 - Ngồi cứng', 2, 'NgoiCung', 80, 'Toa thường không điều hòa', 3),
 ('TOA03_DT3', 'Toa 3 - Ngồi mềm điều hòa', 3, 'NgoiMem', 64, 'Toa ghế mềm tiêu chuẩn', 3),
 ('TOA04_DT3', 'Toa 4 - Ngồi mềm điều hòa', 4, 'NgoiMem', 64, 'Toa ghế mềm tiêu chuẩn', 3),
 ('TOA05_DT3', 'Toa 5 - Giường nằm khoang 6', 5, 'GiuongNam', 42, 'Toa giường nằm tiêu chuẩn', 3),
 
--- Tàu Thống Nhất SE3 (id = 4)
+-- Tàu Thống Nhất SE4 (id = 4)
 ('TOA01_DT4', 'Toa 1 - Giường nằm khoang 4', 1, 'GiuongNam', 28, 'Toa du lịch chất lượng cao', 4),
 ('TOA02_DT4', 'Toa 2 - Giường nằm khoang 4', 2, 'GiuongNam', 28, 'Toa du lịch chất lượng cao', 4),
 ('TOA03_DT4', 'Toa 3 - Giường nằm khoang 4', 3, 'GiuongNam', 28, 'Toa du lịch chất lượng cao', 4),
 ('TOA04_DT4', 'Toa 4 - Ngồi mềm điều hòa', 4, 'NgoiMem', 64, 'Toa phục vụ khách chặng ngắn', 4),
 ('TOA05_DT4', 'Toa 5 - Ngồi mềm điều hòa', 5, 'NgoiMem', 64, 'Toa phục vụ khách chặng ngắn', 4),
 
--- Tàu Thống Nhất SE4 (id = 5)
+-- Tàu Thống Nhất SE5 (id = 5)
 ('TOA01_DT5', 'Toa 1 - Ngồi cứng', 1, 'NgoiCung', 80, 'Toa xe chở khách phổ thông', 5),
 ('TOA02_DT5', 'Toa 2 - Ngồi cứng', 2, 'NgoiCung', 80, 'Toa xe chở khách phổ thông', 5),
 ('TOA03_DT5', 'Toa 3 - Ngồi mềm điều hòa', 3, 'NgoiMem', 64, 'Toa điều hòa giá rẻ', 5),
 ('TOA04_DT5', 'Toa 4 - Ngồi mềm điều hòa', 4, 'NgoiMem', 64, 'Toa điều hòa giá rẻ', 5),
 ('TOA05_DT5', 'Toa 5 - Giường nằm khoang 6', 5, 'GiuongNam', 42, 'Toa nằm phổ thông', 5),
 
--- Tàu Thống Nhất SE5 (id = 6)
+-- Tàu Thống Nhất SE6 (id = 6)
 ('TOA01_DT6', 'Toa 1 - Ngồi mềm điều hòa', 1, 'NgoiMem', 64, 'Toa ghế mềm cao cấp', 6),
 ('TOA02_DT6', 'Toa 2 - Ngồi mềm điều hòa', 2, 'NgoiMem', 64, 'Toa ghế mềm cao cấp', 6),
 ('TOA03_DT6', 'Toa 3 - Giường nằm khoang 4', 3, 'GiuongNam', 28, 'Khoang giường nằm êm ái', 6),
@@ -648,101 +648,101 @@ INSERT INTO ToaTau (maToa, tenToa, soThuTu, loaiToa, soLuongGheToiDa, moTa, doan
 
 -- Them ghe ngoi 
 INSERT INTO GheNgoi (id, maGhe, soGhe, viTri, trangThai, moTa, toaTauId) VALUES
--- Toa 1 - Ngồi mềm điều hòa (toaTauId = 3, mã toa: TOA01_DT1)
-(9, 'TOA01_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 3),
-(10, 'TOA01_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 3),
-(11, 'TOA01_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi mềm số 3', 3),
-(12, 'TOA01_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 4', 3),
-(13, 'TOA01_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 3),
+-- Toa 1 - Ngồi mềm điều hòa (toaTauId = 1, mã toa: TOA01_DT1)
+(9, 'TOA01_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 1),
+(10, 'TOA01_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 1),
+(11, 'TOA01_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi mềm số 3', 1),
+(12, 'TOA01_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 4', 1),
+(13, 'TOA01_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 1),
 
--- Toa 3 - Ngồi cứng (toaTauId = 5, mã toa: TOA03_DT1)
-(14, 'TOA03_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 5),
-(15, 'TOA03_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 5),
-(16, 'TOA03_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 5),
-(17, 'TOA03_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 5),
-(18, 'TOA03_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 5),
+-- Toa 3 - Ngồi cứng (toaTauId = 3, mã toa: TOA03_DT1)
+(14, 'TOA03_DT1_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 3),
+(15, 'TOA03_DT1_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 3),
+(16, 'TOA03_DT1_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 3),
+(17, 'TOA03_DT1_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 3),
+(18, 'TOA03_DT1_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 3),
 
--- Toa 4 - Giường nằm khoang 4 (toaTauId = 6, mã toa: TOA04_DT1)
-(19, 'TOA04_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 6),
-(20, 'TOA04_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 6),
-(21, 'TOA04_DT1_G03', 3, 'GiuongTang1', 'DaDat', 'Giường nằm tầng 1 số 3', 6),
-(22, 'TOA04_DT1_G04', 4, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 4', 6),
-(23, 'TOA04_DT1_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 6),
+-- Toa 4 - Giường nằm khoang 4 (toaTauId = 4, mã toa: TOA04_DT1)
+(19, 'TOA04_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 4),
+(20, 'TOA04_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 4),
+(21, 'TOA04_DT1_G03', 3, 'GiuongTang1', 'DaDat', 'Giường nằm tầng 1 số 3', 4),
+(22, 'TOA04_DT1_G04', 4, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 4', 4),
+(23, 'TOA04_DT1_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 4),
 
--- Toa 5 - Giường nằm khoang 6 (toaTauId = 7, mã toa: TOA05_DT1)
-(24, 'TOA05_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 7),
-(25, 'TOA05_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 7),
-(26, 'TOA05_DT1_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 7),
-(27, 'TOA05_DT1_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 7),
-(28, 'TOA05_DT1_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 7),
+-- Toa 5 - Giường nằm khoang 6 (toaTauId = 5, mã toa: TOA05_DT1)
+(24, 'TOA05_DT1_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 5),
+(25, 'TOA05_DT1_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 5),
+(26, 'TOA05_DT1_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 5),
+(27, 'TOA05_DT1_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 5),
+(28, 'TOA05_DT1_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 5),
 
--- Toa 1 - Ngồi cứng (toaTauId = 13, mã toa: TOA01_DT3)
-(29, 'TOA01_DT3_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 13),
-(30, 'TOA01_DT3_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 13),
-(31, 'TOA01_DT3_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 13),
-(32, 'TOA01_DT3_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 13),
-(33, 'TOA01_DT3_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 13),
+-- Toa 1 - Ngồi cứng (toaTauId = 11, mã toa: TOA01_DT3)
+(29, 'TOA01_DT3_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 11),
+(30, 'TOA01_DT3_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 11),
+(31, 'TOA01_DT3_G03', 3, 'CuaSo', 'DaDat', 'Ghế ngồi cứng số 3', 11),
+(32, 'TOA01_DT3_G04', 4, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 4', 11),
+(33, 'TOA01_DT3_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 11),
 
--- Toa 5 - Giường nằm khoang 6 (toaTauId = 17, mã toa: TOA05_DT3)
-(34, 'TOA05_DT3_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 17),
-(35, 'TOA05_DT3_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 17),
-(36, 'TOA05_DT3_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 17),
-(37, 'TOA05_DT3_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 17),
-(38, 'TOA05_DT3_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 17),
-(39, 'TOA01_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 18),
-(40, 'TOA01_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 18),
-(41, 'TOA01_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 18),
-(42, 'TOA01_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 18),
-(43, 'TOA01_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 18),
-(44, 'TOA01_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 18),
+-- Toa 5 - Giường nằm khoang 6 (toaTauId = 15, mã toa: TOA05_DT3)
+(34, 'TOA05_DT3_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 15),
+(35, 'TOA05_DT3_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 15),
+(36, 'TOA05_DT3_G03', 3, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 3', 15),
+(37, 'TOA05_DT3_G04', 4, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 4', 15),
+(38, 'TOA05_DT3_G05', 5, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 5', 15),
+(39, 'TOA01_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 16),
+(40, 'TOA01_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 16),
+(41, 'TOA01_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 16),
+(42, 'TOA01_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 16),
+(43, 'TOA01_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 16),
+(44, 'TOA01_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 16),
 
--- Toa 2 - Giường nằm khoang 4 (toaTauId = 19, mã toa: TOA02_DT4)
-(45, 'TOA02_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 19),
-(46, 'TOA02_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 19),
-(47, 'TOA02_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 19),
-(48, 'TOA02_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 19),
-(49, 'TOA02_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 19),
-(50, 'TOA02_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 19),
+-- Toa 2 - Giường nằm khoang 4 (toaTauId = 17, mã toa: TOA02_DT4)
+(45, 'TOA02_DT4_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 17),
+(46, 'TOA02_DT4_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 17),
+(47, 'TOA02_DT4_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 17),
+(48, 'TOA02_DT4_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 17),
+(49, 'TOA02_DT4_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 17),
+(50, 'TOA02_DT4_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 17),
 
--- Toa 4 - Ngồi mềm điều hòa (toaTauId = 21, mã toa: TOA04_DT4)
-(51, 'TOA04_DT4_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 21),
-(52, 'TOA04_DT4_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 21),
-(53, 'TOA04_DT4_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 21),
-(54, 'TOA04_DT4_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 21),
-(55, 'TOA04_DT4_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 21),
-(56, 'TOA04_DT4_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 21),
+-- Toa 4 - Ngồi mềm điều hòa (toaTauId = 19, mã toa: TOA04_DT4)
+(51, 'TOA04_DT4_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 19),
+(52, 'TOA04_DT4_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 19),
+(53, 'TOA04_DT4_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 19),
+(54, 'TOA04_DT4_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 19),
+(55, 'TOA04_DT4_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 19),
+(56, 'TOA04_DT4_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 19),
 
--- Toa 1 - Ngồi cứng (toaTauId = 23, mã toa: TOA01_DT5)
-(57, 'TOA01_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 23),
-(58, 'TOA01_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 23),
-(59, 'TOA01_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 3', 23),
-(60, 'TOA01_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi cứng số 4', 23),
-(61, 'TOA01_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 23),
-(62, 'TOA01_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 6', 23),
+-- Toa 1 - Ngồi cứng (toaTauId = 21, mã toa: TOA01_DT5)
+(57, 'TOA01_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 1', 21),
+(58, 'TOA01_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 2', 21),
+(59, 'TOA01_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 3', 21),
+(60, 'TOA01_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi cứng số 4', 21),
+(61, 'TOA01_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi cứng số 5', 21),
+(62, 'TOA01_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi cứng số 6', 21),
 
--- Toa 3 - Ngồi mềm điều hòa (toaTauId = 25, mã toa: TOA03_DT5)
-(63, 'TOA03_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 25),
-(64, 'TOA03_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 25),
-(65, 'TOA03_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 25),
-(66, 'TOA03_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 25),
-(67, 'TOA03_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 25),
-(68, 'TOA03_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 25),
+-- Toa 3 - Ngồi mềm điều hòa (toaTauId = 23, mã toa: TOA03_DT5)
+(63, 'TOA03_DT5_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 23),
+(64, 'TOA03_DT5_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 23),
+(65, 'TOA03_DT5_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 23),
+(66, 'TOA03_DT5_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 23),
+(67, 'TOA03_DT5_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 23),
+(68, 'TOA03_DT5_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 23),
 
--- Toa 1 - Ngồi mềm điều hòa (toaTauId = 27, mã toa: TOA01_DT6)
-(69, 'TOA01_DT6_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 27),
-(70, 'TOA01_DT6_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 27),
-(71, 'TOA01_DT6_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 27),
-(72, 'TOA01_DT6_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 27),
-(73, 'TOA01_DT6_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 27),
-(74, 'TOA01_DT6_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 27),
+-- Toa 1 - Ngồi mềm điều hòa (toaTauId = 26, mã toa: TOA01_DT6)
+(69, 'TOA01_DT6_G01', 1, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 1', 26),
+(70, 'TOA01_DT6_G02', 2, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 2', 26),
+(71, 'TOA01_DT6_G03', 3, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 3', 26),
+(72, 'TOA01_DT6_G04', 4, 'LoiDi', 'DaDat', 'Ghế ngồi mềm số 4', 26),
+(73, 'TOA01_DT6_G05', 5, 'CuaSo', 'Trong', 'Ghế ngồi mềm số 5', 26),
+(74, 'TOA01_DT6_G06', 6, 'LoiDi', 'Trong', 'Ghế ngồi mềm số 6', 26),
 
--- Toa 4 - Giường nằm khoang 4 (toaTauId = 30, mã toa: TOA04_DT6)
-(75, 'TOA04_DT6_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 30),
-(76, 'TOA04_DT6_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 30),
-(77, 'TOA04_DT6_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 30),
-(78, 'TOA04_DT6_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 30),
-(79, 'TOA04_DT6_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 30),
-(80, 'TOA04_DT6_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 30);
+-- Toa 4 - Giường nằm khoang 4 (toaTauId = 29, mã toa: TOA04_DT6)
+(75, 'TOA04_DT6_G01', 1, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 1', 29),
+(76, 'TOA04_DT6_G02', 2, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 2', 29),
+(77, 'TOA04_DT6_G03', 3, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 3', 29),
+(78, 'TOA04_DT6_G04', 4, 'GiuongTang2', 'DaDat', 'Giường nằm tầng 2 số 4', 29),
+(79, 'TOA04_DT6_G05', 5, 'GiuongTang1', 'Trong', 'Giường nằm tầng 1 số 5', 29),
+(80, 'TOA04_DT6_G06', 6, 'GiuongTang2', 'Trong', 'Giường nằm tầng 2 số 6', 29);
 
 -- Them chi tiet hanh trinh 
 INSERT INTO ChiTietHanhTrinh (id, maCTHT, thuTuGa, nhaGaId, hanhTrinhId) VALUES
@@ -973,622 +973,1025 @@ INSERT INTO ChiTietHanhTrinh (id, maCTHT, thuTuGa, nhaGaId, hanhTrinhId) VALUES
 -- Đã cập nhật trangThai thành hệ thống chuẩn: DaHoanThanh, DangChay, ChuaChay
 -- ==============================================================================
 INSERT INTO LichTrinh (id, maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) VALUES
-(2, 'LT_SE1_20260602', '2026-06-02 08:00:00', 'DaHoanThanh', 1, 1, 103),
-(3, 'LT_DT000_20260602', '2026-06-02 12:00:00', 'DaHoanThanh', 2, 1, 14),
-(4, 'LT_DT001_20260603', '2026-06-03 08:00:00', 'DaHoanThanh', 3, 2, 20),
-(5, 'LT_DT002_20260603', '2026-06-03 12:00:00', 'DaHoanThanh', 4, 3, 5),
-(6, 'LT_DT003_20260604', '2026-06-04 08:00:00', 'DaHoanThanh', 5, 4, 23),
-(7, 'LT_DT004_20260604', '2026-06-04 12:00:00', 'DaHoanThanh', 6, 5, 27),
-(8, 'LT_DT005_20260605', '2026-06-05 08:00:00', 'DaHoanThanh', 7, 6, 29),
-(9, 'LT_DT006_20260605', '2026-06-05 12:00:00', 'DaHoanThanh', 8, 7, 31),
-(10, 'LT_DT007_20260606', '2026-06-06 08:00:00', 'DaHoanThanh', 9, 8, 6),
-(11, 'LT_DT008_20260606', '2026-06-06 12:00:00', 'DaHoanThanh', 10, 9, 40),
-(12, 'LT_DT009_20260607', '2026-06-07 08:00:00', 'DaHoanThanh', 11, 10, 42),
-(13, 'LT_DT010_20260607', '2026-06-07 12:00:00', 'DaHoanThanh', 12, 11, 7),
-(14, 'LT_DT011_20260608', '2026-06-08 08:00:00', 'DaHoanThanh', 13, 12, 47),
-(15, 'LT_DT012_20260608', '2026-06-08 12:00:00', 'DangChay', 14, 13, 8),
-(16, 'LT_DT013_20260609', '2026-06-09 08:00:00', 'DangChay', 15, 14, 58),
-(17, 'LT_DT014_20260609', '2026-06-09 12:00:00', 'DangChay', 16, 15, 60),
-(18, 'LT_DT015_20260610', '2026-06-10 08:00:00', 'DangChay', 17, 16, 65),
-(19, 'LT_DT016_20260610', '2026-06-10 12:00:00', 'DangChay', 18, 17, 67),
-(20, 'LT_DT017_20260611', '2026-06-11 08:00:00', 'DangChay', 19, 18, 81),
-(21, 'LT_DT018_20260611', '2026-06-11 12:00:00', 'DangChay', 20, 19, 86),
-(22, 'LT_DT019_20260612', '2026-06-12 08:00:00', 'DangChay', 21, 20, 12),
-(23, 'LT_DT020_20260612', '2026-06-12 12:00:00', 'DangChay', 22, 21, 93),
-(24, 'LT_DT021_20260613', '2026-06-13 08:00:00', 'DangChay', 23, 22, 95),
-(25, 'LT_DT022_20260613', '2026-06-13 12:00:00', 'DangChay', 24, 23, 96),
-(26, 'LT_DT023_20260614', '2026-06-14 08:00:00', 'DangChay', 25, 24, 97),
-(27, 'LT_DT024_20260614', '2026-06-14 12:00:00', 'DangChay', 26, 25, 100),
-(28, 'LT_DT025_20260615', '2026-06-15 08:00:00', 'DangChay', 27, 26, 1),
-(29, 'LT_DT026_20260615', '2026-06-15 12:00:00', 'DangChay', 28, 27, 103),
-(30, 'LT_DT027_20260616', '2026-06-16 08:00:00', 'ChuaChay', 29, 28, 14),
-(31, 'LT_DT028_20260616', '2026-06-16 12:00:00', 'ChuaChay', 30, 29, 20),
-(32, 'LT_DT029_20260617', '2026-06-17 08:00:00', 'ChuaChay', 31, 30, 5),
-(33, 'LT_DT030_20260617', '2026-06-17 12:00:00', 'ChuaChay', 32, 31, 23),
-(34, 'LT_DT031_20260618', '2026-06-18 08:00:00', 'ChuaChay', 33, 32, 27),
-(35, 'LT_DT032_20260618', '2026-06-18 12:00:00', 'ChuaChay', 34, 33, 29),
-(36, 'LT_DT033_20260619', '2026-06-19 08:00:00', 'ChuaChay', 35, 34, 31),
+(2, 'LT_SE1_20260602', '2026-06-02 08:00:00', 'DaHoanThanh', 1, 1, 6),
+
+
+(3, 'LT_DT000_20260602', '2026-06-02 12:00:00', 'DaHoanThanh', 2, 1, 8),
+
+
+(4, 'LT_DT001_20260603', '2026-06-03 08:00:00', 'DaHoanThanh', 3, 2, 10),
+
+
+(5, 'LT_DT002_20260603', '2026-06-03 12:00:00', 'DaHoanThanh', 4, 3, 2),
+
+
+(6, 'LT_DT003_20260604', '2026-06-04 08:00:00', 'DaHoanThanh', 5, 4, 4),
+
+
+(7, 'LT_DT004_20260604', '2026-06-04 12:00:00', 'DaHoanThanh', 6, 5, 6),
+
+
+(8, 'LT_DT005_20260605', '2026-06-05 08:00:00', 'DaHoanThanh', 7, 6, 8),
+
+
+(9, 'LT_DT006_20260605', '2026-06-05 12:00:00', 'DaHoanThanh', 8, 7, 10),
+
+
+(10, 'LT_DT007_20260606', '2026-06-06 08:00:00', 'DaHoanThanh', 9, 8, 2),
+
+
+(11, 'LT_DT008_20260606', '2026-06-06 12:00:00', 'DaHoanThanh', 10, 9, 4),
+
+
+(12, 'LT_DT009_20260607', '2026-06-07 08:00:00', 'DaHoanThanh', 11, 10, 6),
+
+
+(13, 'LT_DT010_20260607', '2026-06-07 12:00:00', 'DaHoanThanh', 12, 11, 8),
+
+
+(14, 'LT_DT011_20260608', '2026-06-08 08:00:00', 'DaHoanThanh', 13, 12, 10),
+
+
+(15, 'LT_DT012_20260608', '2026-06-08 12:00:00', 'DangChay', 14, 13, 2),
+
+
+(16, 'LT_DT013_20260609', '2026-06-09 08:00:00', 'DangChay', 15, 14, 4),
+
+
+(17, 'LT_DT014_20260609', '2026-06-09 12:00:00', 'DangChay', 16, 15, 6),
+
+
+(18, 'LT_DT015_20260610', '2026-06-10 08:00:00', 'DangChay', 17, 16, 8),
+
+
+(19, 'LT_DT016_20260610', '2026-06-10 12:00:00', 'DangChay', 18, 17, 10),
+
+
+(20, 'LT_DT017_20260611', '2026-06-11 08:00:00', 'DangChay', 19, 18, 2),
+
+
+(21, 'LT_DT018_20260611', '2026-06-11 12:00:00', 'DangChay', 20, 19, 4),
+
+
+(22, 'LT_DT019_20260612', '2026-06-12 08:00:00', 'DangChay', 21, 20, 6),
+
+
+(23, 'LT_DT020_20260612', '2026-06-12 12:00:00', 'DangChay', 22, 21, 8),
+
+
+(24, 'LT_DT021_20260613', '2026-06-13 08:00:00', 'DangChay', 23, 22, 10),
+
+
+(25, 'LT_DT022_20260613', '2026-06-13 12:00:00', 'DangChay', 24, 23, 2),
+
+
+(26, 'LT_DT023_20260614', '2026-06-14 08:00:00', 'DangChay', 25, 24, 4),
+
+
+(27, 'LT_DT024_20260614', '2026-06-14 12:00:00', 'DangChay', 26, 25, 6),
+
+
+(28, 'LT_DT025_20260615', '2026-06-15 08:00:00', 'DangChay', 27, 26, 8),
+
+
+(29, 'LT_DT026_20260615', '2026-06-15 12:00:00', 'DangChay', 28, 27, 10),
+
+
+(30, 'LT_DT027_20260616', '2026-06-16 08:00:00', 'ChuaChay', 29, 28, 2),
+
+
+(31, 'LT_DT028_20260616', '2026-06-16 12:00:00', 'ChuaChay', 30, 29, 4),
+
+
+(32, 'LT_DT029_20260617', '2026-06-17 08:00:00', 'ChuaChay', 31, 30, 6),
+
+
+(33, 'LT_DT030_20260617', '2026-06-17 12:00:00', 'ChuaChay', 32, 31, 8),
+
+
+(34, 'LT_DT031_20260618', '2026-06-18 08:00:00', 'ChuaChay', 33, 32, 10),
+
+
+(35, 'LT_DT032_20260618', '2026-06-18 12:00:00', 'ChuaChay', 34, 33, 2),
+
+
+(36, 'LT_DT033_20260619', '2026-06-19 08:00:00', 'ChuaChay', 35, 34, 4),
+
+
 (37, 'LT_DT034_20260619', '2026-06-19 12:00:00', 'ChuaChay', 36, 35, 6),
-(38, 'LT_DT035_20260620', '2026-06-20 08:00:00', 'ChuaChay', 37, 36, 40),
-(39, 'LT_DT036_20260620', '2026-06-20 12:00:00', 'ChuaChay', 38, 37, 42),
-(40, 'LT_DT037_20260621', '2026-06-21 08:00:00', 'ChuaChay', 39, 38, 7),
-(41, 'LT_DT038_20260621', '2026-06-21 12:00:00', 'ChuaChay', 40, 39, 47),
-(42, 'LT_DT039_20260622', '2026-06-22 08:00:00', 'ChuaChay', 41, 40, 8),
-(43, 'LT_DT040_20260622', '2026-06-22 12:00:00', 'ChuaChay', 42, 41, 58),
-(44, 'LT_DT041_20260623', '2026-06-23 08:00:00', 'ChuaChay', 43, 42, 60),
-(45, 'LT_DT042_20260623', '2026-06-23 12:00:00', 'ChuaChay', 44, 43, 65),
-(46, 'LT_DT043_20260624', '2026-06-24 08:00:00', 'ChuaChay', 45, 44, 67),
-(47, 'LT_DT044_20260624', '2026-06-24 12:00:00', 'ChuaChay', 46, 45, 81),
-(48, 'LT_DT045_20260625', '2026-06-25 08:00:00', 'ChuaChay', 47, 46, 86),
-(49, 'LT_DT046_20260625', '2026-06-25 12:00:00', 'ChuaChay', 48, 47, 12),
-(50, 'LT_DT047_20260626', '2026-06-26 08:00:00', 'ChuaChay', 49, 48, 93),
-(51, 'LT_DT048_20260626', '2026-06-26 12:00:00', 'ChuaChay', 50, 49, 95),
-(52, 'LT_DT049_20260627', '2026-06-27 08:00:00', 'ChuaChay', 51, 50, 96),
-(53, 'LT_DT050_20260627', '2026-06-27 12:00:00', 'ChuaChay', 52, 51, 97),
-(54, 'LT_DT051_20260628', '2026-06-28 08:00:00', 'DaHoanThanh', 53, 52, 100),
-(55, 'LT_DT052_20260628', '2026-06-28 12:00:00', 'DangChay', 54, 53, 1),
-(56, 'LT_DT053_20260629', '2026-06-29 08:00:00', 'ChuaChay', 55, 54, 103),
-(57, 'LT_DT054_20260629', '2026-06-29 12:00:00', 'DaHoanThanh', 56, 55, 14),
-(58, 'LT_DT055_20260630', '2026-06-30 08:00:00', 'ChuaChay', 57, 56, 20),
-(59, 'LT_DT056_20260630', '2026-06-30 12:00:00', 'ChuaChay', 58, 57, 5),
-(60, 'LT_DT057_20260701', '2026-07-01 08:00:00', 'BiHuy', 59, 58, 23),
-(61, 'LT_DT058_20260701', '2026-07-01 12:00:00', 'ChuaChay', 60, 59, 27),
-(62, 'LT_DT059_20260702', '2026-07-02 08:00:00', 'ChuaChay', 61, 60, 29),
-(63, 'LT_SE1_20260702', '2026-07-02 12:00:00', 'DaHoanThanh', 1, 1, 31),
-(64, 'LT_DT000_20260703', '2026-07-03 08:00:00', 'ChuaChay', 2, 1, 6),
-(65, 'LT_DT001_20260703', '2026-07-03 12:00:00', 'DangChay', 3, 2, 40),
-(66, 'LT_DT002_20260704', '2026-07-04 08:00:00', 'DaHoanThanh', 4, 3, 42),
-(67, 'LT_DT003_20260704', '2026-07-04 12:00:00', 'ChuaChay', 5, 4, 7),
-(68, 'LT_DT004_20260705', '2026-07-05 08:00:00', 'ChuaChay', 6, 5, 47),
-(69, 'LT_DT005_20260705', '2026-07-05 12:00:00', 'DaHoanThanh', 7, 6, 8),
-(70, 'LT_DT006_20260706', '2026-07-06 08:00:00', 'DangChay', 8, 7, 58),
-(71, 'LT_DT007_20260706', '2026-07-06 12:00:00', 'ChuaChay', 9, 8, 60),
-(72, 'LT_DT008_20260707', '2026-07-07 08:00:00', 'ChuaChay', 10, 9, 65),
-(73, 'LT_DT009_20260707', '2026-07-07 12:00:00', 'DaHoanThanh', 11, 10, 67),
-(74, 'LT_DT010_20260708', '2026-07-08 08:00:00', 'ChuaChay', 12, 11, 81),
-(75, 'LT_DT011_20260708', '2026-07-08 12:00:00', 'DangChay', 13, 12, 86),
-(76, 'LT_DT012_20260709', '2026-07-09 08:00:00', 'ChuaChay', 14, 13, 12),
-(77, 'LT_DT013_20260709', '2026-07-09 12:00:00', 'ChuaChay', 15, 14, 93),
-(78, 'LT_DT014_20260710', '2026-07-10 08:00:00', 'DaHoanThanh', 16, 15, 95),
-(79, 'LT_DT015_20260710', '2026-07-10 12:00:00', 'ChuaChay', 17, 16, 96),
-(80, 'LT_DT016_20260711', '2026-07-11 08:00:00', 'DangChay', 18, 17, 97),
-(81, 'LT_DT017_20260711', '2026-07-11 12:00:00', 'ChuaChay', 19, 18, 100),
-(82, 'LT_DT018_20260712', '2026-07-12 08:00:00', 'ChuaChay', 20, 19, 1),
-(83, 'LT_DT019_20260712', '2026-07-12 12:00:00', 'DaHoanThanh', 21, 20, 103),
-(84, 'LT_DT020_20260713', '2026-07-13 08:00:00', 'ChuaChay', 22, 21, 14),
-(85, 'LT_DT021_20260713', '2026-07-13 12:00:00', 'DangChay', 23, 22, 20),
-(86, 'LT_DT022_20260714', '2026-07-14 08:00:00', 'ChuaChay', 24, 23, 5),
-(87, 'LT_DT023_20260714', '2026-07-14 12:00:00', 'DaHoanThanh', 25, 24, 23),
-(88, 'LT_DT024_20260715', '2026-07-15 08:00:00', 'ChuaChay', 26, 25, 27),
-(89, 'LT_DT025_20260715', '2026-07-15 12:00:00', 'ChuaChay', 27, 26, 29),
-(90, 'LT_DT026_20260716', '2026-07-16 08:00:00', 'BiHuy', 28, 27, 31),
-(91, 'LT_DT027_20260716', '2026-07-16 12:00:00', 'ChuaChay', 29, 28, 6),
-(92, 'LT_DT028_20260717', '2026-07-17 08:00:00', 'ChuaChay', 30, 29, 40),
-(93, 'LT_DT029_20260717', '2026-07-17 12:00:00', 'DaHoanThanh', 31, 30, 42),
-(94, 'LT_DT030_20260718', '2026-07-18 08:00:00', 'ChuaChay', 32, 31, 7),
-(95, 'LT_DT031_20260718', '2026-07-18 12:00:00', 'DangChay', 33, 32, 47),
-(96, 'LT_DT032_20260719', '2026-07-19 08:00:00', 'DaHoanThanh', 34, 33, 8),
-(97, 'LT_DT033_20260719', '2026-07-19 12:00:00', 'ChuaChay', 35, 34, 58),
-(98, 'LT_DT034_20260720', '2026-07-20 08:00:00', 'ChuaChay', 36, 35, 60),
-(99, 'LT_DT035_20260720', '2026-07-20 12:00:00', 'DaHoanThanh', 37, 36, 65),
-(100, 'LT_DT036_20260721', '2026-07-21 08:00:00', 'DangChay', 38, 37, 67),
-(101, 'LT_DT037_20260721', '2026-07-21 12:00:00', 'ChuaChay', 39, 38, 81);
+
+
+(38, 'LT_DT035_20260620', '2026-06-20 08:00:00', 'ChuaChay', 37, 36, 8),
+
+
+(39, 'LT_DT036_20260620', '2026-06-20 12:00:00', 'ChuaChay', 38, 37, 10),
+
+
+(40, 'LT_DT037_20260621', '2026-06-21 08:00:00', 'ChuaChay', 39, 38, 2),
+
+
+(41, 'LT_DT038_20260621', '2026-06-21 12:00:00', 'ChuaChay', 40, 39, 4),
+
+
+(42, 'LT_DT039_20260622', '2026-06-22 08:00:00', 'ChuaChay', 41, 40, 6),
+
+
+(43, 'LT_DT040_20260622', '2026-06-22 12:00:00', 'ChuaChay', 42, 41, 8),
+
+
+(44, 'LT_DT041_20260623', '2026-06-23 08:00:00', 'ChuaChay', 43, 42, 10),
+
+
+(45, 'LT_DT042_20260623', '2026-06-23 12:00:00', 'ChuaChay', 44, 43, 2),
+
+
+(46, 'LT_DT043_20260624', '2026-06-24 08:00:00', 'ChuaChay', 45, 44, 4),
+
+
+(47, 'LT_DT044_20260624', '2026-06-24 12:00:00', 'ChuaChay', 46, 45, 6),
+
+
+(48, 'LT_DT045_20260625', '2026-06-25 08:00:00', 'ChuaChay', 47, 46, 8),
+
+
+(49, 'LT_DT046_20260625', '2026-06-25 12:00:00', 'ChuaChay', 48, 47, 10),
+
+
+(50, 'LT_DT047_20260626', '2026-06-26 08:00:00', 'ChuaChay', 49, 48, 2),
+
+
+(51, 'LT_DT048_20260626', '2026-06-26 12:00:00', 'ChuaChay', 50, 49, 4),
+
+
+(52, 'LT_DT049_20260627', '2026-06-27 08:00:00', 'ChuaChay', 51, 50, 6),
+
+
+(53, 'LT_DT050_20260627', '2026-06-27 12:00:00', 'ChuaChay', 52, 51, 8),
+
+
+(54, 'LT_DT051_20260628', '2026-06-28 08:00:00', 'DaHoanThanh', 53, 52, 10),
+
+
+(55, 'LT_DT052_20260628', '2026-06-28 12:00:00', 'DangChay', 54, 53, 2),
+
+
+(56, 'LT_DT053_20260629', '2026-06-29 08:00:00', 'ChuaChay', 55, 54, 4),
+
+
+(57, 'LT_DT054_20260629', '2026-06-29 12:00:00', 'DaHoanThanh', 56, 55, 6),
+
+
+(58, 'LT_DT055_20260630', '2026-06-30 08:00:00', 'ChuaChay', 57, 56, 8),
+
+
+(59, 'LT_DT056_20260630', '2026-06-30 12:00:00', 'ChuaChay', 58, 57, 10),
+
+
+(60, 'LT_DT057_20260701', '2026-07-01 08:00:00', 'BiHuy', 59, 58, 2),
+
+
+(61, 'LT_DT058_20260701', '2026-07-01 12:00:00', 'ChuaChay', 60, 59, 4),
+
+
+(62, 'LT_DT059_20260702', '2026-07-02 08:00:00', 'ChuaChay', 61, 60, 6),
+
+
+(63, 'LT_SE1_20260702', '2026-07-02 12:00:00', 'DaHoanThanh', 1, 1, 8),
+
+
+(64, 'LT_DT000_20260703', '2026-07-03 08:00:00', 'ChuaChay', 2, 1, 10),
+
+
+(65, 'LT_DT001_20260703', '2026-07-03 12:00:00', 'DangChay', 3, 2, 2),
+
+
+(66, 'LT_DT002_20260704', '2026-07-04 08:00:00', 'DaHoanThanh', 4, 3, 4),
+
+
+(67, 'LT_DT003_20260704', '2026-07-04 12:00:00', 'ChuaChay', 5, 4, 6),
+
+
+(68, 'LT_DT004_20260705', '2026-07-05 08:00:00', 'ChuaChay', 6, 5, 8),
+
+
+(69, 'LT_DT005_20260705', '2026-07-05 12:00:00', 'DaHoanThanh', 7, 6, 10),
+
+
+(70, 'LT_DT006_20260706', '2026-07-06 08:00:00', 'DangChay', 8, 7, 2),
+
+
+(71, 'LT_DT007_20260706', '2026-07-06 12:00:00', 'ChuaChay', 9, 8, 4),
+
+
+(72, 'LT_DT008_20260707', '2026-07-07 08:00:00', 'ChuaChay', 10, 9, 6),
+
+
+(73, 'LT_DT009_20260707', '2026-07-07 12:00:00', 'DaHoanThanh', 11, 10, 8),
+
+
+(74, 'LT_DT010_20260708', '2026-07-08 08:00:00', 'ChuaChay', 12, 11, 10),
+
+
+(75, 'LT_DT011_20260708', '2026-07-08 12:00:00', 'DangChay', 13, 12, 2),
+
+
+(76, 'LT_DT012_20260709', '2026-07-09 08:00:00', 'ChuaChay', 14, 13, 4),
+
+
+(77, 'LT_DT013_20260709', '2026-07-09 12:00:00', 'ChuaChay', 15, 14, 6),
+
+
+(78, 'LT_DT014_20260710', '2026-07-10 08:00:00', 'DaHoanThanh', 16, 15, 8),
+
+
+(79, 'LT_DT015_20260710', '2026-07-10 12:00:00', 'ChuaChay', 17, 16, 10),
+
+
+(80, 'LT_DT016_20260711', '2026-07-11 08:00:00', 'DangChay', 18, 17, 2),
+
+
+(81, 'LT_DT017_20260711', '2026-07-11 12:00:00', 'ChuaChay', 19, 18, 4),
+
+
+(82, 'LT_DT018_20260712', '2026-07-12 08:00:00', 'ChuaChay', 20, 19, 6),
+
+
+(83, 'LT_DT019_20260712', '2026-07-12 12:00:00', 'DaHoanThanh', 21, 20, 8),
+
+
+(84, 'LT_DT020_20260713', '2026-07-13 08:00:00', 'ChuaChay', 22, 21, 10),
+
+
+(85, 'LT_DT021_20260713', '2026-07-13 12:00:00', 'DangChay', 23, 22, 2),
+
+
+(86, 'LT_DT022_20260714', '2026-07-14 08:00:00', 'ChuaChay', 24, 23, 4),
+
+
+(87, 'LT_DT023_20260714', '2026-07-14 12:00:00', 'DaHoanThanh', 25, 24, 6),
+
+
+(88, 'LT_DT024_20260715', '2026-07-15 08:00:00', 'ChuaChay', 26, 25, 8),
+
+
+(89, 'LT_DT025_20260715', '2026-07-15 12:00:00', 'ChuaChay', 27, 26, 10),
+
+
+(90, 'LT_DT026_20260716', '2026-07-16 08:00:00', 'BiHuy', 28, 27, 2),
+
+
+(91, 'LT_DT027_20260716', '2026-07-16 12:00:00', 'ChuaChay', 29, 28, 4),
+
+
+(92, 'LT_DT028_20260717', '2026-07-17 08:00:00', 'ChuaChay', 30, 29, 6),
+
+
+(93, 'LT_DT029_20260717', '2026-07-17 12:00:00', 'DaHoanThanh', 31, 30, 8),
+
+
+(94, 'LT_DT030_20260718', '2026-07-18 08:00:00', 'ChuaChay', 32, 31, 10),
+
+
+(95, 'LT_DT031_20260718', '2026-07-18 12:00:00', 'DangChay', 33, 32, 2),
+
+
+(96, 'LT_DT032_20260719', '2026-07-19 08:00:00', 'DaHoanThanh', 34, 33, 4),
+
+
+(97, 'LT_DT033_20260719', '2026-07-19 12:00:00', 'ChuaChay', 35, 34, 6),
+
+
+(98, 'LT_DT034_20260720', '2026-07-20 08:00:00', 'ChuaChay', 36, 35, 8),
+
+
+(99, 'LT_DT035_20260720', '2026-07-20 12:00:00', 'DaHoanThanh', 37, 36, 10),
+
+
+(100, 'LT_DT036_20260721', '2026-07-21 08:00:00', 'DangChay', 38, 37, 2),
+
+
+(101, 'LT_DT037_20260721', '2026-07-21 12:00:00', 'ChuaChay', 39, 38, 4);
+
+
+-- Them ChinhSachGia
+INSERT INTO ChinhSachGia (id, maChinhSach, tyLeKhuyenMai, moTa) VALUES
+(1, 'CSG_001', 0.0, 'Chinh sach gia mac dinh');
+
 -- Them Hoa don 
 INSERT INTO HoaDon (id, maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, tongTien, trangThai, nhanVienId, khachHangId) VALUES
-(3, 'HD_0003', 'MuaVe', '2026-06-01 09:14:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 35, 570),
-(4, 'HD_0004', 'MuaVe', '2026-06-01 12:27:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 17, 479),
-(5, 'HD_0005', 'MuaVe', '2026-06-01 15:38:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 16, 547),
-(6, 'HD_0006', 'MuaVe', '2026-06-01 18:28:00', 'ChuyenKhoan', 250000, 'DaHuy', 3, 511),
-(7, 'HD_0007', 'MuaVe', '2026-06-02 09:17:00', 'ChuyenKhoan', 450000, 'DaHuy', 37, 503),
-(8, 'HD_0008', 'MuaVe', '2026-06-02 12:06:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 69, 584),
-(9, 'HD_0009', 'MuaVe', '2026-06-02 15:46:00', 'ChuyenKhoan', 150000, 'DaHuy', 82, 544),
-(10, 'HD_0010', 'MuaVe', '2026-06-02 18:18:00', 'TienMat', 900000, 'DaThanhToan', 149, 555),
-(11, 'HD_0011', 'MuaVe', '2026-06-03 09:04:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 18, 560),
-(12, 'HD_0012', 'MuaVe', '2026-06-03 12:55:00', 'TienMat', 250000, 'DaThanhToan', 28, 524),
-(13, 'HD_0013', 'MuaVe', '2026-06-03 15:23:00', 'TienMat', 250000, 'DaHuy', 69, 502),
-(14, 'HD_0014', 'MuaVe', '2026-06-03 18:40:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 39, 544),
-(15, 'HD_0015', 'MuaVe', '2026-06-04 09:17:00', 'ChuyenKhoan', 650000, 'DaHuy', 150, 564),
-(16, 'HD_0016', 'MuaVe', '2026-06-04 12:14:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 17, 579),
-(17, 'HD_0017', 'MuaVe', '2026-06-04 15:13:00', 'TienMat', 150000, 'DaThanhToan', 101, 588),
-(18, 'HD_0018', 'MuaVe', '2026-06-04 18:56:00', 'ChuyenKhoan', 650000, 'DaHuy', 151, 534),
-(19, 'HD_0019', 'MuaVe', '2026-06-05 09:47:00', 'TienMat', 250000, 'DaThanhToan', 99, 544),
-(20, 'HD_0020', 'MuaVe', '2026-06-05 12:25:00', 'ChuyenKhoan', 900000, 'DaHuy', 70, 504),
-(21, 'HD_0021', 'MuaVe', '2026-06-05 15:48:00', 'ChuyenKhoan', 150000, 'DaHuy', 19, 586),
-(22, 'HD_0022', 'MuaVe', '2026-06-05 18:27:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 145, 484),
-(23, 'HD_0023_TRA', 'PhatTraVe', '2026-06-06 09:35:00', 'TienMat', 50000, 'DaHuy', 13, 563),
-(24, 'HD_0024', 'MuaVe', '2026-06-06 12:21:00', 'ChuyenKhoan', 1200000, 'DaHuy', 32, 513),
-(25, 'HD_0025_TRA', 'PhatTraVe', '2026-06-06 15:46:00', 'ChuyenKhoan', 30000, 'DaHuy', 54, 540),
-(26, 'HD_0026', 'MuaVe', '2026-06-06 18:19:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 150, 540),
-(27, 'HD_0027', 'MuaVe', '2026-06-07 09:34:00', 'ChuyenKhoan', 250000, 'DaHuy', 91, 593),
-(28, 'HD_0028', 'MuaVe', '2026-06-07 12:01:00', 'ChuyenKhoan', 650000, 'DaHuy', 32, 594),
-(29, 'HD_0029', 'MuaVe', '2026-06-07 15:15:00', 'TienMat', 150000, 'DaThanhToan', 101, 486),
-(30, 'HD_0030', 'MuaVe', '2026-06-07 18:48:00', 'ChuyenKhoan', 150000, 'DaHuy', 92, 574),
-(31, 'HD_0031', 'MuaVe', '2026-06-08 09:10:00', 'ChuyenKhoan', 900000, 'DaHuy', 54, 543),
-(32, 'HD_0032_TRA', 'PhatTraVe', '2026-06-08 12:25:00', 'ChuyenKhoan', 50000, 'DaThanhToan', 154, 559),
-(33, 'HD_0033', 'MuaVe', '2026-06-08 15:15:00', 'TienMat', 150000, 'DaHuy', 49, 484),
-(34, 'HD_0034', 'MuaVe', '2026-06-08 18:14:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 4, 485),
-(35, 'HD_0035', 'MuaVe', '2026-06-09 09:55:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 64, 485),
-(36, 'HD_0036', 'MuaVe', '2026-06-09 12:34:00', 'TienMat', 250000, 'DaHuy', 34, 568),
-(37, 'HD_0037_TRA', 'PhatTraVe', '2026-06-09 15:12:00', 'ChuyenKhoan', 60000, 'DaHuy', 28, 488),
-(38, 'HD_0038_TRA', 'PhatTraVe', '2026-06-09 18:29:00', 'TienMat', 60000, 'DaHuy', 19, 562),
-(39, 'HD_0039', 'MuaVe', '2026-06-10 09:21:00', 'ChuyenKhoan', 1200000, 'DaHuy', 30, 507),
-(40, 'HD_0040', 'MuaVe', '2026-06-10 12:27:00', 'ChuyenKhoan', 250000, 'DaHuy', 43, 511),
-(41, 'HD_0041_TRA', 'PhatTraVe', '2026-06-10 15:51:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 98, 488),
-(42, 'HD_0042', 'MuaVe', '2026-06-10 18:59:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 51, 497),
-(43, 'HD_0043_TRA', 'PhatTraVe', '2026-06-11 09:55:00', 'TienMat', 45000, 'DaHuy', 74, 591),
-(44, 'HD_0044', 'MuaVe', '2026-06-11 12:24:00', 'ChuyenKhoan', 150000, 'DaHuy', 54, 594),
-(45, 'HD_0045_TRA', 'PhatTraVe', '2026-06-11 15:09:00', 'TienMat', 60000, 'DaHuy', 44, 513),
-(46, 'HD_0046', 'MuaVe', '2026-06-11 18:20:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 21, 482),
-(47, 'HD_0047_TRA', 'PhatTraVe', '2026-06-12 09:32:00', 'ChuyenKhoan', 30000, 'DaThanhToan', 25, 584),
-(48, 'HD_0048', 'MuaVe', '2026-06-12 12:55:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 51, 527),
-(49, 'HD_0049', 'MuaVe', '2026-06-12 15:38:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 18, 555),
-(50, 'HD_0050', 'MuaVe', '2026-06-12 18:13:00', 'TienMat', 450000, 'DaThanhToan', 154, 567),
-(51, 'HD_0051', 'MuaVe', '2026-06-13 09:08:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 154, 558),
-(52, 'HD_0052', 'MuaVe', '2026-06-13 12:00:00', 'TienMat', 150000, 'DaThanhToan', 82, 555),
-(53, 'HD_0053', 'MuaVe', '2026-06-13 15:16:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 34, 595),
-(54, 'HD_0054', 'MuaVe', '2026-06-13 18:18:00', 'ChuyenKhoan', 450000, 'DaThanhToan', 38, 532),
-(55, 'HD_0055', 'MuaVe', '2026-06-14 09:52:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 98, 514),
-(56, 'HD_0056', 'MuaVe', '2026-06-14 12:56:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 30, 571),
-(57, 'HD_0057', 'MuaVe', '2026-06-14 15:13:00', 'TienMat', 900000, 'DaThanhToan', 66, 502),
-(58, 'HD_0058', 'MuaVe', '2026-06-14 18:57:00', 'ChuyenKhoan', 450000, 'DaHuy', 19, 487),
-(59, 'HD_0059_TRA', 'PhatTraVe', '2026-06-15 09:21:00', 'TienMat', 30000, 'DaThanhToan', 34, 557),
-(60, 'HD_0060', 'MuaVe', '2026-06-15 12:45:00', 'ChuyenKhoan', 900000, 'DaHuy', 77, 547),
-(61, 'HD_0061', 'MuaVe', '2026-06-15 15:57:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 37, 545),
-(62, 'HD_0062', 'MuaVe', '2026-06-15 18:08:00', 'TienMat', 650000, 'DaThanhToan', 18, 515),
-(63, 'HD_0063', 'MuaVe', '2026-06-16 09:43:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 52, 561),
-(64, 'HD_0064', 'MuaVe', '2026-06-16 12:47:00', 'TienMat', 900000, 'DaHuy', 37, 594),
-(65, 'HD_0065', 'MuaVe', '2026-06-16 15:01:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 41, 570),
-(66, 'HD_0066', 'MuaVe', '2026-06-16 18:10:00', 'TienMat', 450000, 'DaThanhToan', 158, 489),
-(67, 'HD_0067_TRA', 'PhatTraVe', '2026-06-17 09:12:00', 'ChuyenKhoan', 45000, 'DaHuy', 82, 520),
-(68, 'HD_0068', 'MuaVe', '2026-06-17 12:42:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 44, 527),
-(69, 'HD_0069', 'MuaVe', '2026-06-17 15:22:00', 'TienMat', 450000, 'DaThanhToan', 151, 541),
-(70, 'HD_0070_TRA', 'PhatTraVe', '2026-06-17 18:07:00', 'ChuyenKhoan', 30000, 'DaThanhToan', 54, 498),
-(71, 'HD_0071', 'MuaVe', '2026-06-18 09:27:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 68, 569),
-(72, 'HD_0072', 'MuaVe', '2026-06-18 12:57:00', 'TienMat', 650000, 'DaThanhToan', 102, 500),
-(73, 'HD_0073', 'MuaVe', '2026-06-18 15:33:00', 'ChuyenKhoan', 150000, 'DaHuy', 92, 563),
-(74, 'HD_0074', 'MuaVe', '2026-06-18 18:42:00', 'TienMat', 150000, 'DaHuy', 64, 555),
-(75, 'HD_0075', 'MuaVe', '2026-06-19 09:57:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 61, 540),
-(76, 'HD_0076', 'MuaVe', '2026-06-19 12:25:00', 'ChuyenKhoan', 450000, 'DaHuy', 158, 513),
-(77, 'HD_0077', 'MuaVe', '2026-06-19 15:24:00', 'ChuyenKhoan', 1200000, 'DaHuy', 155, 571),
-(78, 'HD_0078', 'MuaVe', '2026-06-19 18:35:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 4, 514),
-(79, 'HD_0079', 'MuaVe', '2026-06-20 09:38:00', 'ChuyenKhoan', 900000, 'DaHuy', 152, 517),
-(80, 'HD_0080_TRA', 'PhatTraVe', '2026-06-20 12:32:00', 'TienMat', 45000, 'DaHuy', 83, 577),
-(81, 'HD_0081', 'MuaVe', '2026-06-20 15:32:00', 'ChuyenKhoan', 450000, 'DaThanhToan', 153, 557),
-(82, 'HD_0082', 'MuaVe', '2026-06-20 18:19:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 49, 579),
-(83, 'HD_0083', 'MuaVe', '2026-06-21 09:15:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 83, 554),
-(84, 'HD_0084', 'MuaVe', '2026-06-21 12:36:00', 'TienMat', 1200000, 'DaHuy', 44, 567),
-(85, 'HD_0085_TRA', 'PhatTraVe', '2026-06-21 15:09:00', 'TienMat', 45000, 'DaHuy', 152, 564),
-(86, 'HD_0086', 'MuaVe', '2026-06-21 18:11:00', 'ChuyenKhoan', 250000, 'DaHuy', 158, 542),
-(87, 'HD_0087_TRA', 'PhatTraVe', '2026-06-22 09:29:00', 'ChuyenKhoan', 30000, 'DaThanhToan', 35, 578),
-(88, 'HD_0088_TRA', 'PhatTraVe', '2026-06-22 12:39:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 88, 530),
-(89, 'HD_0089_TRA', 'PhatTraVe', '2026-06-22 15:16:00', 'ChuyenKhoan', 60000, 'DaHuy', 52, 583),
-(90, 'HD_0090', 'MuaVe', '2026-06-22 18:15:00', 'ChuyenKhoan', 1200000, 'DaHuy', 56, 532),
-(91, 'HD_0091', 'MuaVe', '2026-06-23 09:17:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 64, 516),
-(92, 'HD_0092', 'MuaVe', '2026-06-23 12:24:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 157, 495),
-(93, 'HD_0093', 'MuaVe', '2026-06-23 15:21:00', 'ChuyenKhoan', 650000, 'DaHuy', 94, 535),
-(94, 'HD_0094_TRA', 'PhatTraVe', '2026-06-23 18:24:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 2, 565),
-(95, 'HD_0095', 'MuaVe', '2026-06-24 09:00:00', 'ChuyenKhoan', 650000, 'DaHuy', 69, 514),
-(96, 'HD_0096_TRA', 'PhatTraVe', '2026-06-24 12:14:00', 'TienMat', 60000, 'DaThanhToan', 55, 531),
-(97, 'HD_0097_TRA', 'PhatTraVe', '2026-06-24 15:42:00', 'ChuyenKhoan', 50000, 'DaHuy', 155, 578),
-(98, 'HD_0098_TRA', 'PhatTraVe', '2026-06-24 18:58:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 34, 555),
-(99, 'HD_0099', 'MuaVe', '2026-06-25 09:41:00', 'TienMat', 150000, 'DaThanhToan', 77, 493),
-(100, 'HD_0100_TRA', 'PhatTraVe', '2026-06-25 12:24:00', 'ChuyenKhoan', 50000, 'DaThanhToan', 63, 503),
-(101, 'HD_0101_TRA', 'PhatTraVe', '2026-06-25 15:17:00', 'TienMat', 60000, 'DaThanhToan', 76, 508),
-(102, 'HD_0102', 'MuaVe', '2026-06-25 18:34:00', 'TienMat', 1200000, 'DaThanhToan', 19, 520);
+(3, 'HD_0003', 'MuaVe', '2026-06-01 09:14:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 13, 570),
+(4, 'HD_0004', 'MuaVe', '2026-06-01 12:27:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 14, 479),
+(5, 'HD_0005', 'MuaVe', '2026-06-01 15:38:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 15, 547),
+(6, 'HD_0006', 'MuaVe', '2026-06-01 18:28:00', 'ChuyenKhoan', 250000, 'DaHuy', 16, 511),
+(7, 'HD_0007', 'MuaVe', '2026-06-02 09:17:00', 'ChuyenKhoan', 450000, 'DaHuy', 17, 503),
+(8, 'HD_0008', 'MuaVe', '2026-06-02 12:06:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 18, 584),
+(9, 'HD_0009', 'MuaVe', '2026-06-02 15:46:00', 'ChuyenKhoan', 150000, 'DaHuy', 19, 544),
+(10, 'HD_0010', 'MuaVe', '2026-06-02 18:18:00', 'TienMat', 900000, 'DaThanhToan', 20, 555),
+(11, 'HD_0011', 'MuaVe', '2026-06-03 09:04:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 21, 560),
+(12, 'HD_0012', 'MuaVe', '2026-06-03 12:55:00', 'TienMat', 250000, 'DaThanhToan', 22, 524),
+(13, 'HD_0013', 'MuaVe', '2026-06-03 15:23:00', 'TienMat', 250000, 'DaHuy', 23, 502),
+(14, 'HD_0014', 'MuaVe', '2026-06-03 18:40:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 24, 544),
+(15, 'HD_0015', 'MuaVe', '2026-06-04 09:17:00', 'ChuyenKhoan', 650000, 'DaHuy', 25, 564),
+(16, 'HD_0016', 'MuaVe', '2026-06-04 12:14:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 26, 579),
+(17, 'HD_0017', 'MuaVe', '2026-06-04 15:13:00', 'TienMat', 150000, 'DaThanhToan', 27, 588),
+(18, 'HD_0018', 'MuaVe', '2026-06-04 18:56:00', 'ChuyenKhoan', 650000, 'DaHuy', 11, 534),
+(19, 'HD_0019', 'MuaVe', '2026-06-05 09:47:00', 'TienMat', 250000, 'DaThanhToan', 12, 544),
+(20, 'HD_0020', 'MuaVe', '2026-06-05 12:25:00', 'ChuyenKhoan', 900000, 'DaHuy', 13, 504),
+(21, 'HD_0021', 'MuaVe', '2026-06-05 15:48:00', 'ChuyenKhoan', 150000, 'DaHuy', 14, 586),
+(22, 'HD_0022', 'MuaVe', '2026-06-05 18:27:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 15, 484),
+(23, 'HD_0023_TRA', 'PhatTraVe', '2026-06-06 09:35:00', 'TienMat', 50000, 'DaHuy', 16, 563),
+(24, 'HD_0024', 'MuaVe', '2026-06-06 12:21:00', 'ChuyenKhoan', 1200000, 'DaHuy', 17, 513),
+(25, 'HD_0025_TRA', 'PhatTraVe', '2026-06-06 15:46:00', 'ChuyenKhoan', 30000, 'DaHuy', 18, 540),
+(26, 'HD_0026', 'MuaVe', '2026-06-06 18:19:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 19, 540),
+(27, 'HD_0027', 'MuaVe', '2026-06-07 09:34:00', 'ChuyenKhoan', 250000, 'DaHuy', 20, 593),
+(28, 'HD_0028', 'MuaVe', '2026-06-07 12:01:00', 'ChuyenKhoan', 650000, 'DaHuy', 21, 594),
+(29, 'HD_0029', 'MuaVe', '2026-06-07 15:15:00', 'TienMat', 150000, 'DaThanhToan', 22, 486),
+(30, 'HD_0030', 'MuaVe', '2026-06-07 18:48:00', 'ChuyenKhoan', 150000, 'DaHuy', 23, 574),
+(31, 'HD_0031', 'MuaVe', '2026-06-08 09:10:00', 'ChuyenKhoan', 900000, 'DaHuy', 24, 543),
+(32, 'HD_0032_TRA', 'PhatTraVe', '2026-06-08 12:25:00', 'ChuyenKhoan', 50000, 'DaThanhToan', 25, 559),
+(33, 'HD_0033', 'MuaVe', '2026-06-08 15:15:00', 'TienMat', 150000, 'DaHuy', 26, 484),
+(34, 'HD_0034', 'MuaVe', '2026-06-08 18:14:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 27, 485),
+(35, 'HD_0035', 'MuaVe', '2026-06-09 09:55:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 11, 485),
+(36, 'HD_0036', 'MuaVe', '2026-06-09 12:34:00', 'TienMat', 250000, 'DaHuy', 12, 568),
+(37, 'HD_0037_TRA', 'PhatTraVe', '2026-06-09 15:12:00', 'ChuyenKhoan', 60000, 'DaHuy', 13, 488),
+(38, 'HD_0038_TRA', 'PhatTraVe', '2026-06-09 18:29:00', 'TienMat', 60000, 'DaHuy', 14, 562),
+(39, 'HD_0039', 'MuaVe', '2026-06-10 09:21:00', 'ChuyenKhoan', 1200000, 'DaHuy', 15, 507),
+(40, 'HD_0040', 'MuaVe', '2026-06-10 12:27:00', 'ChuyenKhoan', 250000, 'DaHuy', 16, 511),
+(41, 'HD_0041_TRA', 'PhatTraVe', '2026-06-10 15:51:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 17, 488),
+(42, 'HD_0042', 'MuaVe', '2026-06-10 18:59:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 18, 497),
+(43, 'HD_0043_TRA', 'PhatTraVe', '2026-06-11 09:55:00', 'TienMat', 45000, 'DaHuy', 19, 591),
+(44, 'HD_0044', 'MuaVe', '2026-06-11 12:24:00', 'ChuyenKhoan', 150000, 'DaHuy', 20, 594),
+(45, 'HD_0045_TRA', 'PhatTraVe', '2026-06-11 15:09:00', 'TienMat', 60000, 'DaHuy', 21, 513),
+(46, 'HD_0046', 'MuaVe', '2026-06-11 18:20:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 22, 482),
+(47, 'HD_0047_TRA', 'PhatTraVe', '2026-06-12 09:32:00', 'ChuyenKhoan', 30000, 'DaThanhToan', 23, 584),
+(48, 'HD_0048', 'MuaVe', '2026-06-12 12:55:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 24, 527),
+(49, 'HD_0049', 'MuaVe', '2026-06-12 15:38:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 25, 555),
+(50, 'HD_0050', 'MuaVe', '2026-06-12 18:13:00', 'TienMat', 450000, 'DaThanhToan', 26, 567),
+(51, 'HD_0051', 'MuaVe', '2026-06-13 09:08:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 27, 558),
+(52, 'HD_0052', 'MuaVe', '2026-06-13 12:00:00', 'TienMat', 150000, 'DaThanhToan', 11, 555),
+(53, 'HD_0053', 'MuaVe', '2026-06-13 15:16:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 12, 595),
+(54, 'HD_0054', 'MuaVe', '2026-06-13 18:18:00', 'ChuyenKhoan', 450000, 'DaThanhToan', 13, 532),
+(55, 'HD_0055', 'MuaVe', '2026-06-14 09:52:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 14, 514),
+(56, 'HD_0056', 'MuaVe', '2026-06-14 12:56:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 15, 571),
+(57, 'HD_0057', 'MuaVe', '2026-06-14 15:13:00', 'TienMat', 900000, 'DaThanhToan', 16, 502),
+(58, 'HD_0058', 'MuaVe', '2026-06-14 18:57:00', 'ChuyenKhoan', 450000, 'DaHuy', 17, 487),
+(59, 'HD_0059_TRA', 'PhatTraVe', '2026-06-15 09:21:00', 'TienMat', 30000, 'DaThanhToan', 18, 557),
+(60, 'HD_0060', 'MuaVe', '2026-06-15 12:45:00', 'ChuyenKhoan', 900000, 'DaHuy', 19, 547),
+(61, 'HD_0061', 'MuaVe', '2026-06-15 15:57:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 20, 545),
+(62, 'HD_0062', 'MuaVe', '2026-06-15 18:08:00', 'TienMat', 650000, 'DaThanhToan', 21, 515),
+(63, 'HD_0063', 'MuaVe', '2026-06-16 09:43:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 22, 561),
+(64, 'HD_0064', 'MuaVe', '2026-06-16 12:47:00', 'TienMat', 900000, 'DaHuy', 23, 594),
+(65, 'HD_0065', 'MuaVe', '2026-06-16 15:01:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 24, 570),
+(66, 'HD_0066', 'MuaVe', '2026-06-16 18:10:00', 'TienMat', 450000, 'DaThanhToan', 25, 489),
+(67, 'HD_0067_TRA', 'PhatTraVe', '2026-06-17 09:12:00', 'ChuyenKhoan', 45000, 'DaHuy', 26, 520),
+(68, 'HD_0068', 'MuaVe', '2026-06-17 12:42:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 27, 527),
+(69, 'HD_0069', 'MuaVe', '2026-06-17 15:22:00', 'TienMat', 450000, 'DaThanhToan', 11, 541),
+(70, 'HD_0070_TRA', 'PhatTraVe', '2026-06-17 18:07:00', 'ChuyenKhoan', 30000, 'DaThanhToan', 12, 498),
+(71, 'HD_0071', 'MuaVe', '2026-06-18 09:27:00', 'ChuyenKhoan', 900000, 'DaThanhToan', 13, 569),
+(72, 'HD_0072', 'MuaVe', '2026-06-18 12:57:00', 'TienMat', 650000, 'DaThanhToan', 14, 500),
+(73, 'HD_0073', 'MuaVe', '2026-06-18 15:33:00', 'ChuyenKhoan', 150000, 'DaHuy', 15, 563),
+(74, 'HD_0074', 'MuaVe', '2026-06-18 18:42:00', 'TienMat', 150000, 'DaHuy', 16, 555),
+(75, 'HD_0075', 'MuaVe', '2026-06-19 09:57:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 17, 540),
+(76, 'HD_0076', 'MuaVe', '2026-06-19 12:25:00', 'ChuyenKhoan', 450000, 'DaHuy', 18, 513),
+(77, 'HD_0077', 'MuaVe', '2026-06-19 15:24:00', 'ChuyenKhoan', 1200000, 'DaHuy', 19, 571),
+(78, 'HD_0078', 'MuaVe', '2026-06-19 18:35:00', 'ChuyenKhoan', 650000, 'DaThanhToan', 20, 514),
+(79, 'HD_0079', 'MuaVe', '2026-06-20 09:38:00', 'ChuyenKhoan', 900000, 'DaHuy', 21, 517),
+(80, 'HD_0080_TRA', 'PhatTraVe', '2026-06-20 12:32:00', 'TienMat', 45000, 'DaHuy', 22, 577),
+(81, 'HD_0081', 'MuaVe', '2026-06-20 15:32:00', 'ChuyenKhoan', 450000, 'DaThanhToan', 23, 557),
+(82, 'HD_0082', 'MuaVe', '2026-06-20 18:19:00', 'ChuyenKhoan', 1200000, 'DaThanhToan', 24, 579),
+(83, 'HD_0083', 'MuaVe', '2026-06-21 09:15:00', 'ChuyenKhoan', 150000, 'DaThanhToan', 25, 554),
+(84, 'HD_0084', 'MuaVe', '2026-06-21 12:36:00', 'TienMat', 1200000, 'DaHuy', 26, 567),
+(85, 'HD_0085_TRA', 'PhatTraVe', '2026-06-21 15:09:00', 'TienMat', 45000, 'DaHuy', 27, 564),
+(86, 'HD_0086', 'MuaVe', '2026-06-21 18:11:00', 'ChuyenKhoan', 250000, 'DaHuy', 11, 542),
+(87, 'HD_0087_TRA', 'PhatTraVe', '2026-06-22 09:29:00', 'ChuyenKhoan', 30000, 'DaThanhToan', 12, 578),
+(88, 'HD_0088_TRA', 'PhatTraVe', '2026-06-22 12:39:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 13, 530),
+(89, 'HD_0089_TRA', 'PhatTraVe', '2026-06-22 15:16:00', 'ChuyenKhoan', 60000, 'DaHuy', 14, 583),
+(90, 'HD_0090', 'MuaVe', '2026-06-22 18:15:00', 'ChuyenKhoan', 1200000, 'DaHuy', 15, 532),
+(91, 'HD_0091', 'MuaVe', '2026-06-23 09:17:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 16, 516),
+(92, 'HD_0092', 'MuaVe', '2026-06-23 12:24:00', 'ChuyenKhoan', 250000, 'DaThanhToan', 17, 495),
+(93, 'HD_0093', 'MuaVe', '2026-06-23 15:21:00', 'ChuyenKhoan', 650000, 'DaHuy', 18, 535),
+(94, 'HD_0094_TRA', 'PhatTraVe', '2026-06-23 18:24:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 19, 565),
+(95, 'HD_0095', 'MuaVe', '2026-06-24 09:00:00', 'ChuyenKhoan', 650000, 'DaHuy', 20, 514),
+(96, 'HD_0096_TRA', 'PhatTraVe', '2026-06-24 12:14:00', 'TienMat', 60000, 'DaThanhToan', 21, 531),
+(97, 'HD_0097_TRA', 'PhatTraVe', '2026-06-24 15:42:00', 'ChuyenKhoan', 50000, 'DaHuy', 22, 578),
+(98, 'HD_0098_TRA', 'PhatTraVe', '2026-06-24 18:58:00', 'ChuyenKhoan', 60000, 'DaThanhToan', 23, 555),
+(99, 'HD_0099', 'MuaVe', '2026-06-25 09:41:00', 'TienMat', 150000, 'DaThanhToan', 24, 493),
+(100, 'HD_0100_TRA', 'PhatTraVe', '2026-06-25 12:24:00', 'ChuyenKhoan', 50000, 'DaThanhToan', 25, 503),
+(101, 'HD_0101_TRA', 'PhatTraVe', '2026-06-25 15:17:00', 'TienMat', 60000, 'DaThanhToan', 26, 508),
+(102, 'HD_0102', 'MuaVe', '2026-06-25 18:34:00', 'TienMat', 1200000, 'DaThanhToan', 27, 520);
 
 -- Thêm vé tàu 
 INSERT INTO VeTau (id, maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lichTrinhId, nhanVienId, khachHangId, gheNgoiId, chinhSachGiaId, hoaDonId) VALUES
-(3, 'VE_0003', 'NguoiLon', 350000, 'DaBan', '2026-06-01 09:14:00', 16, 35, 570, 29, 1, 3),
-(4, 'VE_0004', 'NguoiLon', 350000, 'DaDoi', '2026-06-01 12:27:00', 6, 17, 479, 76, 1, 4),
+(3, 'VE_0003', 'NguoiLon', 350000, 'DaBan', '2026-06-01 09:14:00', 16, 14, 570, 29, 1, 3),
+(4, 'VE_0004', 'NguoiLon', 350000, 'DaDoi', '2026-06-01 12:27:00', 6, 15, 479, 76, 1, 4),
 (5, 'VE_0005', 'NguoiGia', 250000, 'DaBan', '2026-06-01 15:38:00', 6, 16, 547, 28, 1, 5),
-(6, 'VE_0006', 'NguoiLon', 900000, 'DaTra', '2026-06-01 18:28:00', 2, 3, 511, 72, 1, 6),
-(7, 'VE_0007', 'NguoiLon', 900000, 'DaTra', '2026-06-02 09:17:00', 15, 37, 503, 58, 1, 7),
-(8, 'VE_0008', 'TreEm', 150000, 'DaBan', '2026-06-02 12:06:00', 45, 69, 584, 55, 1, 8),
-(9, 'VE_0009', 'TreEm', 300000, 'DaBan', '2026-06-02 15:46:00', 14, 82, 544, 44, 1, 9),
-(10, 'VE_0010', 'NguoiLon', 350000, 'DaTra', '2026-06-02 18:18:00', 7, 149, 555, 46, 1, 10),
-(11, 'VE_0011', 'TreEm', 300000, 'DaBan', '2026-06-03 09:04:00', 47, 18, 560, 59, 1, 11),
-(12, 'VE_0012', 'NguoiLon', 750000, 'DaBan', '2026-06-03 12:55:00', 36, 28, 524, 38, 1, 12),
-(13, 'VE_0013', 'NguoiLon', 750000, 'DaBan', '2026-06-03 15:23:00', 1, 69, 502, 60, 1, 13),
-(14, 'VE_0014', 'NguoiGia', 350000, 'DaBan', '2026-06-03 18:40:00', 34, 39, 544, 25, 1, 14),
-(15, 'VE_0015', 'NguoiGia', 350000, 'DaTra', '2026-06-04 09:17:00', 33, 150, 564, 41, 1, 15),
-(16, 'VE_0016', 'NguoiLon', 600000, 'DaBan', '2026-06-04 12:14:00', 21, 17, 579, 68, 1, 16),
-(17, 'VE_0017', 'TreEm', 150000, 'DaBan', '2026-06-04 15:13:00', 31, 101, 588, 30, 1, 17),
-(18, 'VE_0018', 'NguoiGia', 250000, 'DaTra', '2026-06-04 18:56:00', 10, 151, 534, 5, 1, 18),
-(19, 'VE_0019', 'NguoiLon', 350000, 'DaBan', '2026-06-05 09:47:00', 44, 99, 544, 35, 1, 19),
-(20, 'VE_0020', 'TreEm', 200000, 'DaTra', '2026-06-05 12:25:00', 30, 70, 504, 61, 1, 20),
-(21, 'VE_0021', 'NguoiLon', 350000, 'DaTra', '2026-06-05 15:48:00', 11, 19, 586, 75, 1, 21),
-(22, 'VE_0022', 'TreEm', 300000, 'DaBan', '2026-06-05 18:27:00', 39, 145, 484, 21, 1, 22),
-(23, 'VE_0023', 'NguoiLon', 600000, 'DaTra', '2026-06-06 09:35:00', 37, 13, 563, 62, 1, 23),
-(24, 'VE_0024', 'TreEm', 150000, 'DaBan', '2026-06-06 12:21:00', 48, 32, 513, 11, 1, 24),
-(25, 'VE_0025', 'NguoiLon', 600000, 'DaTra', '2026-06-06 15:46:00', 1, 54, 540, 67, 1, 25),
-(26, 'VE_0026', 'NguoiGia', 350000, 'DaBan', '2026-06-06 18:19:00', 1, 150, 540, 23, 1, 26),
-(27, 'VE_0027', 'TreEm', 200000, 'DaBan', '2026-06-07 09:34:00', 44, 91, 593, 19, 1, 27),
-(28, 'VE_0028', 'NguoiGia', 350000, 'DaBan', '2026-06-07 12:01:00', 50, 32, 594, 25, 1, 28),
-(29, 'VE_0029', 'TreEm', 200000, 'DaBan', '2026-06-07 15:15:00', 48, 101, 486, 73, 1, 29),
-(30, 'VE_0030', 'NguoiLon', 600000, 'DaTra', '2026-06-07 18:48:00', 46, 92, 574, 56, 1, 30),
-(31, 'VE_0031', 'NguoiLon', 350000, 'DaTra', '2026-06-08 09:10:00', 40, 54, 543, 62, 1, 31),
-(32, 'VE_0032', 'NguoiGia', 500000, 'DaBan', '2026-06-08 12:25:00', 51, 154, 559, 13, 1, 32),
-(33, 'VE_0033', 'TreEm', 450000, 'DaTra', '2026-06-08 15:15:00', 19, 49, 484, 56, 1, 33),
-(34, 'VE_0034', 'NguoiLon', 900000, 'DaBan', '2026-06-08 18:14:00', 36, 4, 485, 41, 1, 34),
-(35, 'VE_0035', 'NguoiLon', 750000, 'DaDoi', '2026-06-09 09:55:00', 33, 64, 485, 34, 1, 35),
-(36, 'VE_0036', 'NguoiGia', 500000, 'DaTra', '2026-06-09 12:34:00', 38, 34, 568, 48, 1, 36),
-(37, 'VE_0037', 'NguoiGia', 350000, 'DaTra', '2026-06-09 15:12:00', 2, 28, 488, 30, 1, 37),
-(38, 'VE_0038', 'NguoiLon', 600000, 'DaTra', '2026-06-09 18:29:00', 47, 19, 562, 47, 1, 38),
-(39, 'VE_0039', 'TreEm', 150000, 'DaTra', '2026-06-10 09:21:00', 30, 30, 507, 23, 1, 39),
-(40, 'VE_0040', 'TreEm', 300000, 'DaTra', '2026-06-10 12:27:00', 10, 43, 511, 48, 1, 40),
-(41, 'VE_0041', 'TreEm', 300000, 'DaBan', '2026-06-10 15:51:00', 11, 98, 488, 71, 1, 41),
-(42, 'VE_0042', 'NguoiLon', 450000, 'DaBan', '2026-06-10 18:59:00', 44, 51, 497, 53, 1, 42),
-(43, 'VE_0043', 'NguoiGia', 250000, 'DaTra', '2026-06-11 09:55:00', 32, 74, 591, 52, 1, 43),
-(44, 'VE_0044', 'NguoiLon', 750000, 'DaTra', '2026-06-11 12:24:00', 10, 54, 594, 62, 1, 44),
-(45, 'VE_0045', 'NguoiLon', 600000, 'DaTra', '2026-06-11 15:09:00', 36, 44, 513, 24, 1, 45),
-(46, 'VE_0046', 'TreEm', 200000, 'DaBan', '2026-06-11 18:20:00', 41, 21, 482, 15, 1, 46),
-(47, 'VE_0047', 'NguoiGia', 500000, 'DaBan', '2026-06-12 09:32:00', 39, 25, 584, 57, 1, 47),
-(48, 'VE_0048', 'NguoiLon', 750000, 'DaBan', '2026-06-12 12:55:00', 50, 51, 527, 43, 1, 48),
-(49, 'VE_0049', 'TreEm', 150000, 'DaBan', '2026-06-12 15:38:00', 19, 18, 555, 34, 1, 49),
-(50, 'VE_0050', 'NguoiLon', 900000, 'DaBan', '2026-06-12 18:13:00', 2, 154, 567, 36, 1, 50),
-(51, 'VE_0051', 'NguoiLon', 600000, 'DaBan', '2026-06-13 09:08:00', 33, 154, 558, 20, 1, 51),
-(52, 'VE_0052', 'NguoiLon', 750000, 'DaBan', '2026-06-13 12:00:00', 26, 82, 555, 50, 1, 52);
-INSERT INTO VeTau (id, maVe, loaiDoiTuong, giaVe, trangThai, thoiDiemBanVe, lichTrinhId, nhanVienId, khachHangId, gheNgoiId, chinhSachGiaId, hoaDonId) VALUES
-(53, 'VE_0053', 'NguoiLon', 750000, 'DaBan', '2026-06-13 15:16:00', 39, 34, 595, 35, 1, 53),
-(54, 'VE_0054', 'TreEm', 450000, 'DaBan', '2026-06-13 18:18:00', 5, 38, 532, 70, 1, 54),
-(55, 'VE_0055', 'NguoiLon', 900000, 'DaBan', '2026-06-14 09:52:00', 17, 98, 514, 56, 1, 55),
-(56, 'VE_0056', 'TreEm', 450000, 'DaBan', '2026-06-14 12:56:00', 17, 30, 571, 74, 1, 56),
-(57, 'VE_0057', 'NguoiLon', 350000, 'DaBan', '2026-06-14 15:13:00', 44, 66, 502, 10, 1, 57),
-(58, 'VE_0058', 'TreEm', 450000, 'DaTra', '2026-06-14 18:57:00', 24, 19, 487, 10, 1, 58),
-(59, 'VE_0059', 'TreEm', 450000, 'DaBan', '2026-06-15 09:21:00', 33, 34, 557, 56, 1, 59),
-(60, 'VE_0060', 'TreEm', 450000, 'DaTra', '2026-06-15 12:45:00', 5, 77, 547, 50, 1, 60),
-(61, 'VE_0061', 'NguoiLon', 600000, 'DaBan', '2026-06-15 15:57:00', 36, 37, 545, 14, 1, 61),
-(62, 'VE_0062', 'NguoiLon', 350000, 'DaBan', '2026-06-15 18:08:00', 17, 18, 515, 34, 1, 62),
-(63, 'VE_0063', 'NguoiGia', 650000, 'DaBan', '2026-06-16 09:43:00', 46, 52, 561, 72, 1, 63),
-(64, 'VE_0064', 'TreEm', 200000, 'DaTra', '2026-06-16 12:47:00', 17, 37, 594, 21, 1, 64),
-(65, 'VE_0065', 'NguoiLon', 450000, 'DaBan', '2026-06-16 15:01:00', 29, 41, 570, 20, 1, 65),
-(66, 'VE_0066', 'TreEm', 150000, 'DaBan', '2026-06-16 18:10:00', 15, 158, 489, 74, 1, 66),
-(67, 'VE_0067', 'NguoiGia', 350000, 'DaTra', '2026-06-17 09:12:00', 38, 82, 520, 6, 1, 67),
-(68, 'VE_0068', 'NguoiGia', 350000, 'DaBan', '2026-06-17 12:42:00', 45, 44, 527, 43, 1, 68),
-(69, 'VE_0069', 'NguoiLon', 750000, 'DaBan', '2026-06-17 15:22:00', 50, 151, 541, 77, 1, 69),
-(70, 'VE_0070', 'NguoiLon', 350000, 'DaBan', '2026-06-17 18:07:00', 4, 54, 498, 29, 1, 70),
-(71, 'VE_0071', 'NguoiLon', 750000, 'DaBan', '2026-06-18 09:27:00', 19, 68, 569, 75, 1, 71),
-(72, 'VE_0072', 'TreEm', 450000, 'DaBan', '2026-06-18 12:57:00', 20, 102, 500, 39, 1, 72),
-(73, 'VE_0073', 'TreEm', 300000, 'DaTra', '2026-06-18 15:33:00', 46, 92, 563, 62, 1, 73),
-(74, 'VE_0074', 'TreEm', 300000, 'DaTra', '2026-06-18 18:42:00', 15, 64, 555, 3, 1, 74),
-(75, 'VE_0075', 'TreEm', 450000, 'DaBan', '2026-06-19 09:57:00', 21, 61, 540, 14, 1, 75),
-(76, 'VE_0076', 'NguoiLon', 350000, 'DaTra', '2026-06-19 12:25:00', 15, 158, 513, 27, 1, 76),
-(77, 'VE_0077', 'TreEm', 450000, 'DaTra', '2026-06-19 15:24:00', 46, 155, 571, 71, 1, 77),
-(78, 'VE_0078', 'TreEm', 450000, 'DaBan', '2026-06-19 18:35:00', 26, 4, 514, 69, 1, 78),
-(79, 'VE_0079', 'NguoiLon', 450000, 'DaTra', '2026-06-20 09:38:00', 37, 152, 517, 3, 1, 79),
-(80, 'VE_0080', 'NguoiGia', 500000, 'DaTra', '2026-06-20 12:32:00', 12, 83, 577, 49, 1, 80),
-(81, 'VE_0081', 'TreEm', 200000, 'DaBan', '2026-06-20 15:32:00', 38, 153, 557, 41, 1, 81),
-(82, 'VE_0082', 'NguoiLon', 750000, 'DaBan', '2026-06-20 18:19:00', 33, 49, 579, 64, 1, 82),
-(83, 'VE_0083', 'NguoiLon', 600000, 'DaBan', '2026-06-21 09:15:00', 36, 83, 554, 76, 1, 83),
-(84, 'VE_0084', 'TreEm', 150000, 'DaTra', '2026-06-21 12:36:00', 10, 44, 567, 3, 1, 84),
-(85, 'VE_0085', 'TreEm', 450000, 'DaTra', '2026-06-21 15:09:00', 13, 152, 564, 49, 1, 85),
-(86, 'VE_0086', 'NguoiLon', 350000, 'DaTra', '2026-06-21 18:11:00', 43, 158, 542, 60, 1, 86),
-(87, 'VE_0087', 'NguoiGia', 350000, 'DaBan', '2026-06-22 09:29:00', 33, 35, 578, 62, 1, 87),
-(88, 'VE_0088', 'NguoiLon', 450000, 'DaBan', '2026-06-22 12:39:00', 2, 88, 530, 20, 1, 88),
-(89, 'VE_0089', 'NguoiLon', 600000, 'DaTra', '2026-06-22 15:16:00', 23, 52, 583, 6, 1, 89),
-(90, 'VE_0090', 'NguoiLon', 900000, 'DaTra', '2026-06-22 18:15:00', 20, 56, 532, 19, 1, 90),
-(91, 'VE_0091', 'NguoiLon', 450000, 'DaBan', '2026-06-23 09:17:00', 43, 64, 516, 10, 1, 91),
-(92, 'VE_0092', 'TreEm', 450000, 'DaBan', '2026-06-23 12:24:00', 40, 157, 495, 78, 1, 92),
-(93, 'VE_0093', 'NguoiGia', 350000, 'DaTra', '2026-06-23 15:21:00', 14, 94, 535, 33, 1, 93),
-(94, 'VE_0094', 'TreEm', 150000, 'DaBan', '2026-06-23 18:24:00', 47, 2, 565, 41, 1, 94),
-(95, 'VE_0095', 'NguoiLon', 350000, 'DaTra', '2026-06-24 09:00:00', 36, 69, 514, 18, 1, 95),
-(96, 'VE_0096', 'TreEm', 450000, 'DaBan', '2026-06-24 12:14:00', 19, 55, 531, 33, 1, 96),
-(97, 'VE_0097', 'TreEm', 150000, 'DaTra', '2026-06-24 15:42:00', 33, 155, 578, 23, 1, 97),
-(98, 'VE_0098', 'NguoiLon', 600000, 'DaBan', '2026-06-24 18:58:00', 2, 34, 555, 11, 1, 98),
-(99, 'VE_0099', 'NguoiLon', 450000, 'DaBan', '2026-06-25 09:41:00', 10, 77, 493, 2, 1, 99),
-(100, 'VE_0100', 'TreEm', 300000, 'DaBan', '2026-06-25 12:24:00', 43, 63, 503, 33, 1, 100),
-(101, 'VE_0101', 'TreEm', 200000, 'DaBan', '2026-06-25 15:17:00', 37, 76, 508, 61, 1, 101),
-(102, 'VE_0102', 'NguoiLon', 750000, 'DaBan', '2026-06-25 18:34:00', 50, 19, 520, 19, 1, 102);
+(6, 'VE_0006', 'NguoiLon', 900000, 'DaTra', '2026-06-01 18:28:00', 2, 17, 511, 72, 1, 6),
+(7, 'VE_0007', 'NguoiLon', 900000, 'DaTra', '2026-06-02 09:17:00', 15, 18, 503, 58, 1, 7),
+(8, 'VE_0008', 'TreEm', 150000, 'DaBan', '2026-06-02 12:06:00', 45, 19, 584, 55, 1, 8),
+(9, 'VE_0009', 'TreEm', 300000, 'DaBan', '2026-06-02 15:46:00', 14, 20, 544, 44, 1, 9),
+(10, 'VE_0010', 'NguoiLon', 350000, 'DaTra', '2026-06-02 18:18:00', 7, 21, 555, 46, 1, 10),
+(11, 'VE_0011', 'TreEm', 300000, 'DaBan', '2026-06-03 09:04:00', 47, 22, 560, 59, 1, 11),
+(12, 'VE_0012', 'NguoiLon', 750000, 'DaBan', '2026-06-03 12:55:00', 36, 23, 524, 38, 1, 12),
+(13, 'VE_0013', 'NguoiLon', 750000, 'DaBan', '2026-06-03 15:23:00', 1, 24, 502, 60, 1, 13),
+(14, 'VE_0014', 'NguoiGia', 350000, 'DaBan', '2026-06-03 18:40:00', 34, 25, 544, 25, 1, 14),
+(15, 'VE_0015', 'NguoiGia', 350000, 'DaTra', '2026-06-04 09:17:00', 33, 26, 564, 41, 1, 15),
+(16, 'VE_0016', 'NguoiLon', 600000, 'DaBan', '2026-06-04 12:14:00', 21, 27, 579, 68, 1, 16),
+(17, 'VE_0017', 'TreEm', 150000, 'DaBan', '2026-06-04 15:13:00', 31, 11, 588, 30, 1, 17),
+(18, 'VE_0018', 'NguoiGia', 250000, 'DaTra', '2026-06-04 18:56:00', 10, 12, 534, 5, 1, 18),
+(19, 'VE_0019', 'NguoiLon', 350000, 'DaBan', '2026-06-05 09:47:00', 44, 13, 544, 35, 1, 19),
+(20, 'VE_0020', 'TreEm', 200000, 'DaTra', '2026-06-05 12:25:00', 30, 14, 504, 61, 1, 20),
+(21, 'VE_0021', 'NguoiLon', 350000, 'DaTra', '2026-06-05 15:48:00', 11, 15, 586, 75, 1, 21),
+(22, 'VE_0022', 'TreEm', 300000, 'DaBan', '2026-06-05 18:27:00', 39, 16, 484, 21, 1, 22),
+(23, 'VE_0023', 'NguoiLon', 600000, 'DaTra', '2026-06-06 09:35:00', 37, 17, 563, 62, 1, 23),
+(24, 'VE_0024', 'TreEm', 150000, 'DaBan', '2026-06-06 12:21:00', 48, 18, 513, 11, 1, 24),
+(25, 'VE_0025', 'NguoiLon', 600000, 'DaTra', '2026-06-06 15:46:00', 1, 19, 540, 67, 1, 25),
+(26, 'VE_0026', 'NguoiGia', 350000, 'DaBan', '2026-06-06 18:19:00', 1, 20, 540, 23, 1, 26),
+(27, 'VE_0027', 'TreEm', 200000, 'DaBan', '2026-06-07 09:34:00', 44, 21, 593, 19, 1, 27),
+(28, 'VE_0028', 'NguoiGia', 350000, 'DaBan', '2026-06-07 12:01:00', 50, 22, 594, 25, 1, 28),
+(29, 'VE_0029', 'TreEm', 200000, 'DaBan', '2026-06-07 15:15:00', 48, 23, 486, 73, 1, 29),
+(30, 'VE_0030', 'NguoiLon', 600000, 'DaTra', '2026-06-07 18:48:00', 46, 24, 574, 56, 1, 30),
+(31, 'VE_0031', 'NguoiLon', 350000, 'DaTra', '2026-06-08 09:10:00', 40, 25, 543, 62, 1, 31),
+(32, 'VE_0032', 'NguoiGia', 500000, 'DaBan', '2026-06-08 12:25:00', 51, 26, 559, 13, 1, 32),
+(33, 'VE_0033', 'TreEm', 450000, 'DaTra', '2026-06-08 15:15:00', 19, 27, 484, 56, 1, 33),
+(34, 'VE_0034', 'NguoiLon', 900000, 'DaBan', '2026-06-08 18:14:00', 36, 11, 485, 41, 1, 34),
+(35, 'VE_0035', 'NguoiLon', 750000, 'DaDoi', '2026-06-09 09:55:00', 33, 12, 485, 34, 1, 35),
+(36, 'VE_0036', 'NguoiGia', 500000, 'DaTra', '2026-06-09 12:34:00', 38, 13, 568, 48, 1, 36),
+(37, 'VE_0037', 'NguoiGia', 350000, 'DaTra', '2026-06-09 15:12:00', 2, 14, 488, 30, 1, 37),
+(38, 'VE_0038', 'NguoiLon', 600000, 'DaTra', '2026-06-09 18:29:00', 47, 15, 562, 47, 1, 38),
+(39, 'VE_0039', 'TreEm', 150000, 'DaTra', '2026-06-10 09:21:00', 30, 16, 507, 23, 1, 39),
+(40, 'VE_0040', 'TreEm', 300000, 'DaTra', '2026-06-10 12:27:00', 10, 17, 511, 48, 1, 40),
+(41, 'VE_0041', 'TreEm', 300000, 'DaBan', '2026-06-10 15:51:00', 11, 18, 488, 71, 1, 41),
+(42, 'VE_0042', 'NguoiLon', 450000, 'DaBan', '2026-06-10 18:59:00', 44, 19, 497, 53, 1, 42),
+(43, 'VE_0043', 'NguoiGia', 250000, 'DaTra', '2026-06-11 09:55:00', 32, 20, 591, 52, 1, 43),
+(44, 'VE_0044', 'NguoiLon', 750000, 'DaTra', '2026-06-11 12:24:00', 10, 21, 594, 62, 1, 44),
+(45, 'VE_0045', 'NguoiLon', 600000, 'DaTra', '2026-06-11 15:09:00', 36, 22, 513, 24, 1, 45),
+(46, 'VE_0046', 'TreEm', 200000, 'DaBan', '2026-06-11 18:20:00', 41, 23, 482, 15, 1, 46),
+(47, 'VE_0047', 'NguoiGia', 500000, 'DaBan', '2026-06-12 09:32:00', 39, 24, 584, 57, 1, 47),
+(48, 'VE_0048', 'NguoiLon', 750000, 'DaBan', '2026-06-12 12:55:00', 50, 25, 527, 43, 1, 48),
+(49, 'VE_0049', 'TreEm', 150000, 'DaBan', '2026-06-12 15:38:00', 19, 26, 555, 34, 1, 49),
+(50, 'VE_0050', 'NguoiLon', 900000, 'DaBan', '2026-06-12 18:13:00', 2, 27, 567, 36, 1, 50),
+(51, 'VE_0051', 'NguoiLon', 600000, 'DaBan', '2026-06-13 09:08:00', 33, 11, 558, 20, 1, 51),
+(52, 'VE_0052', 'NguoiLon', 750000, 'DaBan', '2026-06-13 12:00:00', 26, 12, 555, 50, 1, 52),
+(53, 'VE_0053', 'NguoiLon', 750000, 'DaBan', '2026-06-13 15:16:00', 39, 13, 595, 35, 1, 53),
+(54, 'VE_0054', 'TreEm', 450000, 'DaBan', '2026-06-13 18:18:00', 5, 14, 532, 70, 1, 54),
+(55, 'VE_0055', 'NguoiLon', 900000, 'DaBan', '2026-06-14 09:52:00', 17, 15, 514, 56, 1, 55),
+(56, 'VE_0056', 'TreEm', 450000, 'DaBan', '2026-06-14 12:56:00', 17, 16, 571, 74, 1, 56),
+(57, 'VE_0057', 'NguoiLon', 350000, 'DaBan', '2026-06-14 15:13:00', 44, 17, 502, 10, 1, 57),
+(58, 'VE_0058', 'TreEm', 450000, 'DaTra', '2026-06-14 18:57:00', 24, 18, 487, 10, 1, 58),
+(59, 'VE_0059', 'TreEm', 450000, 'DaBan', '2026-06-15 09:21:00', 33, 19, 557, 56, 1, 59),
+(60, 'VE_0060', 'TreEm', 450000, 'DaTra', '2026-06-15 12:45:00', 5, 20, 547, 50, 1, 60),
+(61, 'VE_0061', 'NguoiLon', 600000, 'DaBan', '2026-06-15 15:57:00', 36, 21, 545, 14, 1, 61),
+(62, 'VE_0062', 'NguoiLon', 350000, 'DaBan', '2026-06-15 18:08:00', 17, 22, 515, 34, 1, 62),
+(63, 'VE_0063', 'NguoiGia', 650000, 'DaBan', '2026-06-16 09:43:00', 46, 23, 561, 72, 1, 63),
+(64, 'VE_0064', 'TreEm', 200000, 'DaTra', '2026-06-16 12:47:00', 17, 24, 594, 21, 1, 64),
+(65, 'VE_0065', 'NguoiLon', 450000, 'DaBan', '2026-06-16 15:01:00', 29, 25, 570, 20, 1, 65),
+(66, 'VE_0066', 'TreEm', 150000, 'DaBan', '2026-06-16 18:10:00', 15, 26, 489, 74, 1, 66),
+(67, 'VE_0067', 'NguoiGia', 350000, 'DaTra', '2026-06-17 09:12:00', 38, 27, 520, 6, 1, 67),
+(68, 'VE_0068', 'NguoiGia', 350000, 'DaBan', '2026-06-17 12:42:00', 45, 11, 527, 43, 1, 68),
+(69, 'VE_0069', 'NguoiLon', 750000, 'DaBan', '2026-06-17 15:22:00', 50, 12, 541, 77, 1, 69),
+(70, 'VE_0070', 'NguoiLon', 350000, 'DaBan', '2026-06-17 18:07:00', 4, 13, 498, 29, 1, 70),
+(71, 'VE_0071', 'NguoiLon', 750000, 'DaBan', '2026-06-18 09:27:00', 19, 14, 569, 75, 1, 71),
+(72, 'VE_0072', 'TreEm', 450000, 'DaBan', '2026-06-18 12:57:00', 20, 15, 500, 39, 1, 72),
+(73, 'VE_0073', 'TreEm', 300000, 'DaTra', '2026-06-18 15:33:00', 46, 16, 563, 62, 1, 73),
+(74, 'VE_0074', 'TreEm', 300000, 'DaTra', '2026-06-18 18:42:00', 15, 17, 555, 3, 1, 74),
+(75, 'VE_0075', 'TreEm', 450000, 'DaBan', '2026-06-19 09:57:00', 21, 18, 540, 14, 1, 75),
+(76, 'VE_0076', 'NguoiLon', 350000, 'DaTra', '2026-06-19 12:25:00', 15, 19, 513, 27, 1, 76),
+(77, 'VE_0077', 'TreEm', 450000, 'DaTra', '2026-06-19 15:24:00', 46, 20, 571, 71, 1, 77),
+(78, 'VE_0078', 'TreEm', 450000, 'DaBan', '2026-06-19 18:35:00', 26, 21, 514, 69, 1, 78),
+(79, 'VE_0079', 'NguoiLon', 450000, 'DaTra', '2026-06-20 09:38:00', 37, 22, 517, 3, 1, 79),
+(80, 'VE_0080', 'NguoiGia', 500000, 'DaTra', '2026-06-20 12:32:00', 12, 23, 577, 49, 1, 80),
+(81, 'VE_0081', 'TreEm', 200000, 'DaBan', '2026-06-20 15:32:00', 38, 24, 557, 41, 1, 81),
+(82, 'VE_0082', 'NguoiLon', 750000, 'DaBan', '2026-06-20 18:19:00', 33, 25, 579, 64, 1, 82),
+(83, 'VE_0083', 'NguoiLon', 600000, 'DaBan', '2026-06-21 09:15:00', 36, 26, 554, 76, 1, 83),
+(84, 'VE_0084', 'TreEm', 150000, 'DaTra', '2026-06-21 12:36:00', 10, 27, 567, 3, 1, 84),
+(85, 'VE_0085', 'TreEm', 450000, 'DaTra', '2026-06-21 15:09:00', 13, 11, 564, 49, 1, 85),
+(86, 'VE_0086', 'NguoiLon', 350000, 'DaTra', '2026-06-21 18:11:00', 43, 12, 542, 60, 1, 86),
+(87, 'VE_0087', 'NguoiGia', 350000, 'DaBan', '2026-06-22 09:29:00', 33, 13, 578, 62, 1, 87),
+(88, 'VE_0088', 'NguoiLon', 450000, 'DaBan', '2026-06-22 12:39:00', 2, 14, 530, 20, 1, 88),
+(89, 'VE_0089', 'NguoiLon', 600000, 'DaTra', '2026-06-22 15:16:00', 23, 15, 583, 6, 1, 89),
+(90, 'VE_0090', 'NguoiLon', 900000, 'DaTra', '2026-06-22 18:15:00', 20, 16, 532, 19, 1, 90),
+(91, 'VE_0091', 'NguoiLon', 450000, 'DaBan', '2026-06-23 09:17:00', 43, 17, 516, 10, 1, 91),
+(92, 'VE_0092', 'TreEm', 450000, 'DaBan', '2026-06-23 12:24:00', 40, 18, 495, 78, 1, 92),
+(93, 'VE_0093', 'NguoiGia', 350000, 'DaTra', '2026-06-23 15:21:00', 14, 19, 535, 33, 1, 93),
+(94, 'VE_0094', 'TreEm', 150000, 'DaBan', '2026-06-23 18:24:00', 47, 20, 565, 41, 1, 94),
+(95, 'VE_0095', 'NguoiLon', 350000, 'DaTra', '2026-06-24 09:00:00', 36, 21, 514, 18, 1, 95),
+(96, 'VE_0096', 'TreEm', 450000, 'DaBan', '2026-06-24 12:14:00', 19, 22, 531, 33, 1, 96),
+(97, 'VE_0097', 'TreEm', 150000, 'DaTra', '2026-06-24 15:42:00', 33, 23, 578, 23, 1, 97),
+(98, 'VE_0098', 'NguoiLon', 600000, 'DaBan', '2026-06-24 18:58:00', 2, 24, 555, 11, 1, 98),
+(99, 'VE_0099', 'NguoiLon', 450000, 'DaBan', '2026-06-25 09:41:00', 10, 25, 493, 2, 1, 99),
+(100, 'VE_0100', 'TreEm', 300000, 'DaBan', '2026-06-25 12:24:00', 43, 26, 503, 33, 1, 100),
+(101, 'VE_0101', 'TreEm', 200000, 'DaBan', '2026-06-25 15:17:00', 37, 27, 508, 61, 1, 101),
+(102, 'VE_0102', 'NguoiLon', 750000, 'DaBan', '2026-06-25 18:34:00', 50, 11, 520, 19, 1, 102);
 
 -- Them PhieuTraVe (Tham chiếu VeTau, NhanVien, HoaDon)
 INSERT INTO PhieuTraVe (id, maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach, veTauId, nhanVienId, hoaDonId) VALUES
-(2, 'PTV_662636', '2026-06-01 10:15:00', 70000, 280000, 3, 35, 3),
-(3, 'PTV_229592', '2026-06-01 13:30:00', 105000, 245000, 4, 17, 4),
-(4, 'PTV_576877', '2026-06-01 16:45:00', 50000, 200000, 5, 16, 5),
-(5, 'PTV_486490', '2026-06-01 19:10:00', 180000, 720000, 6, 3, 6),
-(6, 'PTV_805511', '2026-06-02 10:00:00', 270000, 630000, 7, 37, 7),
-(7, 'PTV_885395', '2026-06-02 13:12:00', 30000, 120000, 8, 69, 8),
-(8, 'PTV_805000', '2026-06-02 16:20:00', 60000, 240000, 9, 82, 9),
-(9, 'PTV_374896', '2026-06-02 19:40:00', 70000, 280000, 10, 149, 10),
-(10, 'PTV_712955', '2026-06-03 10:05:00', 60000, 240000, 11, 18, 11),
-(11, 'PTV_499534', '2026-06-03 13:55:00', 150000, 600000, 12, 28, 12),
-(12, 'PTV_962367', '2026-06-03 16:15:00', 150000, 600000, 13, 69, 13),
-(13, 'PTV_769567', '2026-06-03 19:20:00', 70000, 280000, 14, 39, 14),
-(14, 'PTV_489518', '2026-06-04 10:11:00', 105000, 245000, 15, 150, 15),
-(15, 'PTV_213609', '2026-06-04 13:02:00', 120000, 480000, 16, 17, 16),
-(16, 'PTV_807617', '2026-06-04 16:34:00', 30000, 120000, 17, 101, 17),
-(17, 'PTV_345180', '2026-06-04 19:44:00', 75000, 175000, 18, 151, 18),
-(18, 'PTV_594379', '2026-06-05 10:15:00', 70000, 280000, 19, 99, 19),
-(19, 'PTV_126240', '2026-06-05 13:14:00', 40000, 160000, 20, 70, 20),
-(20, 'PTV_749641', '2026-06-05 16:55:00', 70000, 280000, 21, 19, 21),
-(21, 'PTV_688678', '2026-06-05 19:12:00', 60000, 240000, 22, 145, 22),
-(22, 'PTV_443939', '2026-06-06 10:32:00', 120000, 480000, 23, 13, 23),
-(23, 'PTV_739717', '2026-06-06 13:51:00', 30000, 120000, 24, 32, 24),
-(24, 'PTV_332120', '2026-06-06 16:46:00', 120000, 480000, 25, 54, 25),
-(25, 'PTV_779112', '2026-06-06 19:29:00', 70000, 280000, 26, 150, 26),
-(26, 'PTV_166287', '2026-06-07 10:12:00', 40000, 160000, 27, 91, 27),
-(27, 'PTV_766269', '2026-06-07 13:25:00', 70000, 280000, 28, 32, 28),
-(28, 'PTV_963874', '2026-06-07 16:33:00', 40000, 160000, 29, 101, 29),
-(29, 'PTV_586819', '2026-06-07 19:10:00', 180000, 420000, 30, 92, 30),
-(30, 'PTV_835132', '2026-06-08 10:12:00', 105000, 245000, 31, 54, 31),
-(31, 'PTV_416869', '2026-06-08 13:17:00', 100000, 400000, 32, 154, 32),
-(32, 'PTV_780776', '2026-06-08 16:15:00', 90000, 360000, 33, 49, 33),
-(33, 'PTV_528129', '2026-06-08 19:26:00', 180000, 720000, 34, 4, 34),
-(34, 'PTV_222343', '2026-06-09 10:14:00', 225000, 525000, 35, 64, 35),
-(35, 'PTV_246566', '2026-06-09 13:34:00', 100000, 400000, 36, 34, 36),
-(36, 'PTV_147549', '2026-06-09 16:11:00', 105000, 245000, 37, 28, 37),
-(37, 'PTV_139019', '2026-06-09 19:08:00', 180000, 420000, 38, 19, 38),
-(38, 'PTV_419149', '2026-06-10 10:12:00', 45000, 105000, 39, 30, 39),
-(39, 'PTV_616554', '2026-06-10 13:21:00', 90000, 210000, 40, 43, 40),
-(40, 'PTV_221761', '2026-06-10 16:51:00', 60000, 240000, 41, 98, 41),
-(41, 'PTV_201913', '2026-06-10 19:42:00', 90000, 360000, 42, 51, 42),
-(42, 'PTV_346205', '2026-06-11 10:55:00', 50000, 200000, 43, 74, 43),
-(43, 'PTV_663658', '2026-06-11 13:16:00', 225000, 525000, 44, 54, 44),
-(44, 'PTV_242254', '2026-06-11 16:24:00', 180000, 420000, 45, 44, 45),
-(45, 'PTV_507524', '2026-06-11 19:20:00', 60000, 140000, 46, 21, 46),
+(2, 'PTV_662636', '2026-06-01 10:15:00', 70000, 280000, 3, 15, 3),
+(3, 'PTV_229592', '2026-06-01 13:30:00', 105000, 245000, 4, 16, 4),
+(4, 'PTV_576877', '2026-06-01 16:45:00', 50000, 200000, 5, 17, 5),
+(5, 'PTV_486490', '2026-06-01 19:10:00', 180000, 720000, 6, 18, 6),
+(6, 'PTV_805511', '2026-06-02 10:00:00', 270000, 630000, 7, 19, 7),
+(7, 'PTV_885395', '2026-06-02 13:12:00', 30000, 120000, 8, 20, 8),
+(8, 'PTV_805000', '2026-06-02 16:20:00', 60000, 240000, 9, 21, 9),
+(9, 'PTV_374896', '2026-06-02 19:40:00', 70000, 280000, 10, 22, 10),
+(10, 'PTV_712955', '2026-06-03 10:05:00', 60000, 240000, 11, 23, 11),
+(11, 'PTV_499534', '2026-06-03 13:55:00', 150000, 600000, 12, 24, 12),
+(12, 'PTV_962367', '2026-06-03 16:15:00', 150000, 600000, 13, 25, 13),
+(13, 'PTV_769567', '2026-06-03 19:20:00', 70000, 280000, 14, 26, 14),
+(14, 'PTV_489518', '2026-06-04 10:11:00', 105000, 245000, 15, 27, 15),
+(15, 'PTV_213609', '2026-06-04 13:02:00', 120000, 480000, 16, 11, 16),
+(16, 'PTV_807617', '2026-06-04 16:34:00', 30000, 120000, 17, 12, 17),
+(17, 'PTV_345180', '2026-06-04 19:44:00', 75000, 175000, 18, 13, 18),
+(18, 'PTV_594379', '2026-06-05 10:15:00', 70000, 280000, 19, 14, 19),
+(19, 'PTV_126240', '2026-06-05 13:14:00', 40000, 160000, 20, 15, 20),
+(20, 'PTV_749641', '2026-06-05 16:55:00', 70000, 280000, 21, 16, 21),
+(21, 'PTV_688678', '2026-06-05 19:12:00', 60000, 240000, 22, 17, 22),
+(22, 'PTV_443939', '2026-06-06 10:32:00', 120000, 480000, 23, 18, 23),
+(23, 'PTV_739717', '2026-06-06 13:51:00', 30000, 120000, 24, 19, 24),
+(24, 'PTV_332120', '2026-06-06 16:46:00', 120000, 480000, 25, 20, 25),
+(25, 'PTV_779112', '2026-06-06 19:29:00', 70000, 280000, 26, 21, 26),
+(26, 'PTV_166287', '2026-06-07 10:12:00', 40000, 160000, 27, 22, 27),
+(27, 'PTV_766269', '2026-06-07 13:25:00', 70000, 280000, 28, 23, 28),
+(28, 'PTV_963874', '2026-06-07 16:33:00', 40000, 160000, 29, 24, 29),
+(29, 'PTV_586819', '2026-06-07 19:10:00', 180000, 420000, 30, 25, 30),
+(30, 'PTV_835132', '2026-06-08 10:12:00', 105000, 245000, 31, 26, 31),
+(31, 'PTV_416869', '2026-06-08 13:17:00', 100000, 400000, 32, 27, 32),
+(32, 'PTV_780776', '2026-06-08 16:15:00', 90000, 360000, 33, 11, 33),
+(33, 'PTV_528129', '2026-06-08 19:26:00', 180000, 720000, 34, 12, 34),
+(34, 'PTV_222343', '2026-06-09 10:14:00', 225000, 525000, 35, 13, 35),
+(35, 'PTV_246566', '2026-06-09 13:34:00', 100000, 400000, 36, 14, 36),
+(36, 'PTV_147549', '2026-06-09 16:11:00', 105000, 245000, 37, 15, 37),
+(37, 'PTV_139019', '2026-06-09 19:08:00', 180000, 420000, 38, 16, 38),
+(38, 'PTV_419149', '2026-06-10 10:12:00', 45000, 105000, 39, 17, 39),
+(39, 'PTV_616554', '2026-06-10 13:21:00', 90000, 210000, 40, 18, 40),
+(40, 'PTV_221761', '2026-06-10 16:51:00', 60000, 240000, 41, 19, 41),
+(41, 'PTV_201913', '2026-06-10 19:42:00', 90000, 360000, 42, 20, 42),
+(42, 'PTV_346205', '2026-06-11 10:55:00', 50000, 200000, 43, 21, 43),
+(43, 'PTV_663658', '2026-06-11 13:16:00', 225000, 525000, 44, 22, 44),
+(44, 'PTV_242254', '2026-06-11 16:24:00', 180000, 420000, 45, 23, 45),
+(45, 'PTV_507524', '2026-06-11 19:20:00', 60000, 140000, 46, 24, 46),
 (46, 'PTV_575679', '2026-06-12 10:07:00', 100000, 400000, 47, 25, 47),
-(47, 'PTV_489033', '2026-06-12 13:28:00', 225000, 525000, 48, 51, 48),
-(48, 'PTV_803055', '2026-06-12 16:32:00', 45000, 105000, 49, 18, 49),
-(49, 'PTV_879238', '2026-06-12 19:13:00', 180000, 720000, 50, 154, 50),
-(50, 'PTV_830316', '2026-06-13 10:08:00', 120000, 480000, 51, 154, 51),
-(51, 'PTV_666432', '2026-06-13 13:00:00', 225000, 525000, 52, 82, 52);
+(47, 'PTV_489033', '2026-06-12 13:28:00', 225000, 525000, 48, 26, 48),
+(48, 'PTV_803055', '2026-06-12 16:32:00', 45000, 105000, 49, 27, 49),
+(49, 'PTV_879238', '2026-06-12 19:13:00', 180000, 720000, 50, 11, 50),
+(50, 'PTV_830316', '2026-06-13 10:08:00', 120000, 480000, 51, 12, 51),
+(51, 'PTV_666432', '2026-06-13 13:00:00', 225000, 525000, 52, 13, 52);
 INSERT INTO PhieuTraVe (id, maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach, veTauId, nhanVienId, hoaDonId) VALUES
-(52, 'PTV_539486', '2026-06-13 16:00:00', 225000, 525000, 53, 34, 53),
-(53, 'PTV_715870', '2026-06-13 19:18:00', 90000, 360000, 54, 38, 54),
-(54, 'PTV_878325', '2026-06-14 10:31:00', 180000, 720000, 55, 98, 55),
-(55, 'PTV_861894', '2026-06-14 13:56:00', 90000, 360000, 56, 30, 56),
-(56, 'PTV_262029', '2026-06-14 16:13:00', 70000, 280000, 57, 66, 57),
-(57, 'PTV_535037', '2026-06-14 19:57:00', 90000, 360000, 58, 19, 58),
-(58, 'PTV_786735', '2026-06-15 10:21:00', 90000, 360000, 59, 34, 59),
-(59, 'PTV_203831', '2026-06-15 13:45:00', 90000, 360000, 60, 77, 60),
-(60, 'PTV_974190', '2026-06-15 16:57:00', 120000, 480000, 61, 37, 61),
-(61, 'PTV_613117', '2026-06-15 19:08:00', 70000, 280000, 62, 18, 62),
-(62, 'PTV_745558', '2026-06-16 10:43:00', 195000, 455000, 63, 52, 63),
-(63, 'PTV_527940', '2026-06-16 13:47:00', 40000, 160000, 64, 37, 64),
-(64, 'PTV_393328', '2026-06-16 16:01:00', 90000, 360000, 65, 41, 65),
-(65, 'PTV_134305', '2026-06-16 19:10:00', 30000, 120000, 66, 158, 66),
-(66, 'PTV_823811', '2026-06-17 10:12:00', 105000, 245000, 67, 82, 67),
-(67, 'PTV_488528', '2026-06-17 13:42:00', 35000, 115000, 68, 44, 68),
-(68, 'PTV_327823', '2026-06-17 16:22:00', 150000, 600000, 69, 151, 69),
-(69, 'PTV_564920', '2026-06-17 19:07:00', 70000, 280000, 70, 54, 70),
-(70, 'PTV_566297', '2026-06-18 10:27:00', 180000, 520000, 71, 68, 71),
-(71, 'PTV_347582', '2026-06-18 13:57:00', 90000, 360000, 72, 102, 72),
-(72, 'PTV_997004', '2026-06-18 16:33:00', 60000, 240000, 73, 92, 73),
-(73, 'PTV_480303', '2026-06-18 19:42:00', 30000, 120000, 74, 64, 74),
-(74, 'PTV_204180', '2026-06-19 10:57:00', 90000, 360000, 75, 61, 75),
-(75, 'PTV_818987', '2026-06-19 13:25:00', 105000, 245000, 76, 158, 76),
-(76, 'PTV_485178', '2026-06-19 16:24:00', 135000, 315000, 77, 155, 77),
-(77, 'PTV_670913', '2026-06-19 19:35:00', 90000, 360000, 78, 4, 78),
-(78, 'PTV_776149', '2026-06-20 10:38:00', 135000, 315000, 79, 152, 79),
-(79, 'PTV_476096', '2026-06-20 13:32:00', 150000, 350000, 80, 83, 80),
-(80, 'PTV_163491', '2026-06-20 16:32:00', 60000, 140000, 81, 153, 81),
-(81, 'PTV_517479', '2026-06-20 19:19:00', 225000, 525000, 82, 49, 82),
-(82, 'PTV_389282', '2026-06-21 10:15:00', 120000, 480000, 83, 83, 83),
-(83, 'PTV_299028', '2026-06-21 13:36:00', 45000, 105000, 84, 44, 84),
-(84, 'PTV_228093', '2026-06-21 16:09:00', 90000, 360000, 85, 152, 85),
-(85, 'PTV_989227', '2026-06-21 19:11:00', 105000, 245000, 86, 158, 86),
-(86, 'PTV_964226', '2026-06-22 10:29:00', 70000, 280000, 87, 35, 87),
-(87, 'PTV_576805', '2026-06-22 13:39:00', 90000, 360000, 88, 88, 88),
-(88, 'PTV_196126', '2026-06-22 16:16:00', 120000, 480000, 89, 52, 89),
-(89, 'PTV_794963', '2026-06-22 19:15:00', 270000, 630000, 90, 56, 90),
-(90, 'PTV_322409', '2026-06-23 10:17:00', 135000, 315000, 91, 64, 91),
-(91, 'PTV_772875', '2026-06-23 12:24:00', 90000, 360000, 92, 157, 92),
-(92, 'PTV_770556', '2026-06-23 15:21:00', 70000, 280000, 93, 94, 93),
-(93, 'PTV_726152', '2026-06-23 18:24:00', 30000, 120000, 94, 2, 94),
-(94, 'PTV_122394', '2026-06-24 10:00:00', 105000, 245000, 95, 69, 95),
-(95, 'PTV_153035', '2026-06-24 13:14:00', 90000, 360000, 96, 55, 96),
-(96, 'PTV_925013', '2026-06-24 16:42:00', 30000, 120000, 97, 155, 97),
-(97, 'PTV_449709', '2026-06-24 18:58:00', 180000, 420000, 98, 34, 98),
-(98, 'PTV_355400', '2026-06-25 10:41:00', 135000, 315000, 99, 77, 99),
-(99, 'PTV_232040', '2026-06-25 13:24:00', 60000, 240000, 100, 63, 100),
-(100, 'PTV_925206', '2026-06-25 16:17:00', 60000, 140000, 101, 76, 101),
-(101, 'PTV_692002', '2026-06-25 19:34:00', 150000, 600000, 102, 19, 102);
+(52, 'PTV_539486', '2026-06-13 16:00:00', 225000, 525000, 53, 15, 53),
+(53, 'PTV_715870', '2026-06-13 19:18:00', 90000, 360000, 54, 16, 54),
+(54, 'PTV_878325', '2026-06-14 10:31:00', 180000, 720000, 55, 17, 55),
+(55, 'PTV_861894', '2026-06-14 13:56:00', 90000, 360000, 56, 18, 56),
+(56, 'PTV_262029', '2026-06-14 16:13:00', 70000, 280000, 57, 19, 57),
+(57, 'PTV_535037', '2026-06-14 19:57:00', 90000, 360000, 58, 20, 58),
+(58, 'PTV_786735', '2026-06-15 10:21:00', 90000, 360000, 59, 21, 59),
+(59, 'PTV_203831', '2026-06-15 13:45:00', 90000, 360000, 60, 22, 60),
+(60, 'PTV_974190', '2026-06-15 16:57:00', 120000, 480000, 61, 23, 61),
+(61, 'PTV_613117', '2026-06-15 19:08:00', 70000, 280000, 62, 24, 62),
+(62, 'PTV_745558', '2026-06-16 10:43:00', 195000, 455000, 63, 25, 63),
+(63, 'PTV_527940', '2026-06-16 13:47:00', 40000, 160000, 64, 26, 64),
+(64, 'PTV_393328', '2026-06-16 16:01:00', 90000, 360000, 65, 27, 65),
+(65, 'PTV_134305', '2026-06-16 19:10:00', 30000, 120000, 66, 11, 66),
+(66, 'PTV_823811', '2026-06-17 10:12:00', 105000, 245000, 67, 12, 67),
+(67, 'PTV_488528', '2026-06-17 13:42:00', 35000, 115000, 68, 13, 68),
+(68, 'PTV_327823', '2026-06-17 16:22:00', 150000, 600000, 69, 14, 69),
+(69, 'PTV_564920', '2026-06-17 19:07:00', 70000, 280000, 70, 15, 70),
+(70, 'PTV_566297', '2026-06-18 10:27:00', 180000, 520000, 71, 16, 71),
+(71, 'PTV_347582', '2026-06-18 13:57:00', 90000, 360000, 72, 17, 72),
+(72, 'PTV_997004', '2026-06-18 16:33:00', 60000, 240000, 73, 18, 73),
+(73, 'PTV_480303', '2026-06-18 19:42:00', 30000, 120000, 74, 19, 74),
+(74, 'PTV_204180', '2026-06-19 10:57:00', 90000, 360000, 75, 20, 75),
+(75, 'PTV_818987', '2026-06-19 13:25:00', 105000, 245000, 76, 21, 76),
+(76, 'PTV_485178', '2026-06-19 16:24:00', 135000, 315000, 77, 22, 77),
+(77, 'PTV_670913', '2026-06-19 19:35:00', 90000, 360000, 78, 23, 78),
+(78, 'PTV_776149', '2026-06-20 10:38:00', 135000, 315000, 79, 24, 79),
+(79, 'PTV_476096', '2026-06-20 13:32:00', 150000, 350000, 80, 25, 80),
+(80, 'PTV_163491', '2026-06-20 16:32:00', 60000, 140000, 81, 26, 81),
+(81, 'PTV_517479', '2026-06-20 19:19:00', 225000, 525000, 82, 27, 82),
+(82, 'PTV_389282', '2026-06-21 10:15:00', 120000, 480000, 83, 11, 83),
+(83, 'PTV_299028', '2026-06-21 13:36:00', 45000, 105000, 84, 12, 84),
+(84, 'PTV_228093', '2026-06-21 16:09:00', 90000, 360000, 85, 13, 85),
+(85, 'PTV_989227', '2026-06-21 19:11:00', 105000, 245000, 86, 14, 86),
+(86, 'PTV_964226', '2026-06-22 10:29:00', 70000, 280000, 87, 15, 87),
+(87, 'PTV_576805', '2026-06-22 13:39:00', 90000, 360000, 88, 16, 88),
+(88, 'PTV_196126', '2026-06-22 16:16:00', 120000, 480000, 89, 17, 89),
+(89, 'PTV_794963', '2026-06-22 19:15:00', 270000, 630000, 90, 18, 90),
+(90, 'PTV_322409', '2026-06-23 10:17:00', 135000, 315000, 91, 19, 91),
+(91, 'PTV_772875', '2026-06-23 12:24:00', 90000, 360000, 92, 20, 92),
+(92, 'PTV_770556', '2026-06-23 15:21:00', 70000, 280000, 93, 21, 93),
+(93, 'PTV_726152', '2026-06-23 18:24:00', 30000, 120000, 94, 22, 94),
+(94, 'PTV_122394', '2026-06-24 10:00:00', 105000, 245000, 95, 23, 95),
+(95, 'PTV_153035', '2026-06-24 13:14:00', 90000, 360000, 96, 24, 96),
+(96, 'PTV_925013', '2026-06-24 16:42:00', 30000, 120000, 97, 25, 97),
+(97, 'PTV_449709', '2026-06-24 18:58:00', 180000, 420000, 98, 26, 98),
+(98, 'PTV_355400', '2026-06-25 10:41:00', 135000, 315000, 99, 27, 99),
+(99, 'PTV_232040', '2026-06-25 13:24:00', 60000, 240000, 100, 11, 100),
+(100, 'PTV_925206', '2026-06-25 16:17:00', 60000, 140000, 101, 12, 101),
+(101, 'PTV_692002', '2026-06-25 19:34:00', 150000, 600000, 102, 13, 102);
 -- Them BaoCao (Tham chiếu QuanLy)
 INSERT INTO BaoCao (id, maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayKetThuc, quanLyId) VALUES
-(2, 'BC_DAILY_0002', '2026-06-03 18:00:00', 4500000, '2026-06-02', '2026-06-03', 14),
-(3, 'BC_DAILY_0003', '2026-06-04 08:00:00', 12500000, '2026-06-03', '2026-06-04', 20),
-(4, 'BC_DAILY_0004', '2026-06-05 17:30:00', 8900000, '2026-06-04', '2026-06-05', 5),
-(5, 'BC_DAILY_0005', '2026-06-06 09:15:00', 21400000, '2026-06-05', '2026-06-06', 23),
-(6, 'BC_DAILY_0006', '2026-06-07 16:45:00', 17850000, '2026-06-06', '2026-06-07', 27),
-(7, 'BC_DAILY_0007', '2026-06-08 08:30:00', 31200000, '2026-06-07', '2026-06-08', 29),
-(8, 'BC_DAILY_0008', '2026-06-09 18:00:00', 14600000, '2026-06-08', '2026-06-09', 31),
-(9, 'BC_DAILY_0009', '2026-06-10 11:20:00', 9800000, '2026-06-09', '2026-06-10', 6),
-(10, 'BC_DAILY_0010', '2026-06-11 15:40:00', 11350000, '2026-06-10', '2026-06-11', 40),
-(11, 'BC_DAILY_0011', '2026-06-12 08:15:00', 22400000, '2026-06-11', '2026-06-12', 42),
-(12, 'BC_DAILY_0012', '2026-06-13 17:00:00', 16700000, '2026-06-12', '2026-06-13', 7),
-(13, 'BC_DAILY_0013', '2026-06-14 09:35:00', 13450000, '2026-06-13', '2026-06-14', 47),
-(14, 'BC_DAILY_0014', '2026-06-15 16:50:00', 27800000, '2026-06-14', '2026-06-15', 8),
-(15, 'BC_DAILY_0015', '2026-06-16 08:25:00', 35400000, '2026-06-15', '2026-06-16', 58),
-(16, 'BC_DAILY_0016', '2026-06-17 18:10:00', 19150000, '2026-06-16', '2026-06-17', 60),
-(17, 'BC_DAILY_0017', '2026-06-18 11:05:00', 14200000, '2026-06-17', '2026-06-18', 65),
-(18, 'BC_DAILY_0018', '2026-06-19 14:30:00', 25600000, '2026-06-18', '2026-06-19', 67),
-(19, 'BC_DAILY_0019', '2026-06-20 08:55:00', 18900000, '2026-06-19', '2026-06-20', 81),
-(20, 'BC_DAILY_0020', '2026-06-21 17:40:00', 29450000, '2026-06-20', '2026-06-21', 86),
-(21, 'BC_DAILY_0021', '2026-06-22 09:10:00', 11300000, '2026-06-21', '2026-06-22', 12),
-(22, 'BC_DAILY_0022', '2026-06-23 16:20:00', 15400000, '2026-06-22', '2026-06-23', 93),
-(23, 'BC_DAILY_0023', '2026-06-24 08:45:00', 20150000, '2026-06-23', '2026-06-24', 95),
-(24, 'BC_DAILY_0024', '2026-06-25 18:15:00', 33600000, '2026-06-24', '2026-06-25', 96),
-(25, 'BC_DAILY_0025', '2026-06-26 10:30:00', 22800000, '2026-06-25', '2026-06-26', 97),
-(26, 'BC_DAILY_0026', '2026-06-27 15:50:00', 14500000, '2026-06-26', '2026-06-27', 100),
-(27, 'BC_DAILY_0027', '2026-06-28 08:10:00', 19250000, '2026-06-27', '2026-06-28', 103),
-(28, 'BC_DAILY_0028', '2026-06-29 17:05:00', 26400000, '2026-06-28', '2026-06-29', 1),
-(29, 'BC_DAILY_0029', '2026-06-30 11:40:00', 30100000, '2026-06-29', '2026-06-30', 14),
-(30, 'BC_WEEKLY_0001', '2026-06-08 09:00:00', 87600000, '2026-06-01', '2026-06-07', 20),
-(31, 'BC_WEEKLY_0002', '2026-06-15 09:00:00', 114300000, '2026-06-08', '2026-06-14', 5),
-(32, 'BC_WEEKLY_0003', '2026-06-22 09:00:00', 145200000, '2026-06-15', '2026-06-21', 23),
-(33, 'BC_WEEKLY_0004', '2026-06-29 09:00:00', 131900000, '2026-06-22', '2026-06-28', 27),
-(34, 'BC_MONTH_062026', '2026-07-01 10:00:00', 520400000, '2026-06-01', '2026-06-30', 29),
-(35, 'BC_DAILY_0030', '2026-07-02 08:20:00', 15100000, '2026-07-01', '2026-07-02', 31),
-(36, 'BC_DAILY_0031', '2026-07-03 17:45:00', 18350000, '2026-07-02', '2026-07-03', 6),
-(37, 'BC_DAILY_0032', '2026-07-04 09:15:00', 22600000, '2026-07-03', '2026-07-04', 40),
-(38, 'BC_DAILY_0033', '2026-07-05 16:30:00', 14800000, '2026-07-04', '2026-07-05', 42),
-(39, 'BC_DAILY_0034', '2026-07-06 08:40:00', 11900000, '2026-07-05', '2026-07-06', 7),
-(40, 'BC_DAILY_0035', '2026-07-07 18:10:00', 26400000, '2026-07-06', '2026-07-07', 47),
-(41, 'BC_DAILY_0036', '2026-07-08 11:25:00', 31500000, '2026-07-07', '2026-07-08', 8),
-(42, 'BC_DAILY_0037', '2026-07-09 15:15:00', 24800000, '2026-07-08', '2026-07-09', 58),
-(43, 'BC_DAILY_0038', '2026-07-10 08:35:00', 17200000, '2026-07-09', '2026-07-10', 60),
-(44, 'BC_DAILY_0039', '2026-07-11 17:50:00', 29100000, '2026-07-10', '2026-07-11', 65),
-(45, 'BC_DAILY_0040', '2026-07-12 10:05:00', 20450000, '2026-07-11', '2026-07-12', 67),
-(46, 'BC_DAILY_0041', '2026-07-13 14:20:00', 13800000, '2026-07-12', '2026-07-13', 81),
-(47, 'BC_DAILY_0042', '2026-07-14 08:15:00', 21650000, '2026-07-13', '2026-07-14', 86),
-(48, 'BC_DAILY_0043', '2026-07-15 18:00:00', 34100000, '2026-07-14', '2026-07-15', 12),
-(49, 'BC_DAILY_0044', '2026-07-16 11:40:00', 16900000, '2026-07-15', '2026-07-16', 93),
-(50, 'BC_DAILY_0045', '2026-07-17 15:30:00', 19450000, '2026-07-16', '2026-07-17', 95),
-(51, 'BC_DAILY_0046', '2026-07-18 09:05:00', 25200000, '2026-07-17', '2026-07-18', 96);
+(2, 'BC_DAILY_0002', '2026-06-03 18:00:00', 4500000, '2026-06-02', '2026-06-03', 8),
+
+(3, 'BC_DAILY_0003', '2026-06-04 08:00:00', 12500000, '2026-06-03', '2026-06-04', 9),
+
+(4, 'BC_DAILY_0004', '2026-06-05 17:30:00', 8900000, '2026-06-04', '2026-06-05', 10),
+
+(5, 'BC_DAILY_0005', '2026-06-06 09:15:00', 21400000, '2026-06-05', '2026-06-06', 1),
+
+(6, 'BC_DAILY_0006', '2026-06-07 16:45:00', 17850000, '2026-06-06', '2026-06-07', 2),
+
+(7, 'BC_DAILY_0007', '2026-06-08 08:30:00', 31200000, '2026-06-07', '2026-06-08', 3),
+
+(8, 'BC_DAILY_0008', '2026-06-09 18:00:00', 14600000, '2026-06-08', '2026-06-09', 4),
+
+(9, 'BC_DAILY_0009', '2026-06-10 11:20:00', 9800000, '2026-06-09', '2026-06-10', 5),
+
+(10, 'BC_DAILY_0010', '2026-06-11 15:40:00', 11350000, '2026-06-10', '2026-06-11', 6),
+
+(11, 'BC_DAILY_0011', '2026-06-12 08:15:00', 22400000, '2026-06-11', '2026-06-12', 7),
+
+(12, 'BC_DAILY_0012', '2026-06-13 17:00:00', 16700000, '2026-06-12', '2026-06-13', 8),
+
+(13, 'BC_DAILY_0013', '2026-06-14 09:35:00', 13450000, '2026-06-13', '2026-06-14', 9),
+
+(14, 'BC_DAILY_0014', '2026-06-15 16:50:00', 27800000, '2026-06-14', '2026-06-15', 10),
+
+(15, 'BC_DAILY_0015', '2026-06-16 08:25:00', 35400000, '2026-06-15', '2026-06-16', 1),
+
+(16, 'BC_DAILY_0016', '2026-06-17 18:10:00', 19150000, '2026-06-16', '2026-06-17', 2),
+
+(17, 'BC_DAILY_0017', '2026-06-18 11:05:00', 14200000, '2026-06-17', '2026-06-18', 3),
+
+(18, 'BC_DAILY_0018', '2026-06-19 14:30:00', 25600000, '2026-06-18', '2026-06-19', 4),
+
+(19, 'BC_DAILY_0019', '2026-06-20 08:55:00', 18900000, '2026-06-19', '2026-06-20', 5),
+
+(20, 'BC_DAILY_0020', '2026-06-21 17:40:00', 29450000, '2026-06-20', '2026-06-21', 6),
+
+(21, 'BC_DAILY_0021', '2026-06-22 09:10:00', 11300000, '2026-06-21', '2026-06-22', 7),
+
+(22, 'BC_DAILY_0022', '2026-06-23 16:20:00', 15400000, '2026-06-22', '2026-06-23', 8),
+
+(23, 'BC_DAILY_0023', '2026-06-24 08:45:00', 20150000, '2026-06-23', '2026-06-24', 9),
+
+(24, 'BC_DAILY_0024', '2026-06-25 18:15:00', 33600000, '2026-06-24', '2026-06-25', 10),
+
+(25, 'BC_DAILY_0025', '2026-06-26 10:30:00', 22800000, '2026-06-25', '2026-06-26', 1),
+
+(26, 'BC_DAILY_0026', '2026-06-27 15:50:00', 14500000, '2026-06-26', '2026-06-27', 2),
+
+(27, 'BC_DAILY_0027', '2026-06-28 08:10:00', 19250000, '2026-06-27', '2026-06-28', 3),
+
+(28, 'BC_DAILY_0028', '2026-06-29 17:05:00', 26400000, '2026-06-28', '2026-06-29', 4),
+
+(29, 'BC_DAILY_0029', '2026-06-30 11:40:00', 30100000, '2026-06-29', '2026-06-30', 5),
+
+(30, 'BC_WEEKLY_0001', '2026-06-08 09:00:00', 87600000, '2026-06-01', '2026-06-07', 6),
+
+(31, 'BC_WEEKLY_0002', '2026-06-15 09:00:00', 114300000, '2026-06-08', '2026-06-14', 7),
+
+(32, 'BC_WEEKLY_0003', '2026-06-22 09:00:00', 145200000, '2026-06-15', '2026-06-21', 8),
+
+(33, 'BC_WEEKLY_0004', '2026-06-29 09:00:00', 131900000, '2026-06-22', '2026-06-28', 9),
+
+(34, 'BC_MONTH_062026', '2026-07-01 10:00:00', 520400000, '2026-06-01', '2026-06-30', 10),
+
+(35, 'BC_DAILY_0030', '2026-07-02 08:20:00', 15100000, '2026-07-01', '2026-07-02', 1),
+
+(36, 'BC_DAILY_0031', '2026-07-03 17:45:00', 18350000, '2026-07-02', '2026-07-03', 2),
+
+(37, 'BC_DAILY_0032', '2026-07-04 09:15:00', 22600000, '2026-07-03', '2026-07-04', 3),
+
+(38, 'BC_DAILY_0033', '2026-07-05 16:30:00', 14800000, '2026-07-04', '2026-07-05', 4),
+
+(39, 'BC_DAILY_0034', '2026-07-06 08:40:00', 11900000, '2026-07-05', '2026-07-06', 5),
+
+(40, 'BC_DAILY_0035', '2026-07-07 18:10:00', 26400000, '2026-07-06', '2026-07-07', 6),
+
+(41, 'BC_DAILY_0036', '2026-07-08 11:25:00', 31500000, '2026-07-07', '2026-07-08', 7),
+
+(42, 'BC_DAILY_0037', '2026-07-09 15:15:00', 24800000, '2026-07-08', '2026-07-09', 8),
+
+(43, 'BC_DAILY_0038', '2026-07-10 08:35:00', 17200000, '2026-07-09', '2026-07-10', 9),
+
+(44, 'BC_DAILY_0039', '2026-07-11 17:50:00', 29100000, '2026-07-10', '2026-07-11', 10),
+
+(45, 'BC_DAILY_0040', '2026-07-12 10:05:00', 20450000, '2026-07-11', '2026-07-12', 1),
+
+(46, 'BC_DAILY_0041', '2026-07-13 14:20:00', 13800000, '2026-07-12', '2026-07-13', 2),
+
+(47, 'BC_DAILY_0042', '2026-07-14 08:15:00', 21650000, '2026-07-13', '2026-07-14', 3),
+
+(48, 'BC_DAILY_0043', '2026-07-15 18:00:00', 34100000, '2026-07-14', '2026-07-15', 4),
+
+(49, 'BC_DAILY_0044', '2026-07-16 11:40:00', 16900000, '2026-07-15', '2026-07-16', 5),
+
+(50, 'BC_DAILY_0045', '2026-07-17 15:30:00', 19450000, '2026-07-16', '2026-07-17', 6),
+
+(51, 'BC_DAILY_0046', '2026-07-18 09:05:00', 25200000, '2026-07-17', '2026-07-18', 7);
+
 INSERT INTO BaoCao (id, maBaoCao, ngayLapBaoCao, tongDoanhThu, ngayBatDau, ngayKetThuc, quanLyId) VALUES
-(52, 'BC_DAILY_0047', '2026-07-19 16:45:00', 28150000, '2026-07-18', '2026-07-19', 97),
-(53, 'BC_DAILY_0048', '2026-07-20 08:10:00', 32400000, '2026-07-19', '2026-07-20', 100),
-(54, 'BC_DAILY_0049', '2026-07-21 17:25:00', 15650000, '2026-07-20', '2026-07-21', 103),
-(55, 'BC_DAILY_0050', '2026-07-22 10:50:00', 11200000, '2026-07-21', '2026-07-22', 1),
-(56, 'BC_WEEKLY_0005', '2026-07-06 09:00:00', 123800000, '2026-06-29', '2026-07-05', 14),
-(57, 'BC_WEEKLY_0006', '2026-07-13 09:00:00', 145900000, '2026-07-06', '2026-07-12', 20),
+(52, 'BC_DAILY_0047', '2026-07-19 16:45:00', 28150000, '2026-07-18', '2026-07-19', 9),
+
+(53, 'BC_DAILY_0048', '2026-07-20 08:10:00', 32400000, '2026-07-19', '2026-07-20', 10),
+
+(54, 'BC_DAILY_0049', '2026-07-21 17:25:00', 15650000, '2026-07-20', '2026-07-21', 1),
+
+(55, 'BC_DAILY_0050', '2026-07-22 10:50:00', 11200000, '2026-07-21', '2026-07-22', 2),
+
+(56, 'BC_WEEKLY_0005', '2026-07-06 09:00:00', 123800000, '2026-06-29', '2026-07-05', 3),
+
+(57, 'BC_WEEKLY_0006', '2026-07-13 09:00:00', 145900000, '2026-07-06', '2026-07-12', 4),
+
 (58, 'BC_WEEKLY_0007', '2026-07-20 09:00:00', 137400000, '2026-07-13', '2026-07-19', 5),
-(59, 'BC_WEEKLY_0008', '2026-07-27 09:00:00', 151200000, '2026-07-20', '2026-07-26', 23),
-(60, 'BC_MONTH_072026', '2026-08-01 10:00:00', 645800000, '2026-07-01', '2026-07-31', 27),
-(61, 'BC_DAILY_0051', '2026-07-23 08:30:00', 19400000, '2026-07-22', '2026-07-23', 29),
-(62, 'BC_DAILY_0052', '2026-07-24 16:55:00', 22150000, '2026-07-23', '2026-07-24', 31),
-(63, 'BC_DAILY_0053', '2026-07-25 09:10:00', 26400000, '2026-07-24', '2026-07-25', 6),
-(64, 'BC_DAILY_0054', '2026-07-26 17:20:00', 31800000, '2026-07-25', '2026-07-26', 40),
-(65, 'BC_DAILY_0055', '2026-07-27 08:45:00', 14900000, '2026-07-26', '2026-07-27', 42),
-(66, 'BC_DAILY_0056', '2026-07-28 18:15:00', 12350000, '2026-07-27', '2026-07-28', 7),
-(67, 'BC_DAILY_0057', '2026-07-29 11:30:00', 20800000, '2026-07-28', '2026-07-29', 47),
-(68, 'BC_DAILY_0058', '2026-07-30 15:40:00', 28500000, '2026-07-29', '2026-07-30', 8),
-(69, 'BC_DAILY_0059', '2026-07-31 08:20:00', 33100000, '2026-07-30', '2026-07-31', 58),
-(70, 'BC_DAILY_0060', '2026-08-02 17:50:00', 16400000, '2026-08-01', '2026-08-02', 60),
-(71, 'BC_DAILY_0061', '2026-08-03 09:10:00', 19250000, '2026-08-02', '2026-08-03', 65),
-(72, 'BC_DAILY_0062', '2026-08-04 16:30:00', 23400000, '2026-08-03', '2026-08-04', 67),
-(73, 'BC_DAILY_0063', '2026-08-05 08:50:00', 27900000, '2026-08-04', '2026-08-05', 81),
-(74, 'BC_DAILY_0064', '2026-08-06 18:10:00', 15300000, '2026-08-05', '2026-08-06', 86),
-(75, 'BC_DAILY_0065', '2026-08-07 11:15:00', 12800000, '2026-08-06', '2026-08-07', 12),
-(76, 'BC_DAILY_0066', '2026-08-08 14:40:00', 21450000, '2026-08-07', '2026-08-08', 93),
-(77, 'BC_DAILY_0067', '2026-08-09 08:25:00', 30900000, '2026-08-08', '2026-08-09', 95),
-(78, 'BC_DAILY_0068', '2026-08-10 17:35:00', 24600000, '2026-08-09', '2026-08-10', 96),
-(79, 'BC_DAILY_0069', '2026-08-11 10:15:00', 18250000, '2026-08-10', '2026-08-11', 97),
-(80, 'BC_DAILY_0070', '2026-08-12 15:55:00', 13400000, '2026-08-11', '2026-08-12', 100),
-(81, 'BC_DAILY_0071', '2026-08-13 08:40:00', 22100000, '2026-08-12', '2026-08-13', 103),
-(82, 'BC_DAILY_0072', '2026-08-14 17:15:00', 29650000, '2026-08-13', '2026-08-14', 1),
-(83, 'BC_DAILY_0073', '2026-08-15 09:30:00', 34200000, '2026-08-14', '2026-08-15', 14),
-(84, 'BC_DAILY_0074', '2026-08-16 16:45:00', 17800000, '2026-08-14', '2026-08-16', 20),
-(85, 'BC_DAILY_0075', '2026-08-17 08:10:00', 14150000, '2026-08-16', '2026-08-17', 5),
-(86, 'BC_DAILY_0076', '2026-08-18 18:00:00', 23600000, '2026-08-17', '2026-08-18', 23),
-(87, 'BC_DAILY_0077', '2026-08-19 11:25:00', 28450000, '2026-08-18', '2026-08-19', 27),
-(88, 'BC_DAILY_0078', '2026-08-20 14:50:00', 19100000, '2026-08-19', '2026-08-20', 29),
-(89, 'BC_DAILY_0079', '2026-08-21 09:05:00', 15400000, '2026-08-20', '2026-08-21', 31),
-(90, 'BC_DAILY_0080', '2026-08-22 17:25:00', 22850000, '2026-08-21', '2026-08-22', 6),
-(91, 'BC_DAILY_0081', '2026-08-23 10:35:00', 31400000, '2026-08-22', '2026-08-23', 40),
-(92, 'BC_DAILY_0082', '2026-08-24 15:10:00', 26900000, '2026-08-23', '2026-08-24', 42),
-(93, 'BC_DAILY_0083', '2026-08-25 08:15:00', 18350000, '2026-08-24', '2026-08-25', 7),
-(94, 'BC_DAILY_0084', '2026-08-26 17:40:00', 13700000, '2026-08-25', '2026-08-26', 47),
-(95, 'BC_DAILY_0085', '2026-08-27 09:20:00', 21900000, '2026-08-26', '2026-08-27', 8),
-(96, 'BC_DAILY_0086', '2026-08-28 16:55:00', 29400000, '2026-08-27', '2026-08-28', 58),
-(97, 'BC_DAILY_0087', '2026-08-29 08:30:00', 35600000, '2026-08-28', '2026-08-29', 60),
-(98, 'BC_DAILY_0088', '2026-08-30 18:10:00', 16250000, '2026-08-29', '2026-08-30', 65),
-(99, 'BC_DAILY_0089', '2026-08-31 11:45:00', 12100000, '2026-08-30', '2026-08-31', 67),
-(100, 'BC_WEEKLY_0009', '2026-08-10 09:00:00', 135400000, '2026-08-03', '2026-08-09', 81),
-(101, 'BC_MONTH_082026', '2026-09-01 10:00:00', 684100000, '2026-08-01', '2026-08-31', 86);
+
+(59, 'BC_WEEKLY_0008', '2026-07-27 09:00:00', 151200000, '2026-07-20', '2026-07-26', 6),
+
+(60, 'BC_MONTH_072026', '2026-08-01 10:00:00', 645800000, '2026-07-01', '2026-07-31', 7),
+
+(61, 'BC_DAILY_0051', '2026-07-23 08:30:00', 19400000, '2026-07-22', '2026-07-23', 8),
+
+(62, 'BC_DAILY_0052', '2026-07-24 16:55:00', 22150000, '2026-07-23', '2026-07-24', 9),
+
+(63, 'BC_DAILY_0053', '2026-07-25 09:10:00', 26400000, '2026-07-24', '2026-07-25', 10),
+
+(64, 'BC_DAILY_0054', '2026-07-26 17:20:00', 31800000, '2026-07-25', '2026-07-26', 1),
+
+(65, 'BC_DAILY_0055', '2026-07-27 08:45:00', 14900000, '2026-07-26', '2026-07-27', 2),
+
+(66, 'BC_DAILY_0056', '2026-07-28 18:15:00', 12350000, '2026-07-27', '2026-07-28', 3),
+
+(67, 'BC_DAILY_0057', '2026-07-29 11:30:00', 20800000, '2026-07-28', '2026-07-29', 4),
+
+(68, 'BC_DAILY_0058', '2026-07-30 15:40:00', 28500000, '2026-07-29', '2026-07-30', 5),
+
+(69, 'BC_DAILY_0059', '2026-07-31 08:20:00', 33100000, '2026-07-30', '2026-07-31', 6),
+
+(70, 'BC_DAILY_0060', '2026-08-02 17:50:00', 16400000, '2026-08-01', '2026-08-02', 7),
+
+(71, 'BC_DAILY_0061', '2026-08-03 09:10:00', 19250000, '2026-08-02', '2026-08-03', 8),
+
+(72, 'BC_DAILY_0062', '2026-08-04 16:30:00', 23400000, '2026-08-03', '2026-08-04', 9),
+
+(73, 'BC_DAILY_0063', '2026-08-05 08:50:00', 27900000, '2026-08-04', '2026-08-05', 10),
+
+(74, 'BC_DAILY_0064', '2026-08-06 18:10:00', 15300000, '2026-08-05', '2026-08-06', 1),
+
+(75, 'BC_DAILY_0065', '2026-08-07 11:15:00', 12800000, '2026-08-06', '2026-08-07', 2),
+
+(76, 'BC_DAILY_0066', '2026-08-08 14:40:00', 21450000, '2026-08-07', '2026-08-08', 3),
+
+(77, 'BC_DAILY_0067', '2026-08-09 08:25:00', 30900000, '2026-08-08', '2026-08-09', 4),
+
+(78, 'BC_DAILY_0068', '2026-08-10 17:35:00', 24600000, '2026-08-09', '2026-08-10', 5),
+
+(79, 'BC_DAILY_0069', '2026-08-11 10:15:00', 18250000, '2026-08-10', '2026-08-11', 6),
+
+(80, 'BC_DAILY_0070', '2026-08-12 15:55:00', 13400000, '2026-08-11', '2026-08-12', 7),
+
+(81, 'BC_DAILY_0071', '2026-08-13 08:40:00', 22100000, '2026-08-12', '2026-08-13', 8),
+
+(82, 'BC_DAILY_0072', '2026-08-14 17:15:00', 29650000, '2026-08-13', '2026-08-14', 9),
+
+(83, 'BC_DAILY_0073', '2026-08-15 09:30:00', 34200000, '2026-08-14', '2026-08-15', 10),
+
+(84, 'BC_DAILY_0074', '2026-08-16 16:45:00', 17800000, '2026-08-14', '2026-08-16', 1),
+
+(85, 'BC_DAILY_0075', '2026-08-17 08:10:00', 14150000, '2026-08-16', '2026-08-17', 2),
+
+(86, 'BC_DAILY_0076', '2026-08-18 18:00:00', 23600000, '2026-08-17', '2026-08-18', 3),
+
+(87, 'BC_DAILY_0077', '2026-08-19 11:25:00', 28450000, '2026-08-18', '2026-08-19', 4),
+
+(88, 'BC_DAILY_0078', '2026-08-20 14:50:00', 19100000, '2026-08-19', '2026-08-20', 5),
+
+(89, 'BC_DAILY_0079', '2026-08-21 09:05:00', 15400000, '2026-08-20', '2026-08-21', 6),
+
+(90, 'BC_DAILY_0080', '2026-08-22 17:25:00', 22850000, '2026-08-21', '2026-08-22', 7),
+
+(91, 'BC_DAILY_0081', '2026-08-23 10:35:00', 31400000, '2026-08-22', '2026-08-23', 8),
+
+(92, 'BC_DAILY_0082', '2026-08-24 15:10:00', 26900000, '2026-08-23', '2026-08-24', 9),
+
+(93, 'BC_DAILY_0083', '2026-08-25 08:15:00', 18350000, '2026-08-24', '2026-08-25', 10),
+
+(94, 'BC_DAILY_0084', '2026-08-26 17:40:00', 13700000, '2026-08-25', '2026-08-26', 1),
+
+(95, 'BC_DAILY_0085', '2026-08-27 09:20:00', 21900000, '2026-08-26', '2026-08-27', 2),
+
+(96, 'BC_DAILY_0086', '2026-08-28 16:55:00', 29400000, '2026-08-27', '2026-08-28', 3),
+
+(97, 'BC_DAILY_0087', '2026-08-29 08:30:00', 35600000, '2026-08-28', '2026-08-29', 4),
+
+(98, 'BC_DAILY_0088', '2026-08-30 18:10:00', 16250000, '2026-08-29', '2026-08-30', 5),
+
+(99, 'BC_DAILY_0089', '2026-08-31 11:45:00', 12100000, '2026-08-30', '2026-08-31', 6),
+
+(100, 'BC_WEEKLY_0009', '2026-08-10 09:00:00', 135400000, '2026-08-03', '2026-08-09', 7),
+
+(101, 'BC_MONTH_082026', '2026-09-01 10:00:00', 684100000, '2026-08-01', '2026-08-31', 8);
+
 -- Them ChiTietBaoCao (Tham chiếu LichTrinh, BaoCao)
 INSERT INTO ChiTietBaoCao (id, maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lichTrinhId, baoCaoId) VALUES
-(2, 'CTBC_LT01_BC002', 24, 3600000, 78.2, 1, 2),
-(3, 'CTBC_LT02_BC003', 41, 10250000, 39.07, 2, 3),
-(4, 'CTBC_LT03_BC004', 23, 3450000, 68.38, 3, 4),
-(5, 'CTBC_LT04_BC005', 14, 2100000, 36.09, 4, 5),
-(6, 'CTBC_LT05_BC006', 39, 5850000, 66.48, 5, 6),
-(7, 'CTBC_LT06_BC007', 79, 35550000, 44.33, 6, 7),
-(8, 'CTBC_LT07_BC008', 45, 6750000, 79.32, 7, 8),
-(9, 'CTBC_LT08_BC009', 30, 13500000, 52.12, 8, 9),
-(10, 'CTBC_LT09_BC010', 29, 7250000, 92.22, 9, 10),
-(11, 'CTBC_LT10_BC011', 53, 7950000, 36.03, 10, 11),
-(12, 'CTBC_LT11_BC012', 22, 7700000, 85.09, 11, 12),
-(13, 'CTBC_LT12_BC013', 43, 6450000, 77.43, 12, 13),
-(14, 'CTBC_LT13_BC014', 78, 11700000, 93.25, 13, 14),
-(15, 'CTBC_LT14_BC015', 58, 8700000, 65.88, 14, 15),
-(16, 'CTBC_LT15_BC016', 56, 14000000, 75.8, 15, 16),
-(17, 'CTBC_LT16_BC017', 15, 3750000, 80.25, 16, 17),
-(18, 'CTBC_LT17_BC018', 20, 5000000, 86.32, 17, 18),
-(19, 'CTBC_LT18_BC019', 58, 20300000, 59.47, 18, 19),
-(20, 'CTBC_LT19_BC020', 56, 14000000, 54.06, 19, 20),
-(21, 'CTBC_LT20_BC021', 36, 12600000, 75.62, 20, 21),
-(22, 'CTBC_LT21_BC022', 19, 4750000, 64.72, 21, 22),
-(23, 'CTBC_LT22_BC023', 41, 10250000, 60.05, 22, 23),
-(24, 'CTBC_LT23_BC024', 44, 11000000, 74.5, 23, 24),
-(25, 'CTBC_LT24_BC025', 17, 4250000, 83.42, 24, 25),
-(26, 'CTBC_LT25_BC026', 50, 22500000, 47.4, 25, 26),
-(27, 'CTBC_LT26_BC027', 37, 12950000, 43.82, 26, 27),
-(28, 'CTBC_LT27_BC028', 73, 32850000, 87.5, 27, 28),
-(29, 'CTBC_LT28_BC029', 68, 17000000, 47.22, 28, 29),
-(30, 'CTBC_LT29_BC030', 41, 14350000, 78.56, 29, 30),
-(31, 'CTBC_LT30_BC031', 64, 28800000, 53.53, 30, 31),
-(32, 'CTBC_LT31_BC032', 27, 12150000, 35.91, 31, 32),
-(33, 'CTBC_LT32_BC033', 16, 2400000, 39.93, 32, 33),
-(34, 'CTBC_LT33_BC034', 30, 13500000, 68.77, 33, 34),
-(35, 'CTBC_LT34_BC035', 59, 26550000, 68.73, 34, 35),
-(36, 'CTBC_LT35_BC036', 69, 24150000, 93.12, 35, 36),
-(37, 'BC_DAILY_0036', 11, 1650000, 74.31, 36, 37),
-(38, 'CTBC_LT37_BC038', 78, 27300000, 79.96, 37, 38),
-(39, 'CTBC_LT38_BC039', 53, 7950000, 49.08, 38, 39),
-(40, 'CTBC_LT39_BC040', 30, 13500000, 30.21, 39, 40),
-(41, 'CTBC_LT40_BC041', 43, 10750000, 63.0, 40, 41),
-(42, 'CTBC_LT41_BC042', 23, 8050000, 84.71, 41, 42),
-(43, 'CTBC_LT42_BC043', 74, 18500000, 39.93, 42, 43),
-(44, 'CTBC_LT43_BC044', 30, 4500000, 68.93, 43, 44),
-(45, 'CTBC_LT44_BC045', 72, 10800000, 37.27, 44, 45),
-(46, 'CTBC_LT45_BC046', 56, 19600000, 45.56, 45, 46),
-(47, 'CTBC_LT46_BC047', 40, 6000000, 35.57, 46, 47),
-(48, 'CTBC_LT47_BC048', 72, 10800000, 93.57, 47, 48),
-(49, 'CTBC_LT48_BC049', 78, 19500000, 38.35, 48, 49),
-(50, 'CTBC_LT49_BC050', 70, 17500000, 47.23, 49, 50),
-(51, 'CTBC_LT50_BC051', 64, 16000000, 90.38, 50, 51);
+(2, 'CTBC_LT01_BC002', 24, 3600000, 78.2, 2, 2),
+
+(3, 'CTBC_LT02_BC003', 41, 10250000, 39.07, 3, 3),
+
+(4, 'CTBC_LT03_BC004', 23, 3450000, 68.38, 4, 4),
+
+(5, 'CTBC_LT04_BC005', 14, 2100000, 36.09, 5, 5),
+
+(6, 'CTBC_LT05_BC006', 39, 5850000, 66.48, 6, 6),
+
+(7, 'CTBC_LT06_BC007', 79, 35550000, 44.33, 7, 7),
+
+(8, 'CTBC_LT07_BC008', 45, 6750000, 79.32, 8, 8),
+
+(9, 'CTBC_LT08_BC009', 30, 13500000, 52.12, 9, 9),
+
+(10, 'CTBC_LT09_BC010', 29, 7250000, 92.22, 10, 10),
+
+(11, 'CTBC_LT10_BC011', 53, 7950000, 36.03, 11, 11),
+
+(12, 'CTBC_LT11_BC012', 22, 7700000, 85.09, 12, 12),
+
+(13, 'CTBC_LT12_BC013', 43, 6450000, 77.43, 13, 13),
+
+(14, 'CTBC_LT13_BC014', 78, 11700000, 93.25, 14, 14),
+
+(15, 'CTBC_LT14_BC015', 58, 8700000, 65.88, 15, 15),
+
+(16, 'CTBC_LT15_BC016', 56, 14000000, 75.8, 16, 16),
+
+(17, 'CTBC_LT16_BC017', 15, 3750000, 80.25, 17, 17),
+
+(18, 'CTBC_LT17_BC018', 20, 5000000, 86.32, 18, 18),
+
+(19, 'CTBC_LT18_BC019', 58, 20300000, 59.47, 19, 19),
+
+(20, 'CTBC_LT19_BC020', 56, 14000000, 54.06, 20, 20),
+
+(21, 'CTBC_LT20_BC021', 36, 12600000, 75.62, 21, 21),
+
+(22, 'CTBC_LT21_BC022', 19, 4750000, 64.72, 22, 22),
+
+(23, 'CTBC_LT22_BC023', 41, 10250000, 60.05, 23, 23),
+
+(24, 'CTBC_LT23_BC024', 44, 11000000, 74.5, 24, 24),
+
+(25, 'CTBC_LT24_BC025', 17, 4250000, 83.42, 25, 25),
+
+(26, 'CTBC_LT25_BC026', 50, 22500000, 47.4, 26, 26),
+
+(27, 'CTBC_LT26_BC027', 37, 12950000, 43.82, 27, 27),
+
+(28, 'CTBC_LT27_BC028', 73, 32850000, 87.5, 28, 28),
+
+(29, 'CTBC_LT28_BC029', 68, 17000000, 47.22, 29, 29),
+
+(30, 'CTBC_LT29_BC030', 41, 14350000, 78.56, 30, 30),
+
+(31, 'CTBC_LT30_BC031', 64, 28800000, 53.53, 31, 31),
+
+(32, 'CTBC_LT31_BC032', 27, 12150000, 35.91, 32, 32),
+
+(33, 'CTBC_LT32_BC033', 16, 2400000, 39.93, 33, 33),
+
+(34, 'CTBC_LT33_BC034', 30, 13500000, 68.77, 34, 34),
+
+(35, 'CTBC_LT34_BC035', 59, 26550000, 68.73, 35, 35),
+
+(36, 'CTBC_LT35_BC036', 69, 24150000, 93.12, 36, 36),
+
+(37, 'BC_DAILY_0036', 11, 1650000, 74.31, 37, 37),
+
+(38, 'CTBC_LT37_BC038', 78, 27300000, 79.96, 38, 38),
+
+(39, 'CTBC_LT38_BC039', 53, 7950000, 49.08, 39, 39),
+
+(40, 'CTBC_LT39_BC040', 30, 13500000, 30.21, 40, 40),
+
+(41, 'CTBC_LT40_BC041', 43, 10750000, 63.0, 41, 41),
+
+(42, 'CTBC_LT41_BC042', 23, 8050000, 84.71, 42, 42),
+
+(43, 'CTBC_LT42_BC043', 74, 18500000, 39.93, 43, 43),
+
+(44, 'CTBC_LT43_BC044', 30, 4500000, 68.93, 44, 44),
+
+(45, 'CTBC_LT44_BC045', 72, 10800000, 37.27, 45, 45),
+
+(46, 'CTBC_LT45_BC046', 56, 19600000, 45.56, 46, 46),
+
+(47, 'CTBC_LT46_BC047', 40, 6000000, 35.57, 47, 47),
+
+(48, 'CTBC_LT47_BC048', 72, 10800000, 93.57, 48, 48),
+
+(49, 'CTBC_LT48_BC049', 78, 19500000, 38.35, 49, 49),
+
+(50, 'CTBC_LT49_BC050', 70, 17500000, 47.23, 50, 50),
+
+(51, 'CTBC_LT50_BC051', 64, 16000000, 90.38, 51, 51);
+
 INSERT INTO ChiTietBaoCao (id, maCTBC, soVeBan, doanhThuChuyen, tiLeLapDay, lichTrinhId, baoCaoId) VALUES
-(52, 'CTBC_LT51_BC052', 35, 12250000, 55.93, 51, 52),
-(53, 'CTBC_LT01_BC053', 57, 25650000, 88.47, 1, 53),
-(54, 'CTBC_LT02_BC054', 67, 10050000, 46.11, 2, 54),
-(55, 'CTBC_LT03_BC055', 18, 6300000, 31.37, 3, 55),
-(56, 'CTBC_LT04_BC056', 80, 20000000, 68.25, 4, 56),
-(57, 'CTBC_LT05_BC057', 10, 1500000, 76.01, 5, 57),
-(58, 'CTBC_LT06_BC058', 17, 4250000, 34.38, 6, 58),
-(59, 'CTBC_LT07_BC059', 14, 4900000, 34.61, 7, 59),
-(60, 'CTBC_LT08_BC060', 40, 14000000, 73.48, 8, 60),
-(61, 'CTBC_LT09_BC061', 37, 9250000, 77.02, 9, 61),
-(62, 'CTBC_LT10_BC062', 70, 17500000, 81.0, 10, 62),
-(63, 'CTBC_LT11_BC063', 62, 15500000, 36.13, 11, 63),
-(64, 'CTBC_LT12_BC064', 65, 22750000, 57.53, 12, 64),
-(65, 'CTBC_LT13_BC065', 69, 10350000, 73.77, 13, 65),
-(66, 'CTBC_LT14_BC066', 22, 3300000, 56.17, 14, 66),
-(67, 'CTBC_LT15_BC067', 53, 7950000, 46.16, 15, 67),
-(68, 'CTBC_LT16_BC068', 34, 15300000, 39.11, 16, 68),
-(69, 'CTBC_LT17_BC069', 33, 11550000, 60.07, 17, 69),
-(70, 'CTBC_LT18_BC070', 19, 8550000, 82.52, 18, 70),
-(71, 'CTBC_LT19_BC071', 80, 12000000, 33.29, 19, 71),
-(72, 'CTBC_LT20_BC072', 79, 11850000, 92.98, 20, 72),
-(73, 'CTBC_LT21_BC073', 40, 10000000, 56.42, 21, 73),
-(74, 'CTBC_LT22_BC074', 71, 17750000, 86.2, 22, 74),
-(75, 'CTBC_LT23_BC075', 17, 4250000, 54.63, 23, 75),
-(76, 'CTBC_LT24_BC076', 59, 20650000, 90.22, 24, 76),
-(77, 'CTBC_LT25_BC077', 68, 23800000, 57.5, 25, 77),
-(78, 'CTBC_LT26_BC078', 72, 18000000, 42.34, 26, 78),
-(79, 'CTBC_LT27_BC079', 37, 5550000, 67.65, 27, 79),
-(80, 'CTBC_LT28_BC080', 79, 11850000, 78.62, 28, 80),
-(81, 'CTBC_LT29_BC081', 17, 2550000, 67.97, 29, 81),
-(82, 'CTBC_LT30_BC082', 74, 18500000, 33.7, 30, 82),
-(83, 'CTBC_LT31_BC083', 75, 11250000, 85.34, 31, 83),
-(84, 'CTBC_LT32_BC084', 18, 2700000, 73.89, 32, 84),
-(85, 'CTBC_LT33_BC085', 40, 18000000, 37.79, 33, 85),
-(86, 'CTBC_LT34_BC086', 41, 6150000, 70.26, 34, 86),
-(87, 'CTBC_LT35_BC087', 63, 22050000, 90.76, 35, 87),
-(88, 'CTBC_LT36_BC088', 36, 12600000, 45.51, 36, 88),
-(89, 'CTBC_LT37_BC089', 60, 15000000, 73.66, 37, 89),
-(90, 'CTBC_LT38_BC090', 48, 21600000, 50.55, 38, 90),
-(91, 'CTBC_LT39_BC091', 19, 2850000, 59.79, 39, 91),
-(92, 'CTBC_LT40_BC092', 22, 3300000, 64.95, 40, 92),
-(93, 'CTBC_LT41_BC093', 74, 25900000, 38.61, 41, 93),
-(94, 'CTBC_LT42_BC094', 54, 8100000, 87.15, 42, 94),
-(95, 'CTBC_LT43_BC095', 57, 19950000, 40.25, 43, 95),
-(96, 'CTBC_LT44_BC096', 79, 27650000, 69.76, 44, 96),
-(97, 'CTBC_LT45_BC097', 77, 11550000, 73.41, 45, 97),
-(98, 'CTBC_LT46_BC098', 80, 28000000, 90.56, 46, 98),
-(99, 'CTBC_LT47_BC099', 23, 5750000, 47.19, 47, 99),
-(100, 'CTBC_LT48_BC100', 23, 5750000, 47.7, 48, 100),
-(101, 'CTBC_LT49_BC101', 36, 12600000, 43.23, 49, 101);
+(52, 'CTBC_LT51_BC052', 35, 12250000, 55.93, 52, 52),
+
+(53, 'CTBC_LT01_BC053', 57, 25650000, 88.47, 2, 53),
+
+(54, 'CTBC_LT02_BC054', 67, 10050000, 46.11, 3, 54),
+
+(55, 'CTBC_LT03_BC055', 18, 6300000, 31.37, 4, 55),
+
+(56, 'CTBC_LT04_BC056', 80, 20000000, 68.25, 5, 56),
+
+(57, 'CTBC_LT05_BC057', 10, 1500000, 76.01, 6, 57),
+
+(58, 'CTBC_LT06_BC058', 17, 4250000, 34.38, 7, 58),
+
+(59, 'CTBC_LT07_BC059', 14, 4900000, 34.61, 8, 59),
+
+(60, 'CTBC_LT08_BC060', 40, 14000000, 73.48, 9, 60),
+
+(61, 'CTBC_LT09_BC061', 37, 9250000, 77.02, 10, 61),
+
+(62, 'CTBC_LT10_BC062', 70, 17500000, 81.0, 11, 62),
+
+(63, 'CTBC_LT11_BC063', 62, 15500000, 36.13, 12, 63),
+
+(64, 'CTBC_LT12_BC064', 65, 22750000, 57.53, 13, 64),
+
+(65, 'CTBC_LT13_BC065', 69, 10350000, 73.77, 14, 65),
+
+(66, 'CTBC_LT14_BC066', 22, 3300000, 56.17, 15, 66),
+
+(67, 'CTBC_LT15_BC067', 53, 7950000, 46.16, 16, 67),
+
+(68, 'CTBC_LT16_BC068', 34, 15300000, 39.11, 17, 68),
+
+(69, 'CTBC_LT17_BC069', 33, 11550000, 60.07, 18, 69),
+
+(70, 'CTBC_LT18_BC070', 19, 8550000, 82.52, 19, 70),
+
+(71, 'CTBC_LT19_BC071', 80, 12000000, 33.29, 20, 71),
+
+(72, 'CTBC_LT20_BC072', 79, 11850000, 92.98, 21, 72),
+
+(73, 'CTBC_LT21_BC073', 40, 10000000, 56.42, 22, 73),
+
+(74, 'CTBC_LT22_BC074', 71, 17750000, 86.2, 23, 74),
+
+(75, 'CTBC_LT23_BC075', 17, 4250000, 54.63, 24, 75),
+
+(76, 'CTBC_LT24_BC076', 59, 20650000, 90.22, 25, 76),
+
+(77, 'CTBC_LT25_BC077', 68, 23800000, 57.5, 26, 77),
+
+(78, 'CTBC_LT26_BC078', 72, 18000000, 42.34, 27, 78),
+
+(79, 'CTBC_LT27_BC079', 37, 5550000, 67.65, 28, 79),
+
+(80, 'CTBC_LT28_BC080', 79, 11850000, 78.62, 29, 80),
+
+(81, 'CTBC_LT29_BC081', 17, 2550000, 67.97, 30, 81),
+
+(82, 'CTBC_LT30_BC082', 74, 18500000, 33.7, 31, 82),
+
+(83, 'CTBC_LT31_BC083', 75, 11250000, 85.34, 32, 83),
+
+(84, 'CTBC_LT32_BC084', 18, 2700000, 73.89, 33, 84),
+
+(85, 'CTBC_LT33_BC085', 40, 18000000, 37.79, 34, 85),
+
+(86, 'CTBC_LT34_BC086', 41, 6150000, 70.26, 35, 86),
+
+(87, 'CTBC_LT35_BC087', 63, 22050000, 90.76, 36, 87),
+
+(88, 'CTBC_LT36_BC088', 36, 12600000, 45.51, 37, 88),
+
+(89, 'CTBC_LT37_BC089', 60, 15000000, 73.66, 38, 89),
+
+(90, 'CTBC_LT38_BC090', 48, 21600000, 50.55, 39, 90),
+
+(91, 'CTBC_LT39_BC091', 19, 2850000, 59.79, 40, 91),
+
+(92, 'CTBC_LT40_BC092', 22, 3300000, 64.95, 41, 92),
+
+(93, 'CTBC_LT41_BC093', 74, 25900000, 38.61, 42, 93),
+
+(94, 'CTBC_LT42_BC094', 54, 8100000, 87.15, 43, 94),
+
+(95, 'CTBC_LT43_BC095', 57, 19950000, 40.25, 44, 95),
+
+(96, 'CTBC_LT44_BC096', 79, 27650000, 69.76, 45, 96),
+
+(97, 'CTBC_LT45_BC097', 77, 11550000, 73.41, 46, 97),
+
+(98, 'CTBC_LT46_BC098', 80, 28000000, 90.56, 47, 98),
+
+(99, 'CTBC_LT47_BC099', 23, 5750000, 47.19, 48, 99),
+
+(100, 'CTBC_LT48_BC100', 23, 5750000, 47.7, 49, 100),
+
+(101, 'CTBC_LT49_BC101', 36, 12600000, 43.23, 50, 101);
+
 
 -- Bật lại kiểm tra khóa ngoại sau khi hoàn tất
 SET FOREIGN_KEY_CHECKS = 1;
