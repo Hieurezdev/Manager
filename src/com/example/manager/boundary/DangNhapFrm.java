@@ -78,33 +78,25 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         String user = (txtUsername != null) ? txtUsername.getText().trim() : this.txtTDN;
         String pass = (txtPassword != null) ? new String(txtPassword.getPassword()).trim() : this.txtMK;
 
-        // 1. XỬ LÝ VAI TRÒ: QUẢN LÝ
-        if (user.equals("manager") && pass.equals("123")) {
+        QuanLyDAO dao = new QuanLyDAO();
+        String vaiTro = dao.layVaiTroDangNhap(user, pass);
+
+        if ("QuanLy".equals(vaiTro)) {
             dangNhapThanhCong = true;
-
-            QuanLy quanLy = new QuanLy(null, user, pass, null, "QuanLy", "Active", null);
-            QuanLyDAO quanLyDAO = new QuanLyDAO(null);
-
             quanLyChungFrm = new QuanLyChungFrm();
-
             if (txtUsername != null) {
                 quanLyChungFrm.setVisible(true);
                 this.dispose();
             }
             return quanLyChungFrm; // Trả về trang chủ Quản lý
-
-            // 2. XỬ LÝ VAI TRÒ: NHÂN VIÊN
-        } else if (user.equals("staff") && pass.equals("123")) {
+        } else if ("NhanVien".equals(vaiTro)) {
             dangNhapThanhCong = true;
-
             nhanVienHomeFrm = new NhanVienHomeFrm();
-
             if (txtUsername != null) {
                 nhanVienHomeFrm.setVisible(true);
                 this.dispose();
             }
-            return nhanVienHomeFrm; // Trả về đúng trang chủ Nhân viên như bạn muốn
-
+            return nhanVienHomeFrm; // Trả về trang chủ Nhân viên
         } else {
             dangNhapThanhCong = false;
             if (txtUsername != null) {

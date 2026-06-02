@@ -16,6 +16,10 @@ public class QuanLyDAO extends DAO {
         super(con);
     }
 
+    public QuanLyDAO() {
+        super();
+    }
+
     /**
      * Sequence diagram step 7: checkDangNhap(quanly: QuanLy) : boolean
      * Validates that the given QuanLy object has non-blank credentials. A real

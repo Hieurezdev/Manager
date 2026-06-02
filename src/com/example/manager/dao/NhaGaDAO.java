@@ -123,11 +123,38 @@ public class NhaGaDAO extends DAO {
         return true;
     }
 
+    // --- Kiểm tra nhà ga đang được sử dụng ---
+    public boolean kiemTraGaDangSuDung(String maGa) {
+        if (con != null) {
+            String sql = "SELECT 1 FROM NhaGa ng "
+                       + "WHERE ng.maGa = ? AND ("
+                       + "EXISTS (SELECT 1 FROM ChiTietHanhTrinh ctht WHERE ctht.nhaGaId = ng.id) "
+                       + "OR EXISTS (SELECT 1 FROM ChiTietLichTrinh ctlt WHERE ctlt.nhaGaId = ng.id)"
+                       + ")";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, maGa);
+                try (ResultSet rs = ps.executeQuery()) {
+                    return rs.next();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     // --- Sequence diagram step 70: xoaGa() ---
     public boolean xoaGa(NhaGa ga) {
         if (ga == null) {
             return false;
         }
+        
+        // KIỂM TRA RÀNG BUỘC CHỦ ĐỘNG TỪ HỆ THỐNG
+        if (kiemTraGaDangSuDung(ga.getMaGa())) {
+            System.err.println("Từ chối xóa: Nhà ga " + ga.getMaGa() + " đang nằm trong Hành Trình hoặc Lịch Trình.");
+            return false; 
+        }
+
         if (con != null) {
             String sql = "DELETE FROM NhaGa WHERE maGa = ?";
             try (PreparedStatement ps = con.prepareStatement(sql)) {
