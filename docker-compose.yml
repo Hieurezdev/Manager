@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     container_name: manager-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: Hch301105#
+      MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: manager_db
       TZ: Asia/Ho_Chi_Minh
     ports:
@@ -13,7 +13,7 @@ services:
       - ./src/main/java/com/example/manager/data.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pHch301105#"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p123456"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -32,7 +32,7 @@ services:
       DB_PORT: 3306
       DB_NAME: manager_db
       DB_USER: root
-      DB_PASSWORD: Hch301105#
+      DB_PASSWORD: 123456
       QT_X11_NO_MITSHM: 1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
