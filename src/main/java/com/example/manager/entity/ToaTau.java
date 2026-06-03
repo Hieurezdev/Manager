@@ -1,13 +1,12 @@
 package com.example.manager.entity;
 
-import com.example.manager.enums.LoaiToa;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.manager.enums.LoaiToa;
+
 public class ToaTau {
 
-    // =========================================================================
-    // =========================================================================
     private String maToa;
     private String tenToa;
     private int soThuTu;
@@ -16,15 +15,14 @@ public class ToaTau {
     private String moTa;
     private List<GheNgoi> gheNgoi;
 
-    // === BỔ SUNG: Trường maTau phục vụ luồng xử lý định vị sơ đồ của ông Đạt ===
     private String maTau;
 
-    // === Constructor mặc định từ GitHub ===
+    // === Constructor mặc định ===
     public ToaTau() {
         this.gheNgoi = new ArrayList<>();
     }
 
-    // === Constructor đầy đủ tham số từ GitHub ===
+    // === Constructor đầy đủ tham số ===
     public ToaTau(String maToa, String tenToa, int soThuTu, LoaiToa loaiToa, int soLuongGheToiDa, String moTa) {
         this.maToa = maToa;
         this.tenToa = tenToa;
@@ -35,7 +33,6 @@ public class ToaTau {
         this.gheNgoi = new ArrayList<>();
     }
 
-    // === Thêm bộ Getter/Setter cho thuộc tính bổ sung của ông Đạt ===
     public String getMaTau() {
         return maTau;
     }
@@ -44,8 +41,7 @@ public class ToaTau {
         this.maTau = maTau;
     }
 
-    // =========================================================================
-    // =========================================================================
+    
     public String getMaToa() {
         return maToa;
     }
@@ -74,9 +70,6 @@ public class ToaTau {
         return new ArrayList<>(gheNgoi);
     }
 
-    // =========================================================================
-    // CÁC HÀM SETTER BỔ SUNG (Phục vụ gán dữ liệu thực tế cho module Mua Vé)
-    // =========================================================================
     public void setMaToa(String maToa) {
         this.maToa = maToa;
     }

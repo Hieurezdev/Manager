@@ -5,12 +5,12 @@ public class NhanVien extends TaiKhoan {
     private String hoTen;
     private String soDienThoai;
 
-    // === Constructor mặc định từ GitHub ===
+    // === Constructor mặc định ===
     public NhanVien() {
         super();
     }
 
-    // === Constructor đầy đủ tham số từ GitHub (Quản lý cả Tài Khoản) ===
+    // === Constructor đầy đủ tham số ===
     public NhanVien(String maTaiKhoan, String tenDangNhap, String matKhau, String vaiTro, String trangThai,
                     String maNhanVien, String hoTen, String soDienThoai) {
         super(maTaiKhoan, tenDangNhap, matKhau, vaiTro, trangThai);
@@ -19,17 +19,14 @@ public class NhanVien extends TaiKhoan {
         this.soDienThoai = soDienThoai;
     }
 
-    // =========================================================================
-    // BỔ SUNG LẠI: Constructor 2 tham số cũ của ông (Né lỗi compile luồng cũ của ông)
-    // =========================================================================
+    
     public NhanVien(String maNhanVien, String hoTen) {
         super(); // Gọi constructor mặc định của TaiKhoan
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
     }
 
-    // =========================================================================
-    // =========================================================================
+    
     public String getMaNhanVien() {
         return maNhanVien;
     }

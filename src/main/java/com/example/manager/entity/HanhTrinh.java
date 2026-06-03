@@ -10,7 +10,6 @@ public class HanhTrinh {
     private double quangDuong;
     private List<ChiTietHanhTrinh> chiTietHanhTrinh;
 
-    // === BỔ SUNG: Thuộc tính phục vụ riêng cho module Mua Vé của ông Đạt ===
     private String maGaDi;
     private String maGaDen;
 
@@ -18,7 +17,6 @@ public class HanhTrinh {
         this.chiTietHanhTrinh = new ArrayList<>();
     }
 
-    // === Constructor đầy đủ tham số gốc từ GitHub ===
     public HanhTrinh(String maHanhTrinh, String tenHanhTrinh, double quangDuong,
             List<ChiTietHanhTrinh> chiTietHanhTrinh) {
         this.maHanhTrinh = maHanhTrinh;
@@ -27,7 +25,6 @@ public class HanhTrinh {
         this.chiTietHanhTrinh = chiTietHanhTrinh == null ? new ArrayList<>() : new ArrayList<>(chiTietHanhTrinh);
     }
 
-    // === Getter/Setter cho thuộc tính của ông Đạt (Đã sửa lỗi biên dịch) ===
     public String getMaGaDi() {
         return maGaDi;
     }
@@ -44,15 +41,12 @@ public class HanhTrinh {
         this.maGaDen = maGaDen;
     }
 
-    // =========================================================================
-    // =========================================================================
     public static HanhTrinh layThongTinHanhTrinh(String maHanhTrinh) {
         HanhTrinh hanhTrinh = new HanhTrinh();
         hanhTrinh.maHanhTrinh = maHanhTrinh;
         return hanhTrinh;
     }
 
-    // ĐỒNG BỘ: Trả lại hàm bốc ga trung gian cho bạn ông làm Thống kê không bị gãy code
     public List<ChiTietHanhTrinh> getDanhSachGaTrungGian() {
         com.example.manager.dao.HanhTrinhDAO dao = new com.example.manager.dao.HanhTrinhDAO(com.example.manager.dao.DBConnection.getConnection());
         return dao.getGaTrungGian(this.maHanhTrinh);

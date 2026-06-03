@@ -1,11 +1,11 @@
 package com.example.manager.entity;
 
-import com.example.manager.enums.LoaiTau;
-import com.example.manager.enums.TrangThaiTau;
-import com.example.manager.dao.DoanTauDAO;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.manager.dao.DoanTauDAO;
+import com.example.manager.enums.LoaiTau;
+import com.example.manager.enums.TrangThaiTau;
 
 public class DoanTau {
 
@@ -31,7 +31,6 @@ public class DoanTau {
         return new ArrayList<>();
     }
 
-    // === GIỮ LẠI CHO BẠN ÔNG: Hàm bốc danh sách tàu từ DAO phục vụ Thống kê ===
     public static List<DoanTau> getDanhSachTau() {
         DoanTauDAO dao = new DoanTauDAO(com.example.manager.dao.DBConnection.getConnection());
         return dao.getAllDoanTau();

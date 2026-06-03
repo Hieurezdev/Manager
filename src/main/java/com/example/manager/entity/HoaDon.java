@@ -4,26 +4,21 @@ import java.time.LocalDateTime;
 
 public class HoaDon {
 
-    // =========================================================================
-    // =========================================================================
     private String maHoaDon;
     private PhieuTraVe phieuTraVe;
     private int tongTien;
     private String loaiHoaDon;
     private LocalDateTime ngayTao;
 
-    // === BỔ SUNG: Các trường phục vụ luồng nghiệp vụ Mua Vé của ông Đạt ===
     private String maNhanVienLap;
     private String maKhachHang;
     private String phuongThucThanhToan;
     private String trangThai;
     private String loaiDon;
 
-    // === Constructor mặc định từ GitHub ===
     public HoaDon() {
     }
 
-    // === Constructor đầy đủ tham số từ GitHub ===
     public HoaDon(String maHoaDon, PhieuTraVe phieuTraVe, int tongTien, String loaiHoaDon, LocalDateTime ngayTao) {
         this.maHoaDon = maHoaDon;
         this.phieuTraVe = phieuTraVe;
@@ -32,7 +27,6 @@ public class HoaDon {
         this.ngayTao = ngayTao;
     }
 
-    // === Thêm các Getter/Setter cho các thuộc tính ông bổ sung ===
     public String getMaNhanVienLap() {
         return maNhanVienLap;
     }
@@ -73,12 +67,10 @@ public class HoaDon {
         this.loaiDon = loaiDon;
     }
 
-    // ĐỒNG BỘ: Để tương thích với code cũ giao diện nếu ông lỡ gọi getNgayGioLap dạng String
     public String getNgayGioLap() {
         return ngayTao != null ? ngayTao.toString().replace("T", " ") : "";
     }
 
-    // ĐỒNG BỘ NÂNG CẤP: Bọc an toàn để tránh crash app khi ép chuỗi ngày tháng lệch định dạng
     public void setNgayGioLap(String n) {
         if (n == null || n.trim().isEmpty()) {
             this.ngayTao = LocalDateTime.now();
@@ -88,7 +80,7 @@ public class HoaDon {
             // Thay thế khoảng trắng bằng chữ T để hợp thức hóa định dạng ISO nếu cần
             String formatted = n.trim().replace(" ", "T");
             if (formatted.length() > 19) {
-                formatted = formatted.substring(0, 19); // Cắt bỏ phần nano giây dư thừa từ SQL
+                formatted = formatted.substring(0, 19);
             }
             this.ngayTao = LocalDateTime.parse(formatted);
         } catch (Exception e) {
@@ -97,8 +89,6 @@ public class HoaDon {
         }
     }
 
-    // =========================================================================
-    // =========================================================================
     public String getMaHoaDon() {
         return maHoaDon;
     }
