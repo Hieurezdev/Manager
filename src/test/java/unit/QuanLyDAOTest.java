@@ -34,15 +34,15 @@ public class QuanLyDAOTest {
     @Test
     public void testCheckDangNhap_SaiMatKhauHoacTen() throws SQLException {
         when(mockResultSet.next()).thenReturn(false);
-        QuanLy ql = new QuanLy("sai_tai_khoan", "sai_mat_khau", "QuanLy", "HoatDong");
+        QuanLy ql = new QuanLy(null, "sai_tai_khoan", "sai_mat_khau", null, "QuanLy", "HoatDong", null);
         boolean result = quanLyDAO.checkDangNhap(ql);
         assertFalse(result, "Phải trả về false khi sai tên đăng nhập hoặc mật khẩu");
     }
 
     @Test
     public void testCheckDangNhap_UsernameHoacPasswordRong() {
-        QuanLy ql1 = new QuanLy("", "password123", "QuanLy", "HoatDong");
-        QuanLy ql2 = new QuanLy("username123", "", "QuanLy", "HoatDong");
+        QuanLy ql1 = new QuanLy(null, "", "password123", null, "QuanLy", "HoatDong", null);
+        QuanLy ql2 = new QuanLy(null, "username123", "", null, "QuanLy", "HoatDong", null);
 
         assertFalse(quanLyDAO.checkDangNhap(ql1), "Phải trả về false khi username rỗng");
         assertFalse(quanLyDAO.checkDangNhap(ql2), "Phải trả về false khi password rỗng");

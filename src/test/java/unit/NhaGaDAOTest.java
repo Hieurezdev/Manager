@@ -64,6 +64,14 @@ public class NhaGaDAOTest {
     }
 
     @Test
+    public void testTimKiemTheoTen_KhongThay() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false);
+        List<NhaGa> result = nhaGaDAO.timKiemTheoTen("Ga Hi");
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
     public void testCapNhatGa_ThieuThongTin() throws SQLException {
         boolean result = nhaGaDAO.capNhatGa(null, "Tên mới", "Địa chỉ", "0123");
         assertFalse(result);
