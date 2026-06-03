@@ -7,11 +7,11 @@ public class KhachHang {
     private String soDienThoai;
     private String email;
 
-    // === Constructor mặc định từ GitHub ===
+    // === Constructor mặc định===
     public KhachHang() {
     }
 
-    // === Constructor đầy đủ tham số từ GitHub ===
+    // === Constructor đầy đủ tham số ===
     public KhachHang(String maKH, String hoTen, String soCCCD, String soDienThoai, String email) {
         this.maKH = maKH;
         this.hoTen = hoTen;
@@ -40,9 +40,6 @@ public class KhachHang {
         return email;
     }
 
-    // =========================================================================
-    // CÁC HÀM SETTER BỔ SUNG CỦA ÔNG (Phục vụ luồng Mua Vé, không sợ conflict)
-    // =========================================================================
     public void setMaKH(String maKH) { 
         this.maKH = maKH; 
     }

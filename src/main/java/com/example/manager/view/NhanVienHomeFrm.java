@@ -1,9 +1,19 @@
 package com.example.manager.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 
 public class NhanVienHomeFrm extends JFrame implements ActionListener {
@@ -32,11 +42,10 @@ public class NhanVienHomeFrm extends JFrame implements ActionListener {
 
         btnMuaVeReal = new JButton("Chức năng Mua Vé");
         btnMuaVeReal.setFont(new Font("Arial", Font.BOLD, 16));
-        btnMuaVeReal.setActionCommand("MuaVe"); // Khớp ActionCommand logic nghiệp vụ GitHub
-
+        btnMuaVeReal.setActionCommand("MuaVe");
         btnTraVeReal = new JButton("Chức năng Trả Vé");
         btnTraVeReal.setFont(new Font("Arial", Font.BOLD, 16));
-        btnTraVeReal.setActionCommand("TraVe"); // Khớp ActionCommand logic nghiệp vụ GitHub
+        btnTraVeReal.setActionCommand("TraVe");
 
         panelCenter.add(btnMuaVeReal);
         panelCenter.add(btnTraVeReal);
@@ -55,7 +64,7 @@ public class NhanVienHomeFrm extends JFrame implements ActionListener {
 
         btnLogoutReal.addActionListener(e -> {
             try {
-                // Quay lại màn hình đăng nhập chuẩn của nhóm trên GitHub
+                // Quay lại màn hình đăng nhập
                 new DangNhapFrm().setVisible(true);
                 this.dispose();
             } catch (Exception ex) {
@@ -84,7 +93,7 @@ public class NhanVienHomeFrm extends JFrame implements ActionListener {
     }
 
     public SearchVeTauFrm moManHinhSearchVeTau() {
-        // Khởi tạo cửa sổ tra cứu xịn, truyền 'this' làm Form mẹ để xử lý nút [Quay Lại]
+        // Khởi tạo cửa sổ tra cứu, truyền 'this' làm Form mẹ để xử lý nút [Quay Lại]
         SearchVeTauFrm searchVeTauFrm = new SearchVeTauFrm(this);
 
         // Hiển thị màn hình tra cứu, ẩn màn hình chính

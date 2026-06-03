@@ -1,15 +1,15 @@
 package com.example.manager.dao;
 
-import com.example.manager.entity.HoaDon;
-import com.example.manager.enums.LoaiDoiTuong;
-import com.example.manager.enums.PhuongThucThanhToan;
-import com.example.manager.enums.TrangThaiVe;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.UUID;
+
+import com.example.manager.entity.HoaDon;
+import com.example.manager.enums.LoaiDoiTuong;
+import com.example.manager.enums.PhuongThucThanhToan;
+import com.example.manager.enums.TrangThaiVe;
 
 public class HoaDonDAO extends DAO {
 
@@ -40,7 +40,7 @@ public class HoaDonDAO extends DAO {
     }
 
     /**
-     * CHỨC NĂNG 1: Cập nhật trạng thái ghế chạy trực tiếp trên Database thật
+     * CHỨC NĂNG 1: Cập nhật trạng thái ghế chạy trực tiếp trên Database
      */
     public boolean capNhatTrangThaiGhe(String maGhe, String trangThai) throws Exception {
         if (con == null) {
@@ -58,8 +58,7 @@ public class HoaDonDAO extends DAO {
     }
 
     /**
-     * CHỨC NĂNG 2: Lưu giao dịch thanh toán thực tế xuống DB thật của nhóm (Đảm
-     * bảo tính toàn vẹn dữ liệu)
+     * CHỨC NĂNG 2: Lưu giao dịch thanh toán thực tế xuống DB
      */
     public void luuGiaoDichThanhToanThat(String maNV, HoaDon bill, String maLichTrinh, String maGhe, String maKH) throws Exception {
         if (con == null) {
@@ -76,7 +75,6 @@ public class HoaDonDAO extends DAO {
                 ps.setString(1, bill.getMaHoaDon());
                 ps.setString(2, maNV);
                 ps.setString(3, maKH);
-                // Ép kiểu double về int cho khớp thuộc tính tổng tiền của bạn ông làm Thống kê
                 ps.setInt(4, (int) bill.getTongTien());
                 ps.setString(5, PhuongThucThanhToan.TIEN_MAT.name());
                 ps.executeUpdate();

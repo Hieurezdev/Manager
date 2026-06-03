@@ -9,13 +9,11 @@ public class GheNgoi {
     private String viTri;
     private TrangThaiGhe trangThai;
     private String moTa;
-    // Bổ sung maToa để phục vụ luồng xử lý định vị sơ đồ ghế của ông Đạt
     private String maToa;
 
     public GheNgoi() {
     }
 
-    // === Constructor 1: Chuẩn Enum gốc của bạn ông trên GitHub ===
     public GheNgoi(String maGhe, int soGhe, String viTri, TrangThaiGhe trangThai, String maToa) {
         this.maGhe = maGhe;
         this.soGhe = soGhe;
@@ -24,22 +22,21 @@ public class GheNgoi {
         this.maToa = maToa;
     }
 
-    // === Constructor 2: Nạp chồng nhận String (Cứu cánh các đoạn gọi hàm JDBC cũ của ông Đạt không bị Compile Error) ===
     public GheNgoi(String maGhe, String soGhe, String viTri, String trangThaiStr, String maToa) {
         this.maGhe = maGhe;
         try {
-            this.soGhe = Integer.parseInt(soGhe); // Tự động ép String sang int
+            this.soGhe = Integer.parseInt(soGhe); 
         } catch (Exception e) {
             this.soGhe = 0;
         }
         this.viTri = viTri;
         this.maToa = maToa;
 
-        // Tự động chuyển đổi chuỗi String từ DB sang Enum TrangThaiGhe chuẩn của nhóm
+        // Tự động chuyển đổi chuỗi String từ DB sang Enum TrangThaiGhe
         try {
             this.trangThai = TrangThaiGhe.valueOf(trangThaiStr.toUpperCase());
         } catch (Exception e) {
-            this.trangThai = TrangThaiGhe.TRONG; // Mặc định nếu lỗi là ghế trống
+            this.trangThai = TrangThaiGhe.TRONG;
         }
     }
 
@@ -52,8 +49,6 @@ public class GheNgoi {
         this.maToa = maToa;
     }
 
-    // =========================================================================
-    // =========================================================================
     public String getMaGhe() {
         return maGhe;
     }
