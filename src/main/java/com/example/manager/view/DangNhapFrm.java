@@ -59,7 +59,7 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         btnLogin.addActionListener(this);
         panelBottom.add(btnLogin, BorderLayout.NORTH);
 
-        JLabel lblHint = new JLabel("<html><center style='color:blue;'>Gợi ý tài khoản test:<br>Quản lý: manager/123 | Nhân viên: staff/123</center></html>", JLabel.CENTER);
+        JLabel lblHint = new JLabel("<html><center style='color:blue;'>Gợi ý tài khoản test:<br>Quản lý: admin01/123456 | Nhân viên: clerk01/123456</center></html>", JLabel.CENTER);
         lblHint.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         panelBottom.add(lblHint, BorderLayout.SOUTH);
         add(panelBottom, BorderLayout.SOUTH);
@@ -83,51 +83,50 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         String user = (txtUsername != null) ? txtUsername.getText().trim() : this.txtTDN;
         String pass = (txtPassword != null) ? new String(txtPassword.getPassword()).trim() : this.txtMK;
 
-        try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection()) {
-            String sql = "SELECT tk.vaiTro, nv.maNhanVien, ql.maQuanLy " +
-                         "FROM TaiKhoan tk " +
-                         "LEFT JOIN NhanVien nv ON tk.id = nv.id " +
-                         "LEFT JOIN QuanLy ql ON tk.id = ql.id " +
-                         "WHERE tk.tenDangNhap = ? AND tk.matKhau = ?";
-            java.sql.PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, pass);
-            java.sql.ResultSet rs = ps.executeQuery();
+        com.example.manager.dao.QuanLyDAO quanLyDAO = new com.example.manager.dao.QuanLyDAO(com.example.manager.dao.DBConnection.getConnection());
+        String vaiTro = quanLyDAO.layVaiTroDangNhap(user, pass);
 
-            if (rs.next()) {
-                dangNhapThanhCong = true;
-                String vaiTro = rs.getString("vaiTro");
-
-                if ("QuanLy".equals(vaiTro)) {
-                    com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString("maQuanLy");
-                    quanLyChungFrm = new QuanLyChungFrm();
-                    if (txtUsername != null) {
-                        quanLyChungFrm.setVisible(true);
-                        this.dispose();
-                    }
-                    return quanLyChungFrm;
-
-                } else if ("NhanVien".equals(vaiTro)) {
-                    com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString("maNhanVien");
-                    nhanVienHomeFrm = new NhanVienHomeFrm();
-                    if (txtUsername != null) {
-                        nhanVienHomeFrm.setVisible(true);
-                        this.dispose();
-                    }
-                    return nhanVienHomeFrm;
-                }
-            } else {
-                dangNhapThanhCong = false;
-                if (txtUsername != null) {
-                    JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-                }
-                return null;
+        if ("QuanLy".equals(vaiTro)) {
+            dangNhapThanhCong = true;
+            // Fetch ID via SubQuery since QuanLyDAO currently only returns vaiTro string
+            try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection();
+                 java.sql.PreparedStatement ps = con.prepareStatement("SELECT maQuanLy FROM QuanLy WHERE id = (SELECT id FROM TaiKhoan WHERE tenDangNhap = ?)")) {
+                ps.setString(1, user);
+                java.sql.ResultSet rs = ps.executeQuery();
+                if (rs.next()) com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString(1);
+            } catch(Exception e) {}
+            
+            quanLyChungFrm = new QuanLyChungFrm();
+            if (txtUsername != null) {
+                quanLyChungFrm.setVisible(true);
+                this.dispose();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối CSDL: " + ex.getMessage());
+            return quanLyChungFrm; // Trả về trang chủ Quản lý
+
+        } else if ("NhanVien".equals(vaiTro)) {
+            dangNhapThanhCong = true;
+            // Fetch ID via SubQuery
+            try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection();
+                 java.sql.PreparedStatement ps = con.prepareStatement("SELECT maNhanVien FROM NhanVien WHERE id = (SELECT id FROM TaiKhoan WHERE tenDangNhap = ?)")) {
+                ps.setString(1, user);
+                java.sql.ResultSet rs = ps.executeQuery();
+                if (rs.next()) com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString(1);
+            } catch(Exception e) {}
+
+            nhanVienHomeFrm = new NhanVienHomeFrm();
+            if (txtUsername != null) {
+                nhanVienHomeFrm.setVisible(true);
+                this.dispose();
+            }
+            return nhanVienHomeFrm; // Trả về đúng trang chủ Nhân viên như bạn muốn
+
+        } else {
+            dangNhapThanhCong = false;
+            if (txtUsername != null) {
+                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
         }
-        return null;
     }
 
     public void setTxtTDN(String txtTDN) {

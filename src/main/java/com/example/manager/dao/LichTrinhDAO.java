@@ -266,7 +266,7 @@ public class LichTrinhDAO extends DAO {
                 + "(SELECT id FROM DoanTau WHERE maTau = ?), "
                 + "(SELECT id FROM HanhTrinh WHERE maHanhTrinh = ?), 1)";
 
-        try (PreparedStatement stmt = this.con.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
             // Tự sinh mã lịch trình (VD: LT_SE1_123456789)
             String maLichTrinh = "LT_" + lichTrinh.getDoanTau().getMaTau() + "_" + (System.currentTimeMillis() % 1000000);
 
@@ -277,6 +277,30 @@ public class LichTrinhDAO extends DAO {
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
+                int generatedId = -1;
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        generatedId = rs.getInt(1);
+                    }
+                }
+                
+                if (generatedId != -1 && lichTrinh.getChiTietLichTrinh() != null) {
+                    String sqlCTLT = "INSERT INTO ChiTietLichTrinh (maCTLT, gioDen, gioDi, nhaGaId, lichTrinhId) VALUES (?, ?, ?, (SELECT id FROM NhaGa WHERE maGa = ?), ?)";
+                    try (PreparedStatement stmtCTLT = this.con.prepareStatement(sqlCTLT)) {
+                        int index = 1;
+                        for (com.example.manager.entity.ChiTietLichTrinh ct : lichTrinh.getChiTietLichTrinh()) {
+                            String maCTLT = "CTLT_" + maLichTrinh + "_" + index++;
+                            stmtCTLT.setString(1, maCTLT);
+                            stmtCTLT.setTimestamp(2, ct.getGioDen() != null ? Timestamp.valueOf(ct.getGioDen()) : null);
+                            stmtCTLT.setTimestamp(3, ct.getGioDi() != null ? Timestamp.valueOf(ct.getGioDi()) : null);
+                            stmtCTLT.setString(4, ct.getNhaGa().getMaGa());
+                            stmtCTLT.setInt(5, generatedId);
+                            stmtCTLT.addBatch();
+                        }
+                        stmtCTLT.executeBatch();
+                    }
+                }
+                
                 System.out.println("Đã thêm Lịch Trình thành công vào DB: " + maLichTrinh);
                 return true;
             }

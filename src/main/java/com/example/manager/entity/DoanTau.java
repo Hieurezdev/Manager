@@ -33,7 +33,7 @@ public class DoanTau {
 
     // === GIỮ LẠI CHO BẠN ÔNG: Hàm bốc danh sách tàu từ DAO phục vụ Thống kê ===
     public static List<DoanTau> getDanhSachTau() {
-        DoanTauDAO dao = new DoanTauDAO(null);
+        DoanTauDAO dao = new DoanTauDAO(com.example.manager.dao.DBConnection.getConnection());
         return dao.getAllDoanTau();
     }
 

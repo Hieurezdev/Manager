@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.sql.*;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -63,5 +64,26 @@ public class VeTauDAOTest {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
         boolean result = veTauDAO.updateTrangThai("VE_0001", TrangThaiVe.DA_TRA);
         assertTrue(result);
+    }
+
+    @Test
+    public void testLayDanhSachVeTheoLichTrinh_HasSoldTickets() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString("maVe")).thenReturn("VE_0001");
+        when(mockResultSet.getString("trangThai")).thenReturn("DaBan");
+        
+        List<VeTau> result = veTauDAO.layDanhSachVeTheoLichTrinh("LT_001");
+        assertFalse(result.isEmpty());
+        assertEquals(TrangThaiVe.DA_BAN, result.get(0).getTrangThai());
+    }
+
+    @Test
+    public void testLayDanhSachVeTheoLichTrinh_NoTicketsOrOnlyCanceled() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false); 
+        
+        List<VeTau> result = veTauDAO.layDanhSachVeTheoLichTrinh("LT_001");
+        assertTrue(result.isEmpty());
     }
 }
