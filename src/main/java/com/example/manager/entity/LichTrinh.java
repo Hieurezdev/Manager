@@ -10,7 +10,6 @@ import java.util.List;
 public class LichTrinh {
 
     // =========================================================================
-    // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn 100%)
     // =========================================================================
     private String maLichTrinh;
     private LocalDateTime ngayKhoiHanh;
@@ -95,7 +94,6 @@ public class LichTrinh {
     }
 
     // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Trả lại nguyên vẹn từng chữ để né Conflict)
     // =========================================================================
     public static List<LichTrinh> layDanhSachLichTrinhTrongKy(String maTau, LocalDate ngayBD, LocalDate ngayKT) {
         return new ArrayList<>();

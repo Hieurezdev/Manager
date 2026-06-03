@@ -17,10 +17,6 @@ public class HoaDonDAO extends DAO {
         super(con);
     }
 
-    /**
-     * Hàm tạo hóa đơn gốc từ GitHub (Giữ nguyên logic lõi của bạn ông để né
-     * conflict)
-     */
     public boolean createHoaDon(HoaDon hoaDon) {
         if (con == null) {
             return false;

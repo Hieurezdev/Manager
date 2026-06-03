@@ -17,7 +17,6 @@ public class ChinhSachGia {
         this.moTa = moTa;
     }
 
-    // === Danh sách các hàm Getter và Setter giữ nguyên vẹn ===
     public String getMaChinhSach() { 
         return maChinhSach; 
     }

@@ -35,9 +35,6 @@ public class LichTrinhDAO extends DAO {
         return giaVeGocTieuChuan;
     }
 
-    // =========================================================================
-    // 1. TOÀN BỘ CODE GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để diệt tận gốc Conflict)
-    // =========================================================================
     public List<LichTrinh> layDanhSachLichTrinhTrongKy(String maTau, LocalDate ngayBD, LocalDate ngayKT) {
         if (con != null) {
             List<LichTrinh> list = new ArrayList<>();
@@ -143,12 +140,7 @@ public class LichTrinhDAO extends DAO {
         return LichTrinh.layThongTinLichTrinh(maTau);
     }
 
-    // =========================================================================
-    // 2. CODE MUA VÉ CỦA ÔNG ĐẠT - ĐỒNG BỘ 100% DATABASE THẬT VÀ ĐẶC TẢ TUẦN TỰ
-    // =========================================================================
     public List<LichTrinh> layDanhSachChuyenTauPhuHop(String tenGaDi, String tenGaDen, String ngayDi) throws Exception {
-        // 2.1. Tính toán giá vé dựa trên quãng đường (Truy vấn qua bảng trung gian)
-        // Giả định: HanhTrinh có tổng quãng đường, ta lấy giá theo tên ga
         String sqlQD = "SELECT h.quangDuong "
                 + "FROM HanhTrinh h "
                 + "JOIN ChiTietHanhTrinh ct1 ON h.id = ct1.hanhTrinhId "
@@ -166,10 +158,7 @@ public class LichTrinhDAO extends DAO {
                 }
             }
         }
-
-        // 2.2. Lấy danh sách chuyến tàu chạy trong ngày
         List<LichTrinh> list = new ArrayList<>();
-        // SQL này join 2 lần vào bảng ChiTietLichTrinh để lọc cùng lúc Ga đi và Ga đến
         String sqlLT = "SELECT lt.maLichTrinh, dt.maTau, ct1.gioDi, ct2.gioDen "
                 + "FROM LichTrinh lt "
                 + "JOIN DoanTau dt ON lt.doanTauId = dt.id "
@@ -200,18 +189,10 @@ public class LichTrinhDAO extends DAO {
         return list;
     }
 
-    /**
-     * Hàm bốc sơ đồ ghế ngồi ủy quyền qua lớp thực thể LichTrinh đúng chuẩn
-     * kịch bản tuần tự nhóm
-     */
+    
     public List<GheNgoi> layThongTinLichTrinh(String maLichTrinh, String tenToa) throws Exception {
-        // BƯỚC 1: Tiếp nhận tham số, kích hoạt luồng bằng cách gọi lớp thực thể LichTrinh
         LichTrinh lichTrinhEntity = new LichTrinh();
-
-        // BƯỚC 2: Gọi tầng thực thể để phối hợp DoanTau, ToaTau, GheNgoi quét DB
         List<GheNgoi> listGhe = lichTrinhEntity.xuLyQuetSoDoGheToaXe(this.con, maLichTrinh, tenToa);
-
-        // BƯỚC 3: Trả gói dữ liệu cấu trúc về cho giao diện vẽ sơ đồ
         return listGhe;
     }
 

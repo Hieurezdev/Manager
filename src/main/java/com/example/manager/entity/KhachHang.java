@@ -20,7 +20,6 @@ public class KhachHang {
         this.email = email;
     }
 
-    // === TOÀN BỘ GETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict) ===
     public String getMaKH() {
         return maKH;
     }

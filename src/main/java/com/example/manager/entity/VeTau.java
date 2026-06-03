@@ -9,7 +9,6 @@ import java.util.List;
 
 public class VeTau {
     // =========================================================================
-    // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn 100%)
     // =========================================================================
     private String maVe;
     private LoaiDoiTuong loaiDoiTuong;
@@ -75,7 +74,6 @@ public class VeTau {
     public void setThoiDiemBanVeStr(String t) { this.thoiDiemBanVeStr = t; }
 
     // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
     // =========================================================================
     public static List<VeTau> layDanhSachVeTheoLichTrinh(String maLichTrinh) {
         return new ArrayList<>();

@@ -19,7 +19,6 @@ public class ThemGaFrm extends JFrame implements ActionListener {
     private JTextField txtTenGaField, txtDiaChiField, txtSdtField;
     private JButton btnLuuNut, btnHuyNut;
 
-    // --- TOÀN BỘ THUỘC TÍNH GỐC TRÊN GITHUB (GIỮ NGUYÊN VẸN ĐỂ DIỆT CONFLICT) ---
     private String txtTenNhaGa;
     private String txtDiaChi;
     private String txtSoDienThoai;

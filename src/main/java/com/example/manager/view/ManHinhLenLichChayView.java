@@ -34,7 +34,6 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
     private DefaultTableModel modelTableGa;
     private JButton btnXacNhanReal, btnQuayLai;
 
-    // --- GIỮ NGUYÊN HOÀN TOÀN THUỘC TÍNH TRÊN GITHUB ĐỂ NÉ CONFLICT ---
     private String inDanhSachTau;
     private String outGaTrungGian;
     private String inGioDen;
@@ -149,7 +148,6 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
     }
 
     /**
-     * HÀM CALL CHUẨN GỐC TRÊN GITHUB - Nạp danh sách tàu từ DB
      */
     public void call() {
         // Lấy danh sách tàu thực tế qua phương thức tĩnh của Entity
