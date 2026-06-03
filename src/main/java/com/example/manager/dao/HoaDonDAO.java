@@ -22,7 +22,7 @@ public class HoaDonDAO extends DAO {
             return false;
         }
 
-        String sql = "INSERT INTO HoaDon (maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HoaDon (maHoaDon, loaiHoaDon, ngayGioLap, phuongThucThanhToan, tongTien, trangThai, nhanVienId) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM NhanVien WHERE maNhanVien = ?))";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, hoaDon.getMaHoaDon());
@@ -31,6 +31,7 @@ public class HoaDonDAO extends DAO {
             ps.setString(4, "TienMat");
             ps.setInt(5, hoaDon.getTongTien());
             ps.setString(6, "DaThanhToan");
+            ps.setString(7, com.example.manager.utils.SessionManager.maNhanVienDangNhap);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,8 +70,8 @@ public class HoaDonDAO extends DAO {
             con.setAutoCommit(false);
 
             // 1. Lưu thông tin hóa đơn (Đồng bộ CURRENT_TIMESTAMP chạy xuyên suốt các hệ quản trị DB)
-            String sqlHD = "INSERT INTO HoaDon (maHoaDon, loaiHoaDon, ngayGioLap, maNhanVienLap, maKhachHang, tongTien, phuongThucThanhToan, trangThai) "
-                    + "VALUES (?, 'Mua ve', CURRENT_TIMESTAMP, ?, ?, ?, ?, 'Da thanh toan')";
+            String sqlHD = "INSERT INTO HoaDon (maHoaDon, loaiHoaDon, ngayGioLap, nhanVienId, khachHangId, tongTien, phuongThucThanhToan, trangThai) "
+                    + "VALUES (?, 'MuaVe', CURRENT_TIMESTAMP, (SELECT id FROM NhanVien WHERE maNhanVien = ?), (SELECT id FROM KhachHang WHERE maKH = ?), ?, ?, 'DaThanhToan')";
             try (PreparedStatement ps = con.prepareStatement(sqlHD)) {
                 ps.setString(1, bill.getMaHoaDon());
                 ps.setString(2, maNV);
@@ -82,8 +83,8 @@ public class HoaDonDAO extends DAO {
             }
 
             // 2. Lưu thông tin vé tàu phát sinh vào hệ thống
-            String sqlVe = "INSERT INTO VeTau (maVe, maKH, maLichTrinh, loaiDoiTuong, maGhe, giaVe, trangThai, thoiDiemBanVe, maNhanVienBanVe, maHoaDon) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?)";
+            String sqlVe = "INSERT INTO VeTau (maVe, khachHangId, lichTrinhId, loaiDoiTuong, gheNgoiId, giaVe, trangThai, thoiDiemBanVe, nhanVienId, hoaDonId) "
+                    + "VALUES (?, (SELECT id FROM KhachHang WHERE maKH = ?), (SELECT id FROM LichTrinh WHERE maLichTrinh = ?), ?, (SELECT id FROM GheNgoi WHERE maGhe = ?), ?, ?, CURRENT_TIMESTAMP, (SELECT id FROM NhanVien WHERE maNhanVien = ?), (SELECT id FROM HoaDon WHERE maHoaDon = ?))";
             try (PreparedStatement ps = con.prepareStatement(sqlVe)) {
                 ps.setString(1, "V-" + UUID.randomUUID().toString().substring(0, 4).toUpperCase());
                 ps.setString(2, maKH);

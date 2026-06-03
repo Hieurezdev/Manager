@@ -45,8 +45,8 @@ public class PhieuTraVeDAO extends DAO {
 
     public boolean createPhieuTraVe(PhieuTraVe phieu, String maHoaDon) {
         if (con != null) {
-            String sql = "INSERT INTO PhieuTraVe (maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach, veTauId, hoaDonId) " +
-                         "VALUES (?, ?, ?, ?, (SELECT id FROM VeTau WHERE maVe = ?), (SELECT id FROM HoaDon WHERE maHoaDon = ?))";
+            String sql = "INSERT INTO PhieuTraVe (maPhieuTra, thoiDiemTra, tienPhat, tienHoanLaiKhach, veTauId, hoaDonId, nhanVienId) " +
+                         "VALUES (?, ?, ?, ?, (SELECT id FROM VeTau WHERE maVe = ?), (SELECT id FROM HoaDon WHERE maHoaDon = ?), (SELECT id FROM NhanVien WHERE maNhanVien = ?))";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, phieu.getMaPhieu());
@@ -55,6 +55,7 @@ public class PhieuTraVeDAO extends DAO {
                 ps.setInt(4, phieu.getTienHoanLai());
                 ps.setString(5, phieu.getVeTau() != null ? phieu.getVeTau().getMaVe() : null);
                 ps.setString(6, maHoaDon);
+                ps.setString(7, com.example.manager.utils.SessionManager.maNhanVienDangNhap);
                 return ps.executeUpdate() > 0;
             } catch (SQLException e) {
                 e.printStackTrace();

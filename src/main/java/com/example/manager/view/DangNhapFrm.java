@@ -88,6 +88,14 @@ public class DangNhapFrm extends JFrame implements ActionListener {
 
         if ("QuanLy".equals(vaiTro)) {
             dangNhapThanhCong = true;
+            // Fetch ID via SubQuery since QuanLyDAO currently only returns vaiTro string
+            try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection();
+                 java.sql.PreparedStatement ps = con.prepareStatement("SELECT maQuanLy FROM QuanLy WHERE id = (SELECT id FROM TaiKhoan WHERE tenDangNhap = ?)")) {
+                ps.setString(1, user);
+                java.sql.ResultSet rs = ps.executeQuery();
+                if (rs.next()) com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString(1);
+            } catch(Exception e) {}
+            
             quanLyChungFrm = new QuanLyChungFrm();
             if (txtUsername != null) {
                 quanLyChungFrm.setVisible(true);
@@ -97,6 +105,14 @@ public class DangNhapFrm extends JFrame implements ActionListener {
 
         } else if ("NhanVien".equals(vaiTro)) {
             dangNhapThanhCong = true;
+            // Fetch ID via SubQuery
+            try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection();
+                 java.sql.PreparedStatement ps = con.prepareStatement("SELECT maNhanVien FROM NhanVien WHERE id = (SELECT id FROM TaiKhoan WHERE tenDangNhap = ?)")) {
+                ps.setString(1, user);
+                java.sql.ResultSet rs = ps.executeQuery();
+                if (rs.next()) com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString(1);
+            } catch(Exception e) {}
+
             nhanVienHomeFrm = new NhanVienHomeFrm();
             if (txtUsername != null) {
                 nhanVienHomeFrm.setVisible(true);
