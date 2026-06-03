@@ -13,6 +13,10 @@ public class QuanLy extends TaiKhoan {
         this.maQuanLy = maQuanLy;
     }
 
-    public String getMaQuanLy() { return maQuanLy; }
-    public void setMaQuanLy(String maQuanLy) { this.maQuanLy = maQuanLy; }
+    public String getMaQuanLy() { 
+        return maQuanLy; 
+    }
+    public void setMaQuanLy(String maQuanLy) { 
+        this.maQuanLy = maQuanLy; 
+    }
 }
