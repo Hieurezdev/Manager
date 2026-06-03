@@ -13,9 +13,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class NhaGaDAOTest {
-    @Mock private Connection mockConnection;
-    @Mock private PreparedStatement mockPreparedStatement;
-    @Mock private ResultSet mockResultSet;
+    @Mock
+    private Connection mockConnection;
+    @Mock
+    private PreparedStatement mockPreparedStatement;
+    @Mock
+    private ResultSet mockResultSet;
     private NhaGaDAO nhaGaDAO;
 
     @BeforeEach
@@ -23,6 +26,54 @@ public class NhaGaDAOTest {
         MockitoAnnotations.openMocks(this);
         nhaGaDAO = new NhaGaDAO(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+    }
+
+    @Test
+    public void testLayDanhSachGa_CoDuLieu() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString("maGa")).thenReturn("GA_HANOI");
+        when(mockResultSet.getString("tenNhaGa")).thenReturn("Ga Hà Nội");
+        when(mockResultSet.getString("diaChi")).thenReturn("Số 120 Lê Duẩn");
+        when(mockResultSet.getString("soDienThoai")).thenReturn("02439423697");
+
+        List<NhaGa> result = nhaGaDAO.layDanhSachGa();
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testTimKiemTheoTen_GanDung() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, true, false);
+        when(mockResultSet.getString("maGa")).thenReturn("GA_HANOI", "GA_NAMDINH");
+        when(mockResultSet.getString("tenNhaGa")).thenReturn("Ga Hà Nội", "Ga Nam Định");
+
+        List<NhaGa> result = nhaGaDAO.timKiemTheoTen("Ga");
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void testTimKiemTheoTen_ChuoiRong() throws SQLException {
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString("maGa")).thenReturn("GA_HANOI");
+
+        List<NhaGa> result = nhaGaDAO.timKiemTheoTen("");
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testCapNhatGa_ThieuThongTin() throws SQLException {
+        boolean result = nhaGaDAO.capNhatGa(null, "Tên mới", "Địa chỉ", "0123");
+        assertFalse(result);
+    }
+
+    @Test
+    public void testTaoGaMoi_ThieuThongTin() throws SQLException {
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException("NOT NULL constraint failed"));
+        NhaGa result = nhaGaDAO.taoGaMoi(null, null, null);
+        assertNull(result);
     }
 
     @Test
@@ -73,7 +124,9 @@ public class NhaGaDAOTest {
 
     @Test
     public void testXoaGa_StationExistsAndNotUsedInSchedule_Success() throws SQLException {
-        when(mockPreparedStatement.executeUpdate()).thenReturn(1);
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false); // kiemTraGaDangSuDung returns false
+        when(mockPreparedStatement.executeUpdate()).thenReturn(1); // xoaGa returns 1
         NhaGa ga = new NhaGa("GA_HANOI", "Ga Hà Nội", "Cũ", "0123");
         boolean result = nhaGaDAO.xoaGa(ga);
         assertTrue(result);
@@ -81,7 +134,9 @@ public class NhaGaDAOTest {
 
     @Test
     public void testXoaGa_StationCurrentlyUsedInSchedule_FailException() throws SQLException {
-        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException("Foreign key constraint"));
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true); // kiemTraGaDangSuDung returns true
+        // xoaGa will return false immediately without executing executeUpdate
         NhaGa ga = new NhaGa("GA_HANOI", "Ga Hà Nội", "Cũ", "0123");
         boolean result = nhaGaDAO.xoaGa(ga);
         assertFalse(result);
