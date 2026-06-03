@@ -18,7 +18,6 @@ public class DangNhapFrm extends JFrame implements ActionListener {
     private JPasswordField txtPassword;
     private JButton btnLogin;
 
-    // --- BIẾN MOCK TRÊN GITHUB (GIỮ NGUYÊN ĐỂ TRÁNH LỖI TEST) ---
     private String txtTDN = "";
     private String txtMK = "";
     private String btnDangNhap;
@@ -120,7 +119,6 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         }
     }
 
-    // --- GETTERS & SETTERS (GIỮ NGUYÊN ĐỂ KHÔNG LỖI LIÊN ĐỚI) ---
     public void setTxtTDN(String txtTDN) {
         this.txtTDN = txtTDN;
         if (txtUsername != null) {

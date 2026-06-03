@@ -12,7 +12,6 @@ public class GheNgoi {
     // Bổ sung maToa để phục vụ luồng xử lý định vị sơ đồ ghế của ông Đạt
     private String maToa;
 
-    // === Constructor mặc định gốc từ GitHub ===
     public GheNgoi() {
     }
 
@@ -54,7 +53,6 @@ public class GheNgoi {
     }
 
     // =========================================================================
-    // TOÀN BỘ GETTER/SETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để diệt tận gốc Conflict)
     // =========================================================================
     public String getMaGhe() {
         return maGhe;

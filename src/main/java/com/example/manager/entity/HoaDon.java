@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public class HoaDon {
 
     // =========================================================================
-    // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn kiểu dữ liệu)
     // =========================================================================
     private String maHoaDon;
     private PhieuTraVe phieuTraVe;
@@ -99,7 +98,6 @@ public class HoaDon {
     }
 
     // =========================================================================
-    // TOÀN BỘ GETTER/SETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
     // =========================================================================
     public String getMaHoaDon() {
         return maHoaDon;

@@ -61,7 +61,6 @@ public class MuaVeFrm extends JFrame implements ActionListener {
      * lại đồ họa mượt mà
      */
     public MuaVeFrm(JFrame parent) {
-        this(); // Gọi lại toàn bộ logic dựng UI của constructor mặc định bên dưới
         this.khungMenuCha = parent;
 
         // Thay đổi hành vi đóng cửa sổ: Chỉ tắt chính nó và hiển thị lại trang chủ nhân viên
@@ -75,7 +74,6 @@ public class MuaVeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * CONSTRUCTOR MẶC ĐỊNH GỐC: Giữ nguyên vẹn 100% kịch bản kiểm thử tự động
      * của nhóm
      */
     public MuaVeFrm() {

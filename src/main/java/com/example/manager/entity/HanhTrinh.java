@@ -14,7 +14,6 @@ public class HanhTrinh {
     private String maGaDi;
     private String maGaDen;
 
-    // === Constructor mặc định gốc từ GitHub ===
     public HanhTrinh() {
         this.chiTietHanhTrinh = new ArrayList<>();
     }
@@ -46,7 +45,6 @@ public class HanhTrinh {
     }
 
     // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để diệt tận gốc Conflict)
     // =========================================================================
     public static HanhTrinh layThongTinHanhTrinh(String maHanhTrinh) {
         HanhTrinh hanhTrinh = new HanhTrinh();

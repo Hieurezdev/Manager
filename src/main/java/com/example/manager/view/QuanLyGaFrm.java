@@ -25,7 +25,6 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     private JTable tblDSGaView;
     private DefaultTableModel modelTable;
 
-    // --- TOÀN BỘ THUỘC TÍNH GỐC TRÊN GITHUB (GIỮ NGUYÊN VẸN ĐỂ TRÁNH CONFLICT) ---
     private String txtTuKhoa;
     private String btnTimKiemGa; // Phục vụ convention kiểm thử của GitHub
     private String btnThemGaString; // Tránh trùng tên với JButton btnThemGa
@@ -279,7 +278,6 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // TOÀN BỘ GETTERS / SETTERS KHỚP 100% VỚI BẢN THỬ NGHIỆM GỐC TRÊN GITHUB
     // -------------------------------------------------------------------------
     public void setTxtTuKhoa(String txtTuKhoa) {
         this.txtTuKhoa = txtTuKhoa;

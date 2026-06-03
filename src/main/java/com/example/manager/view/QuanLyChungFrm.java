@@ -17,7 +17,6 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
     private JButton btnThongKeReal;
     private JButton btnLogoutReal;
 
-    // --- GIỮ NGUYÊN BẮT BUỘC CÁC TRƯỜNG TRÊN GITHUB ĐỂ TRÁNH LỖI MOCK TEST ---
     private String btnQuanLyBCTKL; // Báo cáo thống kê lịch trình
     private String btnQuanLyTTNG;  // Thông tin nhà ga
     private String btnQuanLyLTCT;  // Lịch trình chuyến tàu
@@ -127,7 +126,6 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
         return quanLyGaFrm;              // step 16: Hiển thị quay lại test script
     }
 
-    // --- GIỮ NGUYÊN CÁC HÀM GETTER ĐỂ KHÔNG LỖI LIÊN ĐỚI TEST SCRIPT ---
     public QuanLyGaFrm getQuanLyGaFrm() {
         return quanLyGaFrm;
     }

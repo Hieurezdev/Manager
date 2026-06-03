@@ -30,7 +30,6 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * ManHinhThongKeFrm — Giao diện thống kê hiệu suất doanh thu chuyến tàu. Đã gỡ
- * bỏ Mock Data, kết nối trực tiếp DAO nghiệp vụ của nhóm và giữ nguyên biến
  * kiểm thử GitHub.
  */
 public class ManHinhThongKeFrm extends JFrame implements ActionListener {
@@ -44,7 +43,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     private DefaultTableModel modelTable;
     private JLabel lblTongDoanhThu;
 
-    // --- GIỮ NGUYÊN BẮT BUỘC THUỘC TÍNH TRÊN GITHUB ĐỂ NÉ CONFLICT TEST ---
     private LocalDate ngayBD;
     private LocalDate ngayKT;
     private String outMaLichTrinh;
@@ -202,7 +200,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
                 return;
             }
 
-            // Gọi hàm thongKe() chuẩn gốc trên GitHub để lấy dữ liệu tính toán từ DB (Không dùng Mock Data nữa!)
             BaoCao baoCao = thongKe();
             logThongKe("Ket thuc thongKe(), baoCao=" + (baoCao == null ? "null" : "ok"));
 
@@ -251,7 +248,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * * HÀM THONGKE CHUẨN GỐC TRÊN GITHUB — ĐƯỢC GIỮ NGUYÊN VẸN 100% LOGIC
      * NGHIỆP VỤ. Đọc thông tin từ DAO thật liên kết với cơ sở dữ liệu.
      */
     public BaoCao thongKe() {
@@ -398,7 +394,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
         dispose();
     }
 
-    // --- GETTERS & SETTERS (GIỮ NGUYÊN ĐỂ VƯỢT QUA JUNIT TEST) ---
     public void setNgayBD(LocalDate ngayBD) {
         this.ngayBD = ngayBD;
     }

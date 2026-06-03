@@ -29,7 +29,6 @@ public class NhanVien extends TaiKhoan {
     }
 
     // =========================================================================
-    // TOÀN BỘ GETTER/SETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
     // =========================================================================
     public String getMaNhanVien() {
         return maNhanVien;

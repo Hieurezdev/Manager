@@ -18,7 +18,6 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
     private JTextField txtMaGaField, txtTenGaField, txtDiaChiField, txtSdtField;
     private JButton btnCapNhat, btnXoa, btnHuyNut;
 
-    // --- TOÀN BỘ THUỘC TÍNH GỐC TRÊN GITHUB (GIỮ NGUYÊN VẸN ĐỂ DIỆT CONFLICT) ---
     private final NhaGa ng;
 
     // UI fields dạng chuỗi lưu trạng thái phục vụ kiểm thử tự động

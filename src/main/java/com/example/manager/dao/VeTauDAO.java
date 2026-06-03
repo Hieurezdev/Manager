@@ -4,7 +4,6 @@ import com.example.manager.entity.VeTau;
 import com.example.manager.entity.KhachHang;
 import com.example.manager.entity.GheNgoi;
 import com.example.manager.entity.LichTrinh;
-import com.example.manager.entity.NhanVien;
 import com.example.manager.entity.HanhTrinh;
 import com.example.manager.entity.DoanTau;
 import com.example.manager.enums.TrangThaiVe;

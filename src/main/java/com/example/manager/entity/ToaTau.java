@@ -7,7 +7,6 @@ import java.util.List;
 public class ToaTau {
 
     // =========================================================================
-    // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn 100%)
     // =========================================================================
     private String maToa;
     private String tenToa;
@@ -46,7 +45,6 @@ public class ToaTau {
     }
 
     // =========================================================================
-    // TOÀN BỘ GETTER GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
     // =========================================================================
     public String getMaToa() {
         return maToa;
