@@ -1,11 +1,10 @@
 package com.example.manager.view;
 
-import com.example.manager.entity.ChiTietHanhTrinh;
-import com.example.manager.entity.DoanTau;
-import com.example.manager.entity.HanhTrinh;
-import com.example.manager.entity.LichTrinh;
-import com.example.manager.enums.TrangThaiLichTrinh;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -14,13 +13,30 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.example.manager.entity.ChiTietHanhTrinh;
+import com.example.manager.entity.DoanTau;
+import com.example.manager.entity.HanhTrinh;
+import com.example.manager.entity.LichTrinh;
+import com.example.manager.enums.TrangThaiLichTrinh;
+
 /**
- * ManHinhLenLichChayView — Giao diện lập lịch trình chạy tàu. Đã loại bỏ hoàn
- * toàn Mock Data, kết nối thực thể thật và đồng bộ thuộc tính GitHub.
+ * ManHinhLenLichChayView — Giao diện lập lịch trình chạy tàu.
  */
 public class ManHinhLenLichChayView extends JFrame implements ActionListener {
 
@@ -156,7 +172,7 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
     }
 
     /**
-     * HÀM ACTIONPERFORMED CỦA GITHUB - Giữ lại để né lỗi biên dịch bài test
+     * HÀM ACTIONPERFORMED - Giữ lại để né lỗi biên dịch
      */
     public void actionPerformed(String actionCommand, Object data) {
         if ("ChonTau".equals(actionCommand)) {
@@ -188,7 +204,6 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
         try {
             com.example.manager.dao.HanhTrinhDAO hanhTrinhDAO = new com.example.manager.dao.HanhTrinhDAO(com.example.manager.dao.DBConnection.getConnection());
 
-            // Gọi hàm bốc dữ liệu có sẵn của bạn
             this.danhSachHanhTrinh = hanhTrinhDAO.getAllHanhTrinh();
 
             // Cơ chế Fallback: Nếu DB chưa chạy hoặc danh sách trống, nạp dữ liệu nền để test giao diện
@@ -298,8 +313,7 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
     }
 
     /**
-     * HÀM GỐC XULYXACNHANLUU TRÊN GITHUB — ĐƯỢC TÍCH HỢP RÀNG BUỘC KIỂM TRA ĐỒ
-     * HỌA
+     * HÀM GỐC XULYXACNHANLUU
      */
     private void xuLyXacNhanLuu() {
         if (this.tauDuocChon == null || this.hanhTrinhDuocChon == null) {
@@ -355,7 +369,7 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
             }
         }
 
-        // BẮT ĐẦU LUỒNG ĐÓNG GÓI THỰC THỂ THEO THIẾT KẾ GITHUB
+        // BẮT ĐẦU LUỒNG ĐÓNG GÓI THỰC THỂ
         this.lichTrinhMoi = new LichTrinh();
 
         // Trộn ngày khởi hành và giờ xuất phát của ga đầu tiên để ra LocalDateTime khởi hành chuẩn
@@ -377,7 +391,7 @@ public class ManHinhLenLichChayView extends JFrame implements ActionListener {
             }
         }
 
-        // Gọi hàm lưu dữ liệu thật xuống Database qua DAO nhóm
+        // Gọi hàm lưu dữ liệu thật xuống Database qua DAO
         boolean isSuccess = this.lichTrinhMoi.luuLichTrinh();
 
         if (isSuccess) {

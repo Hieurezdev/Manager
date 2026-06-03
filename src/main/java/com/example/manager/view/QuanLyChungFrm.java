@@ -1,13 +1,21 @@
 package com.example.manager.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
- * QuanLyChungFrm — Trang chủ chính dành cho Cán bộ Quản lý. Kết hợp hoàn hảo
- * giữa giao diện Swing thực tế và cấu trúc Mock trên GitHub của nhóm.
+ * QuanLyChungFrm — Trang chủ chính dành cho Cán bộ Quản lý.
  */
 public class QuanLyChungFrm extends JFrame implements ActionListener {
 
@@ -25,7 +33,7 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
 
     // --- CONSTRUCTOR ---
     public QuanLyChungFrm() {
-        // Cấu hình cửa sổ giao diện Swing theo bản tự code
+        // Cấu hình cửa sổ giao diện Swing
         setTitle("MÀN HÌNH CHÍNH CỦA CÁN BỘ QUẢN LÝ");
         setSize(550, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -46,7 +54,7 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
         btnQuanLyGaReal = new JButton("2. Quản Lý Thông Tin Nhà Ga");
         btnThongKeReal = new JButton("3. Thống Kê Doanh Thu Chuyến Tàu");
 
-        // Gắn ActionCommand trùng khớp với logic xử lý trên GitHub của nhóm bạn
+        // Gắn ActionCommand trùng khớp với logic xử lý
         btnQuanLyGaReal.setActionCommand("QuanLyTTNG");
 
         pCenter.add(btnLenLichReal);
@@ -61,12 +69,12 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
         add(pSouth, BorderLayout.SOUTH);
 
         // --- ĐĂNG KÝ SỰ KIỆN LẮNG NGHE CHUNG ---
-        btnQuanLyGaReal.addActionListener(this); // Gọi về hàm actionPerformed() theo chuẩn GitHub
+        btnQuanLyGaReal.addActionListener(this); // Gọi về hàm actionPerformed()
 
-        // Các nút khác gọi trực tiếp điều hướng bằng lambda cho nhanh gọn giống bản bạn code
+        // Các nút khác gọi trực tiếp điều hướng bằng lambda cho nhanh gọn
         btnLenLichReal.addActionListener(e -> {
             try {
-                // Thử gọi màn hình Lên Lịch nếu nhóm bạn đã chuẩn hóa file này sang Swing
+                // Thử gọi màn hình Lên Lịch
                 ManHinhLenLichChayView lenLichFrm = new ManHinhLenLichChayView(this);
                 lenLichFrm.setVisible(true);
                 this.setVisible(false);
@@ -77,7 +85,7 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
 
         btnThongKeReal.addActionListener(e -> {
             try {
-                // Thử gọi màn hình Thống Kê nếu nhóm bạn đã chuẩn hóa file này sang Swing
+                // Thử gọi màn hình Thống Kê
                 ManHinhThongKeFrm thongKeFrm = new ManHinhThongKeFrm(this);
                 thongKeFrm.setVisible(true);
                 this.setVisible(false);
@@ -88,18 +96,15 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
 
         btnLogoutReal.addActionListener(e -> {
             try {
-                // Quay lại màn hình đăng nhập chuẩn của nhóm trên GitHub
+                // Quay lại màn hình đăng nhập
                 new DangNhapFrm().setVisible(true);
                 this.dispose();
             } catch (Exception ex) {
-                System.exit(0); // Nếu chưa có form login thì đóng ứng dụng luôn cho tiện test
+                System.exit(0); // Nếu chưa có form login thì đóng ứng dụng luôn
             }
         });
     }
 
-    /**
-     * Sequence diagram step 13: actionPerformed() khi btnQuanLyTTNG được click.
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e == null) {
@@ -112,25 +117,23 @@ public class QuanLyChungFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Sequence diagram step 14-15: Mở màn hình QuanLyGaFrm. ĐỒNG BỘ: Sử dụng
-     * trực tiếp luồng đồ họa Swing sạch sẽ, không dùng Reflection nữa.
+     * Mở màn hình QuanLyGaFrm.
      */
     public QuanLyGaFrm moManHinhQuanLyGa() {
         // Khởi tạo đối tượng giao diện chạy thật và truyền 'this' để làm form cha điều hướng ngược lại
-        quanLyGaFrm = new QuanLyGaFrm(this); // step 15: QuanLyGaFrm()
+        quanLyGaFrm = new QuanLyGaFrm(this);
 
         // Hiển thị trực tiếp form quản lý ga lên màn hình và ẩn trang chủ chung đi
         quanLyGaFrm.setVisible(true);
         this.setVisible(false);
 
-        return quanLyGaFrm;              // step 16: Hiển thị quay lại test script
+        return quanLyGaFrm;              // Hiển thị quay lại test script
     }
 
     public QuanLyGaFrm getQuanLyGaFrm() {
         return quanLyGaFrm;
     }
 
-    // Hàm main dùng để test nhanh độc lập toàn bộ luồng quản lý nhà ga vừa code
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new QuanLyChungFrm().setVisible(true);

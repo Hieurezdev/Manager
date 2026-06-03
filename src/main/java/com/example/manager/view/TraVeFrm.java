@@ -1,24 +1,41 @@
 package com.example.manager.view;
 
-import com.example.manager.dao.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.time.LocalDateTime;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.example.manager.dao.DBConnection;
+import com.example.manager.dao.GheNgoiDAO;
+import com.example.manager.dao.HoaDonDAO;
+import com.example.manager.dao.PhieuTraVeDAO;
+import com.example.manager.dao.VeTauDAO;
 import com.example.manager.entity.HoaDon;
 import com.example.manager.entity.PhieuTraVe;
 import com.example.manager.entity.VeTau;
 import com.example.manager.enums.TrangThaiGhe;
 import com.example.manager.enums.TrangThaiVe;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.time.LocalDateTime;
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
 /**
- * TraVeFrm — Cửa sổ tính toán hóa đơn phạt và xác nhận hoàn trả vé (Giao diện
- * Swing thực tế). Đảm bảo đồng bộ 100% thuộc tính kiểm thử và luồng kết nối DAO
- * lưu trữ trên GitHub.
+ * TraVeFrm — Cửa sổ tính toán hóa đơn phạt và xác nhận hoàn trả vé
  */
 public class TraVeFrm extends JFrame implements ActionListener {
 
@@ -156,8 +173,7 @@ public class TraVeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Điều phối hành động nút bấm từ giao diện — Khớp hoàn toàn cấu trúc
-     * GitHub.
+     * Điều phối hành động nút bấm từ giao diện
      */
     @Override
     public void actionPerformed(ActionEvent e) {

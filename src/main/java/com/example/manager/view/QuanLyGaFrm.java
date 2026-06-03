@@ -1,20 +1,31 @@
 package com.example.manager.view;
 
-import com.example.manager.dao.NhaGaDAO;
-import com.example.manager.entity.NhaGa;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.example.manager.dao.NhaGaDAO;
+import com.example.manager.entity.NhaGa;
+
 /**
- * QuanLyGaFrm — Màn hình quản lý nhà ga (Tích hợp giao diện đồ họa Swing trực
- * quan) Đảm bảo tương thích 100% với các kịch bản kiểm thử và Sequence Diagram
- * trên GitHub.
+ * QuanLyGaFrm — Màn hình quản lý nhà ga
  */
 public class QuanLyGaFrm extends JFrame implements ActionListener {
 
@@ -26,7 +37,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     private DefaultTableModel modelTable;
 
     private String txtTuKhoa;
-    private String btnTimKiemGa; // Phục vụ convention kiểm thử của GitHub
+    private String btnTimKiemGa; // Phục vụ convention kiểm thử
     private String btnThemGaString; // Tránh trùng tên với JButton btnThemGa
     private String btnXemChiTietGa;
 
@@ -44,7 +55,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     private String thongBao;
 
     /**
-     * * Constructor mặc định phục vụ kiểm thử hệ thống từ GitHub
+     * * Constructor mặc định phục vụ kiểm thử hệ thống
      */
     public QuanLyGaFrm() {
         java.sql.Connection currentCon = null;
@@ -55,7 +66,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * * Constructor tích hợp menu điều hướng chính của nhóm
+     * * Constructor tích hợp menu điều hướng chính
      */
     public QuanLyGaFrm(JFrame parent) {
         this.menuGoc = parent;
@@ -89,12 +100,12 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
         pnlTop.add(txtTuKhoaField);
 
         btnTimKiem = new JButton("Tìm Kiếm");
-        btnTimKiem.setActionCommand("TimKiem"); // Trùng ActionCommand trên GitHub
+        btnTimKiem.setActionCommand("TimKiem");
         btnTimKiem.addActionListener(this);
         pnlTop.add(btnTimKiem);
 
         btnThemGa = new JButton("+ Thêm Nhà Ga Mới");
-        btnThemGa.setActionCommand("ThemGa");   // Trùng ActionCommand trên GitHub
+        btnThemGa.setActionCommand("ThemGa");
         btnThemGa.setBackground(new Color(34, 197, 94));
         btnThemGa.setForeground(Color.WHITE);
         btnThemGa.setFont(new Font("Arial", Font.BOLD, 12));
@@ -127,7 +138,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
         JPanel pnlSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 10));
 
         btnXemChiTiet = new JButton("Xem Chi Tiết & Chỉnh Sửa");
-        btnXemChiTiet.setActionCommand("XemChiTiet"); // Trùng ActionCommand trên GitHub
+        btnXemChiTiet.setActionCommand("XemChiTiet");
         btnXemChiTiet.setFont(new Font("Arial", Font.BOLD, 12));
         btnXemChiTiet.setBackground(new Color(30, 58, 138));
         btnXemChiTiet.setForeground(Color.WHITE);
@@ -147,8 +158,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Phân phối hành vi nút bấm — Khớp hoàn toàn Step 18 (actionPerformed()) từ
-     * GitHub.
+     * Phân phối hành vi nút bấm
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -169,7 +179,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // Steps 18-25: Tải toàn bộ danh sách nhà ga thật từ DAO
+    // Tải toàn bộ danh sách nhà ga thật từ DAO
     // -------------------------------------------------------------------------
     public void taiDanhSachGa() {
         try {
@@ -192,7 +202,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // Steps 42-50: Tra cứu tìm kiếm nhà ga theo từ khóa
+    // Tra cứu tìm kiếm nhà ga theo từ khóa
     // -------------------------------------------------------------------------
     public void timKiemGa() {
         if (this.txtTuKhoa == null || this.txtTuKhoa.isEmpty()) {
@@ -221,12 +231,12 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // Steps 26-41: Khởi tạo và kích hoạt Form thêm mới nhà ga
+    // Khởi tạo và kích hoạt Form thêm mới nhà ga
     // -------------------------------------------------------------------------
     public ThemGaFrm moThemGaFrm() {
         this.themGaFrm = new ThemGaFrm(nhaGaDAO);
         try {
-            // Nếu class ThemGaFrm của nhóm bạn kế thừa JDialog hoặc JFrame, lệnh này sẽ bật đồ họa lên
+            // Nếu class ThemGaFrm kế thừa JDialog hoặc JFrame, lệnh này sẽ bật đồ họa lên
             // this.themGaFrm.setVisible(true);
         } catch (Exception ignored) {
         }
@@ -234,7 +244,7 @@ public class QuanLyGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // Steps 51-55: Mở màn hình quản lý chi tiết nhà ga được chỉ định
+    // Mở màn hình quản lý chi tiết nhà ga được chỉ định
     // -------------------------------------------------------------------------
     public QuanLyChiTietGaFrm xemChiTietGa(int rowIndex) {
         if (rowIndex < 0 || rowIndex >= tblDSGa.size()) {

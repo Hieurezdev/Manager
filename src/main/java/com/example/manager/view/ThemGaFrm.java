@@ -1,16 +1,27 @@
 package com.example.manager.view;
 
-import com.example.manager.dao.NhaGaDAO;
-import com.example.manager.entity.NhaGa;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.example.manager.dao.NhaGaDAO;
+import com.example.manager.entity.NhaGa;
 
 /**
- * ThemGaFrm — Màn hình thêm mới nhà ga (Tích hợp giao diện đồ họa Swing trực
- * quan). Đảm bảo tương thích 100% với các kịch bản kiểm thử và Sequence Diagram
- * trên GitHub.
+ * ThemGaFrm — Màn hình thêm mới nhà ga
  */
 public class ThemGaFrm extends JFrame implements ActionListener {
 
@@ -34,7 +45,7 @@ public class ThemGaFrm extends JFrame implements ActionListener {
     private boolean huy;
 
     /**
-     * UML Constructor: Khởi tạo cơ bản từ màn hình quản lý chính (Step 29).
+     * UML Constructor: Khởi tạo cơ bản từ màn hình quản lý chính.
      */
     public ThemGaFrm(NhaGaDAO nhaGaDAO) {
         this.nhaGaDAO = nhaGaDAO;
@@ -42,8 +53,7 @@ public class ThemGaFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Thuận tiện constructor: Hỗ trợ nạp sẵn thông tin textfield khi gọi nâng
-     * cao.
+     * Thuận tiện constructor: Hỗ trợ nạp sẵn thông tin textfield khi gọi nâng cao.
      */
     public ThemGaFrm(String tenGa, String diaChi, String soDienThoai, NhaGaDAO nhaGaDAO) {
         this.txtTenNhaGa = tenGa;
@@ -54,8 +64,7 @@ public class ThemGaFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Khởi tạo các thành phần giao diện trực quan trực thuộc cấu trúc Swing đồ
-     * họa
+     * Khởi tạo các thành phần giao diện trực quan trực thuộc cấu trúc Swing đồ họa
      */
     private void khoiTaoGiaoDien() {
         setTitle("THÊM MỚI NHÀ GA VÀO HỆ THỐNG");
@@ -87,14 +96,14 @@ public class ThemGaFrm extends JFrame implements ActionListener {
         JPanel pnlSouth = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 15));
 
         btnLuuNut = new JButton("Lưu Nhà Ga");
-        btnLuuNut.setActionCommand("Luu"); // Đồng bộ mã lệnh test GitHub
+        btnLuuNut.setActionCommand("Luu");
         btnLuuNut.setBackground(new Color(34, 197, 94));
         btnLuuNut.setForeground(Color.WHITE);
         btnLuuNut.setFont(new Font("Arial", Font.BOLD, 12));
         btnLuuNut.addActionListener(this);
 
         btnHuyNut = new JButton("Hủy Bỏ");
-        btnHuyNut.setActionCommand("Huy"); // Đồng bộ mã lệnh test GitHub
+        btnHuyNut.setActionCommand("Huy");
         btnHuyNut.addActionListener(this);
 
         pnlSouth.add(btnLuuNut);
@@ -151,7 +160,7 @@ public class ThemGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // Steps 33-39: Kiểm tra hợp lệ → taoGaMoi → Thông báo kết quả
+    // Kiểm tra hợp lệ → taoGaMoi → Thông báo kết quả
     // -------------------------------------------------------------------------
     public NhaGa luu() {
         if (!hopLe()) {
@@ -160,7 +169,7 @@ public class ThemGaFrm extends JFrame implements ActionListener {
         }
 
         try {
-            // Thực hiện đẩy dữ liệu thật xuống cơ sở dữ liệu qua DAO (Step 34)
+            // Thực hiện đẩy dữ liệu thật xuống cơ sở dữ liệu qua DAO
             gaVuaThem = nhaGaDAO.taoGaMoi(txtTenNhaGa.trim(), txtDiaChi.trim(), txtSoDienThoai.trim());
         } catch (Exception e) {
             // Cơ chế phòng thủ Fallback: Sinh đối tượng ảo để test luồng giao diện mượt mà khi mất kết nối DB
@@ -168,9 +177,9 @@ public class ThemGaFrm extends JFrame implements ActionListener {
             System.out.println("[Offline Mode] Đã khởi tạo nhà ga ảo thành công.");
         }
 
-        thongBao = "Thêm nhà ga thành công!"; // Step 39
+        thongBao = "Thêm nhà ga thành công!";
 
-        // Kích hoạt màn hình cha làm mới danh sách hiển thị tự động (Step 40-41)
+        // Kích hoạt màn hình cha làm mới danh sách hiển thị tự động
         if (formGoc != null) {
             formGoc.taiDanhSachGa();
         }

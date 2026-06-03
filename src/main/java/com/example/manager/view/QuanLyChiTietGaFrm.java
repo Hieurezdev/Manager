@@ -1,16 +1,25 @@
 package com.example.manager.view;
 
-import com.example.manager.dao.NhaGaDAO;
-import com.example.manager.entity.NhaGa;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.example.manager.dao.NhaGaDAO;
+import com.example.manager.entity.NhaGa;
 
 /**
- * QuanLyChiTietGaFrm — Màn hình xem chi tiết / chỉnh sửa / xóa nhà ga. Tích hợp
- * giao diện đồ họa Swing trực quan, khớp 100% logic Sequence Diagram trên
- * GitHub.
+ * QuanLyChiTietGaFrm — Màn hình xem chi tiết / chỉnh sửa / xóa nhà ga.
  */
 public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
 
@@ -39,8 +48,7 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
     private boolean daCapNhat;
 
     /**
-     * Constructor chuẩn thiết kế UML: QuanLyChiTietGaFrm(ng: NhaGa). Điền sẵn
-     * dữ liệu của nhà ga được chọn lên các trường textfield (Step 55).
+     * Constructor.
      */
     public QuanLyChiTietGaFrm(NhaGa ng, NhaGaDAO nhaGaDAO, QuanLyGaFrm quanLyGaFrm) {
         this.ng = ng;
@@ -48,9 +56,9 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
         this.quanLyGaFrm = quanLyGaFrm;
 
         // Tải dữ liệu từ thực thể vào các biến chuỗi kiểm thử
-        hienThiThongTin(); // Step 55
+        hienThiThongTin();
 
-        // Khởi dựng giao diện Swing đồ họa trực quan
+        // Khởi dựng giao diện Swing đồ họa
         setTitle("THÔNG TIN CHI TIẾT NHÀ GA: " + (txtTenNhaGa != null ? txtTenNhaGa.toUpperCase() : ""));
         setSize(500, 320);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -86,19 +94,19 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
         JPanel pnlSouth = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
         btnCapNhat = new JButton("Cập Nhật");
-        btnCapNhat.setActionCommand("Luu"); // Đồng bộ mã lệnh GitHub
+        btnCapNhat.setActionCommand("Luu"); 
         btnCapNhat.setBackground(new Color(30, 58, 138));
         btnCapNhat.setForeground(Color.WHITE);
         btnCapNhat.addActionListener(this);
 
         btnXoa = new JButton("Xóa Khỏi Hệ Thống");
-        btnXoa.setActionCommand("XoaGa"); // Đồng bộ mã lệnh GitHub
+        btnXoa.setActionCommand("XoaGa");
         btnXoa.setBackground(new Color(220, 38, 38));
         btnXoa.setForeground(Color.WHITE);
         btnXoa.addActionListener(this);
 
         btnHuyNut = new JButton("Quay Lại");
-        btnHuyNut.setActionCommand("Huy"); // Đồng bộ mã lệnh GitHub
+        btnHuyNut.setActionCommand("Huy");
         btnHuyNut.addActionListener(this);
 
         pnlSouth.add(btnCapNhat);
@@ -110,7 +118,7 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Phân phối hành vi nút bấm — Khớp hoàn toàn các Step 57, 66 từ GitHub.
+     * Phân phối hành vi nút bấm.
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -159,22 +167,19 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // Steps 57-64: Lưu và cập nhật thông tin nhà ga
-    // -------------------------------------------------------------------------
     public boolean luu() {
         if (!hopLe()) {
             thongBao = "Vui lòng nhập đầy đủ thông tin.";
             return false;
         }
 
-        // Thay đổi trực tiếp trên đối tượng thực thể (Step 58-60)
+        // Thay đổi trực tiếp trên đối tượng thực thể
         if (ng != null) {
             ng.capNhat(txtTenNhaGa.trim(), txtDiaChi.trim(), txtSoDienThoai.trim());
         }
 
         try {
-            // Đẩy cập nhật xuống cơ sở dữ liệu thật qua DAO (Step 62)
+            // Đẩy cập nhật xuống cơ sở dữ liệu thật qua DAO
             nhaGaDAO.capNhatGa(ng, txtTenNhaGa.trim(), txtDiaChi.trim(), txtSoDienThoai.trim());
         } catch (Exception e) {
             // Fallback giả lập thành công nếu chạy offline không kết nối DB để không làm gãy mạch test đồ họa
@@ -191,15 +196,15 @@ public class QuanLyChiTietGaFrm extends JFrame implements ActionListener {
     }
 
     // -------------------------------------------------------------------------
-    // Steps 66-72: Xóa nhà ga khỏi hệ thống dữ liệu
+    // Xóa nhà ga khỏi hệ thống dữ liệu
     // -------------------------------------------------------------------------
     public boolean xoaGa() {
         boolean ketQua = false;
         try {
-            // Gọi tầng DAO thực hiện xóa bản ghi dưới database (Step 70)
+            // Gọi tầng DAO thực hiện xóa bản ghi dưới database
             ketQua = nhaGaDAO.xoaGa(ng);
         } catch (Exception e) {
-            // Giả lập xử lý nghiệp vụ thông minh cho dữ liệu mẫu khi chạy offline (Bỏ qua ràng buộc lịch trình cho Ga số 4 Phủ Lý)
+            // Giả lập xử lý nghiệp vụ thông minh cho dữ liệu mẫu khi chạy offline
             if (ng != null && !"1".equals(ng.getMaGa()) && !"2".equals(ng.getMaGa()) && !"3".equals(ng.getMaGa())) {
                 ketQua = true;
             }

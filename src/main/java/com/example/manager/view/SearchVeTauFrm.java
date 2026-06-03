@@ -1,20 +1,31 @@
 package com.example.manager.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.TitledBorder;
+
 import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.VeTauDAO;
 import com.example.manager.entity.VeTau;
 import com.example.manager.enums.TrangThaiVe;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
 
 /**
- * SearchVeTauFrm — Màn hình tra cứu thông tin hoàn trả vé tàu (Tích hợp Swing
- * đồ họa). Khớp hoàn toàn logic Sequence Diagram nghiệp vụ và bộ biến kiểm thử
- * trên GitHub.
+ * SearchVeTauFrm — Màn hình tra cứu thông tin hoàn trả vé tàu
  */
 public class SearchVeTauFrm extends JFrame implements ActionListener {
 
@@ -30,7 +41,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     private String btnTimKiem;
     private String btnHuyVe;
 
-    // Output fields phục vụ đồng bộ dữ liệu cho UI test script của nhóm
+    // Output fields phục vụ đồng bộ dữ liệu cho UI test script
     private String outMaVe;
     private String outHoTenKhach;
     private String outSoCCCD;
@@ -38,7 +49,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     private String outGaDi;
     private String outGaDen;
     private String outGioDi;
-    private String outGioDen; // Giữ lại theo khai báo trên GitHub
+    private String outGioDen;
     private String outViTriGhe;
     private String outGiaVe;
     private String outTrangThaiVe;
@@ -56,8 +67,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Constructor mặc định bắt buộc giữ lại phục vụ Unit Test tự động trên
-     * GitHub
+     * Constructor mặc định bắt buộc giữ lại phục vụ Unit Test tự động
      */
     public SearchVeTauFrm() {
     }
@@ -92,7 +102,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
         pnlTop.add(txtMaVeField);
 
         btnTimKiemReal = new JButton("Tìm Kiếm Vé");
-        btnTimKiemReal.setActionCommand("TimKiem"); // Trùng mã lệnh điều phối Action của GitHub
+        btnTimKiemReal.setActionCommand("TimKiem");
         btnTimKiemReal.setFont(new Font("Arial", Font.BOLD, 12));
         btnTimKiemReal.addActionListener(this);
         pnlTop.add(btnTimKiemReal);
@@ -124,7 +134,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
         JPanel pnlSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 10));
 
         btnHuyVeReal = new JButton("Tiến Hành Hủy Vé ->");
-        btnHuyVeReal.setActionCommand("HuyVe"); // Trùng mã lệnh điều phối Action của GitHub
+        btnHuyVeReal.setActionCommand("HuyVe");
         btnHuyVeReal.setFont(new Font("Arial", Font.BOLD, 12));
         btnHuyVeReal.setBackground(new Color(220, 53, 69));
         btnHuyVeReal.setForeground(Color.WHITE);
@@ -140,8 +150,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Hàm phân phối ActionCommand nhận diện nút bấm — Khớp hoàn toàn logic
-     * GitHub.
+     * Hàm phân phối ActionCommand nhận diện nút bấm
      */
     public void actionPerformed(ActionEvent e) {
         if (e == null) {
@@ -182,7 +191,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
 
         Connection con = null;
         try {
-            // Gọi kết nối Database động thật từ hệ thống của nhóm bạn
+            // Gọi kết nối Database động thật từ hệ thống
             con = DBConnection.getConnection();
         } catch (Exception ignored) {
         }
@@ -237,8 +246,7 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Đồng bộ kết quả xử lý dữ liệu từ các biến Out String của GitHub render
-     * lên màn hình GUI trực quan
+     * Đồng bộ kết quả xử lý dữ liệu từ các biến Out String render lên màn hình GUI
      */
     private void capNhatDuLieuLenGiaoDien() {
         if (veTauTimThay == null) {
@@ -293,15 +301,14 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Mở cửa sổ xử lý tính toán và trừ tiền phạt hoàn vé (Khớp 100% Sequence
-     * Diagram).
+     * Mở cửa sổ xử lý tính toán và trừ tiền phạt hoàn vé
      */
     public TraVeFrm moManHinhTraVe(VeTau ve) {
         TraVeFrm traVeFrm = new TraVeFrm(ve);
         
         // NẾU VÉ BỊ CHẶN LẠI (SÁT GIỜ) THÌ KHÔNG HIỂN THỊ FORM HÓA ĐƠN NỮA
         if (!traVeFrm.isBtnXacNhanEnabled()) {
-            // Constructor của TraVeFrm đã hiển thị sẵn popup báo lỗi rồi, nên ở đây chỉ cần return, không mở giao diện Hóa đơn nữa.
+            // Constructor của TraVeFrm đã hiển thị sẵn popup báo lỗi rồi, nên ở đây chỉ cần return, không mở giao diện Hóa đơn.
             return traVeFrm;
         }
         

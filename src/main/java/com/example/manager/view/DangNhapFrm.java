@@ -1,11 +1,21 @@
 package com.example.manager.view;
 
-import com.example.manager.dao.QuanLyDAO;
-import com.example.manager.entity.QuanLy;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  * DangNhapFrm — Màn hình đăng nhập phân quyền điều hướng. Trả về QuanLyChungFrm
@@ -118,7 +128,7 @@ public class DangNhapFrm extends JFrame implements ActionListener {
                 nhanVienHomeFrm.setVisible(true);
                 this.dispose();
             }
-            return nhanVienHomeFrm; // Trả về đúng trang chủ Nhân viên như bạn muốn
+            return nhanVienHomeFrm;
 
         } else {
             dangNhapThanhCong = false;

@@ -1,5 +1,38 @@
 package com.example.manager.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
 import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.HoaDonDAO;
 import com.example.manager.dao.KhachHangDAO;
@@ -9,14 +42,6 @@ import com.example.manager.entity.HoaDon;
 import com.example.manager.entity.LichTrinh;
 import com.example.manager.enums.LoaiDoiTuong;
 import com.example.manager.enums.TrangThaiGhe;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class MuaVeFrm extends JFrame implements ActionListener {
 
@@ -57,8 +82,7 @@ public class MuaVeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * CONSTRUCTOR NẠP CHỒNG (MỚI THÊM): Tiếp nhận form cha để phục vụ nút quay
-     * lại đồ họa mượt mà
+     * CONSTRUCTOR NẠP CHỒNG: Tiếp nhận form cha để phục vụ nút quay lại
      */
     public MuaVeFrm(JFrame parent) {
         this.khungMenuCha = parent;
@@ -74,7 +98,7 @@ public class MuaVeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * của nhóm
+     * CONSTRUCTOR MẶC ĐỊNH: Dùng để test tự động không có giao diện
      */
     public MuaVeFrm() {
         this.globalConnection = DBConnection.getConnection();

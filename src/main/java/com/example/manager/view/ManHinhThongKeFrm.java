@@ -1,5 +1,33 @@
 package com.example.manager.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 import com.example.manager.dao.BaoCaoDAO;
 import com.example.manager.dao.DBConnection;
 import com.example.manager.dao.DoanTauDAO;
@@ -14,23 +42,9 @@ import com.example.manager.entity.ToaTau;
 import com.example.manager.entity.VeTau;
 import com.example.manager.enums.TrangThaiLichTrinh;
 import com.example.manager.enums.TrangThaiVe;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
- * ManHinhThongKeFrm — Giao diện thống kê hiệu suất doanh thu chuyến tàu. Đã gỡ
- * kiểm thử GitHub.
+ * ManHinhThongKeFrm — Giao diện thống kê hiệu suất doanh thu chuyến tàu.
  */
 public class ManHinhThongKeFrm extends JFrame implements ActionListener {
 
@@ -66,7 +80,7 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
 
     // Constructor mặc định bắt buộc phải giữ lại theo mẫu của GitHub
     public ManHinhThongKeFrm() {
-        // Phục vụ test tự động không giao diện
+        // test tự động không giao diện
     }
 
     private void initSwingComponents() {
@@ -165,8 +179,7 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Chuẩn hóa hàm actionPerformed nhận diện sự kiện từ giao diện đồ họa thực
-     * tế
+     * Chuẩn hóa hàm actionPerformed nhận diện sự kiện từ giao diện đồ họa thực tế
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -180,7 +193,6 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
 
     /**
      * Đọc ngày tháng từ UI, kiểm tra tính hợp lệ rồi kích hoạt luồng xử lý
-     * chuẩn của nhóm
      */
     private void xuLyThongKeTuGiaoDien() {
         String strNgayBD = txtNgayBD.getText().trim();
@@ -215,7 +227,7 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
 
             logThongKe("So dong bao cao hien thi=" + baoCao.getChiTietBaoCao().size() + ", tong doanh thu=" + baoCao.getTongDoanhThu());
 
-            // Render dữ liệu tính toán từ hệ thống nghiệp vụ của nhóm lên bảng giao diện của bạn
+            // Render dữ liệu tính toán từ hệ thống nghiệp vụ lên bảng giao diện
             for (ChiTietBaoCao ct : baoCao.getChiTietBaoCao()) {
                 LichTrinh lt = ct.getLichTrinh();
                 String tenTau = lt.getDoanTau() == null ? "" : lt.getDoanTau().getTenTau();
@@ -248,7 +260,7 @@ public class ManHinhThongKeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * NGHIỆP VỤ. Đọc thông tin từ DAO thật liên kết với cơ sở dữ liệu.
+     * Đọc thông tin từ DAO thật liên kết với cơ sở dữ liệu.
      */
     public BaoCao thongKe() {
         Connection con = DBConnection.getConnection();

@@ -134,11 +134,10 @@ public class NhanVienHomeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * Hàm main chạy độc lập dùng để review giao diện tổng quan cho buổi báo cáo
-     * tiến độ.
+     * Hàm main chạy độc lập dùng để review giao diện
      */
     public static void main(String[] args) {
-        // Thiết lập giao diện hệ điều hành cho mượt mà
+        // Thiết lập giao diện hệ điều hành
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) {
