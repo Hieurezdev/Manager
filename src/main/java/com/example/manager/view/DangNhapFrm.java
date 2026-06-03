@@ -83,40 +83,51 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         String user = (txtUsername != null) ? txtUsername.getText().trim() : this.txtTDN;
         String pass = (txtPassword != null) ? new String(txtPassword.getPassword()).trim() : this.txtMK;
 
-        // 1. XỬ LÝ VAI TRÒ: QUẢN LÝ
-        if (user.equals("manager") && pass.equals("123")) {
-            dangNhapThanhCong = true;
+        try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection()) {
+            String sql = "SELECT tk.vaiTro, nv.maNhanVien, ql.maQuanLy " +
+                         "FROM TaiKhoan tk " +
+                         "LEFT JOIN NhanVien nv ON tk.id = nv.id " +
+                         "LEFT JOIN QuanLy ql ON tk.id = ql.id " +
+                         "WHERE tk.tenDangNhap = ? AND tk.matKhau = ?";
+            java.sql.PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, user);
+            ps.setString(2, pass);
+            java.sql.ResultSet rs = ps.executeQuery();
 
-            QuanLy quanLy = new QuanLy(user, pass, null, null);
-            QuanLyDAO quanLyDAO = new QuanLyDAO(null);
+            if (rs.next()) {
+                dangNhapThanhCong = true;
+                String vaiTro = rs.getString("vaiTro");
 
-            quanLyChungFrm = new QuanLyChungFrm();
+                if ("QuanLy".equals(vaiTro)) {
+                    com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString("maQuanLy");
+                    quanLyChungFrm = new QuanLyChungFrm();
+                    if (txtUsername != null) {
+                        quanLyChungFrm.setVisible(true);
+                        this.dispose();
+                    }
+                    return quanLyChungFrm;
 
-            if (txtUsername != null) {
-                quanLyChungFrm.setVisible(true);
-                this.dispose();
+                } else if ("NhanVien".equals(vaiTro)) {
+                    com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString("maNhanVien");
+                    nhanVienHomeFrm = new NhanVienHomeFrm();
+                    if (txtUsername != null) {
+                        nhanVienHomeFrm.setVisible(true);
+                        this.dispose();
+                    }
+                    return nhanVienHomeFrm;
+                }
+            } else {
+                dangNhapThanhCong = false;
+                if (txtUsername != null) {
+                    JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+                }
+                return null;
             }
-            return quanLyChungFrm; // Trả về trang chủ Quản lý
-
-            // 2. XỬ LÝ VAI TRÒ: NHÂN VIÊN
-        } else if (user.equals("staff") && pass.equals("123")) {
-            dangNhapThanhCong = true;
-
-            nhanVienHomeFrm = new NhanVienHomeFrm();
-
-            if (txtUsername != null) {
-                nhanVienHomeFrm.setVisible(true);
-                this.dispose();
-            }
-            return nhanVienHomeFrm; // Trả về đúng trang chủ Nhân viên như bạn muốn
-
-        } else {
-            dangNhapThanhCong = false;
-            if (txtUsername != null) {
-                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-            }
-            return null;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi kết nối CSDL: " + ex.getMessage());
         }
+        return null;
     }
 
     public void setTxtTDN(String txtTDN) {

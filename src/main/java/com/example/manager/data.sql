@@ -279,7 +279,9 @@ INSERT INTO TaiKhoan (tenDangNhap, matKhau, hoTen, vaiTro, trangThai) VALUES
 ('clerk14', 'hashed_clerk_pw_14', 'Lê Văn Dũng', 'NhanVien', 'HoatDong'),
 ('clerk15', 'hashed_clerk_pw_15', 'Đỗ Thị Ngọc Ánh', 'NhanVien', 'HoatDong'),
 ('clerk16', 'hashed_clerk_pw_16', 'Vũ Thị Minh Trang', 'NhanVien', 'HoatDong'),
-('clerk17', 'hashed_clerk_pw_17', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong');
+('clerk17', 'hashed_clerk_pw_17', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong'),
+('manager', '123', 'Quản lý Test', 'QuanLy', 'HoatDong'),
+('staff', '123', 'Nhân viên Test', 'NhanVien', 'HoatDong');
 
 -- 2. Thêm vào bảng KhachHang
 INSERT INTO KhachHang (maKH, hoTen, soDienThoai, email, soCCCD) VALUES
@@ -542,7 +544,8 @@ INSERT INTO QuanLy (id, maQuanLy) VALUES
 (7, 'QL_HANOI_07'),
 (8, 'QL_HANOI_08'),
 (9, 'QL_HANOI_09'),
-(10, 'QL_HANOI_10');
+(10, 'QL_HANOI_10'),
+(28, 'QL_TEST_01');
 
 -- Them du lieu vao bang NhanVien 
 INSERT INTO NhanVien (id, maNhanVien) VALUES
@@ -562,7 +565,8 @@ INSERT INTO NhanVien (id, maNhanVien) VALUES
 (24, 'NV_QUAY_14'),
 (25, 'NV_QUAY_15'),
 (26, 'NV_QUAY_16'),
-(27, 'NV_QUAY_17');
+(27, 'NV_QUAY_17'),
+(29, 'NV_TEST_01');
 -- Them Nha Ga
 -- ==============================================================================
 -- ==============================================================================
