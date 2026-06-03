@@ -10,11 +10,11 @@
 2. Đảm bảo MySQL server đang chạy trên máy của bạn với tài khoản và mật khẩu đã cấu hình trong tệp `src/com/example/manager/dao/DBConnection.java`.
 3. Chạy lệnh sau để tự động khởi tạo database và nạp toàn bộ dữ liệu mẫu (chạy trên PowerShell):
    ```bash
-   javac -encoding UTF-8 -d out -sourcepath src src/com/example/manager/AddSampleData.java
-   java -cp "out;mysql-connector-j-8.0.33.jar" com.example.manager.AddSampleData
+   javac -encoding UTF-8 -d out -sourcepath src/main/java src/main/java/com/example/manager/AddSampleData.java
+   java -cp "out:mysql-connector-j-8.0.33.jar" com.example.manager.AddSampleData
    ```
 
-## Build toàn bộ mã nguồn
+## Build toàn bộ mã nguồna
 Từ thư mục gốc dự án (dành cho Windows PowerShell):
 ```powershell
 Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName } | javac -encoding UTF-8 -d out @-
@@ -37,3 +37,29 @@ java -cp "out;mysql-connector-j-8.0.33.jar" com.example.manager.TestTraVe
 
 ## Ghi chú cho Team
 - **Tuyệt đối không push file `.jar` lên Git** để tránh làm phình dung lượng. Kho lưu trữ chỉ chứa Code. Mọi thành viên khi clone code về cần tự thực hiện Bước 1 trong phần Cài đặt ở trên.
+
+## Chạy toàn bộ hệ thống bằng Docker (Cho Windows/Mac)
+
+Dự án có sẵn cấu hình `docker-compose.yml` để bạn khởi tạo nhanh môi trường mà không cần cài đặt MySQL thủ công.
+
+**Cách 1: Chỉ chạy Database MySQL (Khuyên dùng để dev/test trên máy tính cá nhân)**
+Nếu bạn muốn code và chạy giao diện trực tiếp trên phần mềm (IntelliJ/Eclipse) nhưng không muốn cài đặt MySQL server nặng nề:
+1. Mở Terminal (PowerShell hoặc CMD) tại thư mục gốc của dự án.
+2. Chạy lệnh dựng riêng container MySQL:
+   ```bash
+   docker compose up -d mysql
+   ```
+3. Database sẽ tự động khởi tạo với cấu hình `root` / `Hch301105#` và nạp sẵn dữ liệu.
+*(Lưu ý: Theo cấu hình hiện tại, cổng ngoài của DB là `3307`. Nếu bạn chạy code ở ngoài Docker, hãy trỏ port về `3307` trong code hoặc đổi port ở file docker-compose.yml thành `3306:3306`).*
+
+**Cách 2: Chạy toàn bộ hệ thống (App + Database)**
+Lệnh này sẽ build ứng dụng Java thành ảnh Docker và chạy song song cùng database:
+```bash
+docker compose up --build
+```
+*(Lưu ý đối với Windows: Việc chạy giao diện Java Swing GUI bên trong Docker Container đòi hỏi bạn phải cài đặt thêm X-Server cho Windows (như VcXsrv) và cấu hình biến môi trường `DISPLAY` thì cửa sổ ứng dụng mới có thể hiện lên màn hình. Do đó, khuyến khích sử dụng **Cách 1**).*
+
+Để tắt hệ thống Docker khi không sử dụng nữa:
+```bash
+docker compose down
+```

@@ -1,0 +1,333 @@
+package com.example.manager.dao;
+
+import com.example.manager.entity.ChiTietHanhTrinh;
+import com.example.manager.entity.DoanTau;
+import com.example.manager.entity.GheNgoi;
+import com.example.manager.entity.HanhTrinh;
+import com.example.manager.entity.LichTrinh;
+import com.example.manager.entity.NhaGa;
+import com.example.manager.enums.LoaiTau;
+import com.example.manager.enums.TrangThaiLichTrinh;
+import com.example.manager.enums.TrangThaiTau;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LichTrinhDAO extends DAO {
+
+    private double giaVeGocTieuChuan = 850000;
+
+    public LichTrinhDAO() {
+        super();
+    }
+
+    public LichTrinhDAO(Connection con) {
+        super(con);
+    }
+
+    public double getGiaVeGocTieuChuan() {
+        return giaVeGocTieuChuan;
+    }
+
+    // =========================================================================
+    // 1. TOÀN BỘ CODE GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để diệt tận gốc Conflict)
+    // =========================================================================
+    public List<LichTrinh> layDanhSachLichTrinhTrongKy(String maTau, LocalDate ngayBD, LocalDate ngayKT) {
+        if (con != null) {
+            List<LichTrinh> list = new ArrayList<>();
+            String sql = "SELECT l.id, l.maLichTrinh, l.ngayKhoiHanh, l.trangThai, "
+                    + "ht.id AS htId, ht.maHanhTrinh, ht.tenHanhTrinh, ht.quangDuong, "
+                    + "dt.id AS dtId, dt.maTau, dt.tenTau, dt.loaiTau, dt.trangThai AS ttTau "
+                    + "FROM LichTrinh l "
+                    + "JOIN DoanTau dt ON l.doanTauId = dt.id "
+                    + "JOIN HanhTrinh ht ON l.hanhTrinhId = ht.id "
+                    + "WHERE dt.maTau = ? AND l.ngayKhoiHanh >= ? AND l.ngayKhoiHanh < ? "
+                    + "ORDER BY l.ngayKhoiHanh";
+            LocalDateTime start = ngayBD == null
+                    ? LocalDate.of(1970, 1, 1).atStartOfDay()
+                    : ngayBD.atStartOfDay();
+            LocalDateTime end = ngayKT == null
+                    ? LocalDate.of(3000, 1, 1).atStartOfDay()
+                    : ngayKT.plusDays(1).atStartOfDay();
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, maTau);
+                ps.setTimestamp(2, Timestamp.valueOf(start));
+                ps.setTimestamp(3, Timestamp.valueOf(end));
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        LichTrinh lichTrinh = new LichTrinh();
+                        lichTrinh.setMaLichTrinh(rs.getString("maLichTrinh"));
+                        Timestamp ts = rs.getTimestamp("ngayKhoiHanh");
+                        if (ts != null) {
+                            lichTrinh.setNgayKhoiHanh(ts.toLocalDateTime());
+                        }
+                        lichTrinh.setTrangThai(mapTrangThaiLichTrinh(rs.getString("trangThai")));
+
+                        HanhTrinh hanhTrinh = new HanhTrinh();
+                        hanhTrinh.setMaHanhTrinh(rs.getString("maHanhTrinh"));
+                        hanhTrinh.setTenHanhTrinh(rs.getString("tenHanhTrinh"));
+                        hanhTrinh.setQuangDuong(rs.getDouble("quangDuong"));
+                        hanhTrinh.setChiTietHanhTrinh(loadChiTietHanhTrinh(rs.getInt("htId")));
+                        lichTrinh.setHanhTrinh(hanhTrinh);
+
+                        DoanTau tau = new DoanTau();
+                        tau.setMaTau(rs.getString("maTau"));
+                        tau.setTenTau(rs.getString("tenTau"));
+                        tau.setLoaiTau(mapLoaiTau(rs.getString("loaiTau")));
+                        tau.setTrangThai(mapTrangThaiTau(rs.getString("ttTau")));
+                        lichTrinh.setDoanTau(tau);
+
+                        list.add(lichTrinh);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return list;
+        }
+
+        return LichTrinh.layDanhSachLichTrinhTrongKy(maTau, ngayBD, ngayKT);
+    }
+
+    public LichTrinh layThongTinLichTrinh(String maTau) {
+        if (con != null) {
+            String sql = "SELECT l.id, l.maLichTrinh, l.ngayKhoiHanh, l.trangThai, "
+                    + "ht.id AS htId, ht.maHanhTrinh, ht.tenHanhTrinh, ht.quangDuong, "
+                    + "dt.id AS dtId, dt.maTau, dt.tenTau, dt.loaiTau, dt.trangThai AS ttTau "
+                    + "FROM LichTrinh l "
+                    + "JOIN DoanTau dt ON l.doanTauId = dt.id "
+                    + "JOIN HanhTrinh ht ON l.hanhTrinhId = ht.id "
+                    + "WHERE dt.maTau = ? "
+                    + "ORDER BY l.ngayKhoiHanh DESC LIMIT 1";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, maTau);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        LichTrinh lichTrinh = new LichTrinh();
+                        lichTrinh.setMaLichTrinh(rs.getString("maLichTrinh"));
+                        Timestamp ts = rs.getTimestamp("ngayKhoiHanh");
+                        if (ts != null) {
+                            lichTrinh.setNgayKhoiHanh(ts.toLocalDateTime());
+                        }
+                        lichTrinh.setTrangThai(mapTrangThaiLichTrinh(rs.getString("trangThai")));
+
+                        HanhTrinh hanhTrinh = new HanhTrinh();
+                        hanhTrinh.setMaHanhTrinh(rs.getString("maHanhTrinh"));
+                        hanhTrinh.setTenHanhTrinh(rs.getString("tenHanhTrinh"));
+                        hanhTrinh.setQuangDuong(rs.getDouble("quangDuong"));
+                        hanhTrinh.setChiTietHanhTrinh(loadChiTietHanhTrinh(rs.getInt("htId")));
+                        lichTrinh.setHanhTrinh(hanhTrinh);
+
+                        DoanTau tau = new DoanTau();
+                        tau.setMaTau(rs.getString("maTau"));
+                        tau.setTenTau(rs.getString("tenTau"));
+                        tau.setLoaiTau(mapLoaiTau(rs.getString("loaiTau")));
+                        tau.setTrangThai(mapTrangThaiTau(rs.getString("ttTau")));
+                        lichTrinh.setDoanTau(tau);
+
+                        return lichTrinh;
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        return LichTrinh.layThongTinLichTrinh(maTau);
+    }
+
+    // =========================================================================
+    // 2. CODE MUA VÉ CỦA ÔNG ĐẠT - ĐỒNG BỘ 100% DATABASE THẬT VÀ ĐẶC TẢ TUẦN TỰ
+    // =========================================================================
+    public List<LichTrinh> layDanhSachChuyenTauPhuHop(String tenGaDi, String tenGaDen, String ngayDi) throws Exception {
+        // 2.1. Tính toán giá vé dựa trên quãng đường (Truy vấn qua bảng trung gian)
+        // Giả định: HanhTrinh có tổng quãng đường, ta lấy giá theo tên ga
+        String sqlQD = "SELECT h.quangDuong "
+                + "FROM HanhTrinh h "
+                + "JOIN ChiTietHanhTrinh ct1 ON h.id = ct1.hanhTrinhId "
+                + "JOIN NhaGa ng1 ON ct1.nhaGaId = ng1.id "
+                + "JOIN ChiTietHanhTrinh ct2 ON h.id = ct2.hanhTrinhId "
+                + "JOIN NhaGa ng2 ON ct2.nhaGaId = ng2.id "
+                + "WHERE ng1.tenNhaGa = ? AND ng2.tenNhaGa = ? AND ct1.thuTuGa < ct2.thuTuGa";
+
+        try (PreparedStatement ps = con.prepareStatement(sqlQD)) {
+            ps.setString(1, tenGaDi);
+            ps.setString(2, tenGaDen);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    this.giaVeGocTieuChuan = rs.getDouble("quangDuong") * 1000;
+                }
+            }
+        }
+
+        // 2.2. Lấy danh sách chuyến tàu chạy trong ngày
+        List<LichTrinh> list = new ArrayList<>();
+        // SQL này join 2 lần vào bảng ChiTietLichTrinh để lọc cùng lúc Ga đi và Ga đến
+        String sqlLT = "SELECT lt.maLichTrinh, dt.maTau, ct1.gioDi, ct2.gioDen "
+                + "FROM LichTrinh lt "
+                + "JOIN DoanTau dt ON lt.doanTauId = dt.id "
+                + "JOIN ChiTietLichTrinh ct1 ON lt.id = ct1.lichTrinhId "
+                + "JOIN NhaGa ng1 ON ct1.nhaGaId = ng1.id "
+                + "JOIN ChiTietLichTrinh ct2 ON lt.id = ct2.lichTrinhId "
+                + "JOIN NhaGa ng2 ON ct2.nhaGaId = ng2.id "
+                + "WHERE ng1.tenNhaGa = ? AND ng2.tenNhaGa = ? "
+                + "AND DATE(lt.ngayKhoiHanh) = ? "
+                + "AND ct1.gioDi < ct2.gioDen"; // Đảm bảo ga đi xuất phát trước ga đến
+
+        try (PreparedStatement ps = con.prepareStatement(sqlLT)) {
+            ps.setString(1, tenGaDi);   // Tham số 1: Ga đi
+            ps.setString(2, tenGaDen);  // Tham số 2: Ga đến
+            ps.setString(3, ngayDi); // Tham số 3: Ngày đi
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new LichTrinh(
+                            rs.getString("maLichTrinh"),
+                            rs.getString("maTau"),
+                            rs.getString("gioDi"),
+                            rs.getString("gioDen")
+                    ));
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Hàm bốc sơ đồ ghế ngồi ủy quyền qua lớp thực thể LichTrinh đúng chuẩn
+     * kịch bản tuần tự nhóm
+     */
+    public List<GheNgoi> layThongTinLichTrinh(String maLichTrinh, String tenToa) throws Exception {
+        // BƯỚC 1: Tiếp nhận tham số, kích hoạt luồng bằng cách gọi lớp thực thể LichTrinh
+        LichTrinh lichTrinhEntity = new LichTrinh();
+
+        // BƯỚC 2: Gọi tầng thực thể để phối hợp DoanTau, ToaTau, GheNgoi quét DB
+        List<GheNgoi> listGhe = lichTrinhEntity.xuLyQuetSoDoGheToaXe(this.con, maLichTrinh, tenToa);
+
+        // BƯỚC 3: Trả gói dữ liệu cấu trúc về cho giao diện vẽ sơ đồ
+        return listGhe;
+    }
+
+    private List<ChiTietHanhTrinh> loadChiTietHanhTrinh(int hanhTrinhId) {
+        List<ChiTietHanhTrinh> list = new ArrayList<>();
+        String sql = "SELECT ct.maCTHT, ct.thuTuGa, ng.maGa, ng.tenNhaGa, ng.diaChi, ng.soDienThoai "
+                + "FROM ChiTietHanhTrinh ct "
+                + "JOIN NhaGa ng ON ct.nhaGaId = ng.id "
+                + "WHERE ct.hanhTrinhId = ? ORDER BY ct.thuTuGa";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, hanhTrinhId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    NhaGa ga = new NhaGa(
+                            rs.getString("maGa"),
+                            rs.getString("tenNhaGa"),
+                            rs.getString("diaChi"),
+                            rs.getString("soDienThoai")
+                    );
+                    list.add(new ChiTietHanhTrinh(
+                            rs.getString("maCTHT"),
+                            rs.getInt("thuTuGa"),
+                            ga
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private TrangThaiLichTrinh mapTrangThaiLichTrinh(String dbVal) {
+        if ("DaHoanThanh".equalsIgnoreCase(dbVal)) {
+            return TrangThaiLichTrinh.HOAN_THANH;
+        }
+        if ("BiHuy".equalsIgnoreCase(dbVal)) {
+            return TrangThaiLichTrinh.HUY;
+        }
+        return TrangThaiLichTrinh.DANG_CHAY;
+    }
+
+    private LoaiTau mapLoaiTau(String dbVal) {
+        if ("TauNhanh".equalsIgnoreCase(dbVal)) {
+            return LoaiTau.THONG_NHAT;
+        }
+        if ("TauThuong".equalsIgnoreCase(dbVal)) {
+            return LoaiTau.DIA_PHUONG;
+        }
+        return LoaiTau.KHAC;
+    }
+
+    private TrangThaiTau mapTrangThaiTau(String dbVal) {
+        if ("SanSang".equalsIgnoreCase(dbVal)) {
+            return TrangThaiTau.HOAT_DONG;
+        }
+        if ("BaoTri".equalsIgnoreCase(dbVal)) {
+            return TrangThaiTau.BAO_TRI;
+        }
+        return TrangThaiTau.NGUNG;
+    }
+
+    public boolean addLichTrinh(LichTrinh lichTrinh) {
+        if (this.con == null) {
+            System.err.println("Lỗi: Không có kết nối tới CSDL");
+            return false;
+        }
+
+        String sql = "INSERT INTO LichTrinh (maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) "
+                + "VALUES (?, ?, 'ChuaChay', "
+                + "(SELECT id FROM DoanTau WHERE maTau = ?), "
+                + "(SELECT id FROM HanhTrinh WHERE maHanhTrinh = ?), 1)";
+
+        try (PreparedStatement stmt = this.con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+            // Tự sinh mã lịch trình (VD: LT_SE1_123456789)
+            String maLichTrinh = "LT_" + lichTrinh.getDoanTau().getMaTau() + "_" + (System.currentTimeMillis() % 1000000);
+
+            stmt.setString(1, maLichTrinh);
+            stmt.setTimestamp(2, Timestamp.valueOf(lichTrinh.getNgayKhoiHanh()));
+            stmt.setString(3, lichTrinh.getDoanTau().getMaTau());
+            stmt.setString(4, lichTrinh.getHanhTrinh().getMaHanhTrinh());
+
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
+                int generatedId = -1;
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        generatedId = rs.getInt(1);
+                    }
+                }
+                
+                if (generatedId != -1 && lichTrinh.getChiTietLichTrinh() != null) {
+                    String sqlCTLT = "INSERT INTO ChiTietLichTrinh (maCTLT, gioDen, gioDi, nhaGaId, lichTrinhId) VALUES (?, ?, ?, (SELECT id FROM NhaGa WHERE maGa = ?), ?)";
+                    try (PreparedStatement stmtCTLT = this.con.prepareStatement(sqlCTLT)) {
+                        int index = 1;
+                        for (com.example.manager.entity.ChiTietLichTrinh ct : lichTrinh.getChiTietLichTrinh()) {
+                            String maCTLT = "CTLT_" + maLichTrinh + "_" + index++;
+                            stmtCTLT.setString(1, maCTLT);
+                            stmtCTLT.setTimestamp(2, ct.getGioDen() != null ? Timestamp.valueOf(ct.getGioDen()) : null);
+                            stmtCTLT.setTimestamp(3, ct.getGioDi() != null ? Timestamp.valueOf(ct.getGioDi()) : null);
+                            stmtCTLT.setString(4, ct.getNhaGa().getMaGa());
+                            stmtCTLT.setInt(5, generatedId);
+                            stmtCTLT.addBatch();
+                        }
+                        stmtCTLT.executeBatch();
+                    }
+                }
+                
+                System.out.println("Đã thêm Lịch Trình thành công vào DB: " + maLichTrinh);
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+}
