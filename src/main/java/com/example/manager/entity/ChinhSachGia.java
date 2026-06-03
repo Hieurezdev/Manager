@@ -9,7 +9,7 @@ public class ChinhSachGia {
     // Constructor mặc định
     public ChinhSachGia() {}
 
-    // Constructor đầy đủ tham số (Thêm vào để tối ưu code, không lo conflict)
+    // Constructor đầy đủ tham số
     public ChinhSachGia(String maChinhSach, String tenLoaiDoiTuong, double phanTramGiamGia, String moTa) {
         this.maChinhSach = maChinhSach;
         this.tenLoaiDoiTuong = tenLoaiDoiTuong;
@@ -17,7 +17,6 @@ public class ChinhSachGia {
         this.moTa = moTa;
     }
 
-    // === Danh sách các hàm Getter và Setter giữ nguyên vẹn ===
     public String getMaChinhSach() { 
         return maChinhSach; 
     }

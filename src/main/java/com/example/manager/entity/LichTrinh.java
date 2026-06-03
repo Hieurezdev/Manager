@@ -1,17 +1,14 @@
 package com.example.manager.entity;
 
-import com.example.manager.enums.TrangThaiLichTrinh;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.manager.enums.TrangThaiLichTrinh;
+
 public class LichTrinh {
 
-    // =========================================================================
-    // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn 100%)
-    // =========================================================================
     private String maLichTrinh;
     private LocalDateTime ngayKhoiHanh;
     private TrangThaiLichTrinh trangThai;
@@ -20,20 +17,19 @@ public class LichTrinh {
     private HanhTrinh hanhTrinh;
     private DoanTau doanTau;
 
-    // === BỔ SUNG LẠI: Các trường String cũ phục vụ cho luồng Mua Vé của ông Đạt ===
     private String maHanhTrinh;
     private String maTau;
     private String ngayKhoiHanhStr;
     private String gioDi;
     private String gioDen;
 
-    // === Constructor mặc định từ GitHub ===
+    // === Constructor mặc định ===
     public LichTrinh() {
         this.chiTietLichTrinh = new ArrayList<>();
         this.veTau = new ArrayList<>();
     }
 
-    // === Constructor đầy đủ tham số từ GitHub ===
+    // === Constructor đầy đủ tham số ===
     public LichTrinh(String maLichTrinh, LocalDateTime ngayKhoiHanh, TrangThaiLichTrinh trangThai,
             HanhTrinh hanhTrinh, DoanTau doanTau) {
         this();
@@ -44,7 +40,7 @@ public class LichTrinh {
         this.doanTau = doanTau;
     }
 
-    // === BỔ SUNG LẠI: Constructor 4 tham số cũ (Cứu cánh luồng MuaVeFrm bốc danh sách chuyến) ===
+
     public LichTrinh(String maLichTrinh, String maTau, String gioDi, String gioDen) {
         this();
         this.maLichTrinh = maLichTrinh;
@@ -53,7 +49,7 @@ public class LichTrinh {
         this.gioDen = gioDen;
     }
 
-    // === Thêm các Getter/Setter cho các thuộc tính ông Đạt bổ sung ===
+
     public String getMaHanhTrinh() {
         return maHanhTrinh;
     }
@@ -94,9 +90,7 @@ public class LichTrinh {
         this.gioDen = gioDen;
     }
 
-    // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Trả lại nguyên vẹn từng chữ để né Conflict)
-    // =========================================================================
+    
     public static List<LichTrinh> layDanhSachLichTrinhTrongKy(String maTau, LocalDate ngayBD, LocalDate ngayKT) {
         return new ArrayList<>();
     }
@@ -177,9 +171,6 @@ public class LichTrinh {
         this.doanTau = doanTau;
     }
 
-    // =========================================================================
-    // HÀM ỦY QUYỀN THỰC THỂ: Khớp nối 100% kịch bản chữ mô tả tuần tự nhóm
-    // =========================================================================
     public List<GheNgoi> xuLyQuetSoDoGheToaXe(java.sql.Connection con, String maLichTrinh, String tenToa) throws Exception {
         List<GheNgoi> list = new ArrayList<>();
         String sql = "SELECT g.maGhe, g.soGhe, g.viTri, g.trangThai, t.maToa "

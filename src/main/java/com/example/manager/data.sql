@@ -1,6 +1,5 @@
 -- ============================================================================
 -- KỊCH BẢN KHỞI TẠO CƠ SỞ DỮ LIỆU HỆ THỐNG QUẢN LÝ BÁN VÉ TÀU HỎA (MySQL Version)
--- Đảm bảo giữ nguyên 100% tên bảng, tên thuộc tính và cấu trúc thực thể đã thiết kế.
 -- ============================================================================
 
 -- Bật tắt kiểm tra khóa ngoại để an toàn khi DROP và CREATE
@@ -250,7 +249,6 @@ CREATE INDEX idx_lichtrinh_khoihanh ON LichTrinh(ngayKhoiHanh);
 
 
 -- ============================================================================
--- 9. CHÈN DỮ LIỆU MẪU ĐỂ CHẠY THỬ NGHIỆM (Seed Data)
 -- ============================================================================
 
 -- 9.1 Tài khoản (Mật khẩu demo: '123456')
@@ -281,7 +279,9 @@ INSERT INTO TaiKhoan (tenDangNhap, matKhau, hoTen, vaiTro, trangThai) VALUES
 ('clerk14', '123456', 'Lê Văn Dũng', 'NhanVien', 'HoatDong'),
 ('clerk15', '123456', 'Đỗ Thị Ngọc Ánh', 'NhanVien', 'HoatDong'),
 ('clerk16', '123456', 'Vũ Thị Minh Trang', 'NhanVien', 'HoatDong'),
-('clerk17', '123456', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong');
+('clerk17', '123456', 'Bùi Thị Thanh Huyền', 'NhanVien', 'HoatDong'),
+('manager', '123', 'Quản lý Test', 'QuanLy', 'HoatDong'),
+('staff', '123', 'Nhân viên Test', 'NhanVien', 'HoatDong');
 
 -- 2. Thêm vào bảng KhachHang
 INSERT INTO KhachHang (maKH, hoTen, soDienThoai, email, soCCCD) VALUES
@@ -567,8 +567,6 @@ INSERT INTO NhanVien (id, maNhanVien) VALUES
 (27, 'NV_QUAY_17');
 -- Them Nha Ga
 -- ==============================================================================
--- CẬP NHẬT LỆNH INSERT CHO BẢNG NHÀ GA (NhaGa)
--- Đảm bảo khớp cấu trúc cột: id, maGa, tenNhaGa, diaChi, soDienThoai, quanLyId
 -- ==============================================================================
 INSERT INTO NhaGa (id, maGa, tenNhaGa, diaChi, soDienThoai, quanLyId) VALUES
 (1, 'GA_HANOI', 'Ga Hà Nội', '120 Lê Duẩn, Đống Đa, Hà Nội', '02439423697', 1),
@@ -969,7 +967,6 @@ INSERT INTO ChiTietHanhTrinh (maCTHT, thuTuGa, nhaGaId, hanhTrinhId) VALUES
 -- Them lich trinh 
 -- ==============================================================================
 -- BỔ SUNG 50 BẢN GHI CHO BẢNG LỊCH TRÌNH (LichTrinh) THEO ĐÚNG MẪU CHUẨN CSV
--- Đã cập nhật trangThai thành hệ thống chuẩn: DaHoanThanh, DangChay, ChuaChay
 -- ==============================================================================
 INSERT INTO LichTrinh (maLichTrinh, ngayKhoiHanh, trangThai, doanTauId, hanhTrinhId, quanLyId) VALUES
 ('LT_SE1_20260602', '2026-06-02 08:00:00', 'DaHoanThanh', 1, 1, 6),

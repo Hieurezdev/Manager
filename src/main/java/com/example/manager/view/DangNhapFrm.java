@@ -18,7 +18,6 @@ public class DangNhapFrm extends JFrame implements ActionListener {
     private JPasswordField txtPassword;
     private JButton btnLogin;
 
-    // --- BIẾN MOCK TRÊN GITHUB (GIỮ NGUYÊN ĐỂ TRÁNH LỖI TEST) ---
     private String txtTDN = "";
     private String txtMK = "";
     private String btnDangNhap;
@@ -78,7 +77,7 @@ public class DangNhapFrm extends JFrame implements ActionListener {
     /**
      * * Hàm đăng nhập đã chuyển kiểu trả về thành Object để có thể linh hoạt
      * trả về bất kỳ Form trang chủ nào mà không dính lỗi ép kiểu (Compile
-     * Error).
+     * Err                                                                                                                                                      or).
      */
     public Object dangNhap() {
         String user = (txtUsername != null) ? txtUsername.getText().trim() : this.txtTDN;
@@ -89,6 +88,14 @@ public class DangNhapFrm extends JFrame implements ActionListener {
 
         if ("QuanLy".equals(vaiTro)) {
             dangNhapThanhCong = true;
+            // Fetch ID via SubQuery since QuanLyDAO currently only returns vaiTro string
+            try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection();
+                 java.sql.PreparedStatement ps = con.prepareStatement("SELECT maQuanLy FROM QuanLy WHERE id = (SELECT id FROM TaiKhoan WHERE tenDangNhap = ?)")) {
+                ps.setString(1, user);
+                java.sql.ResultSet rs = ps.executeQuery();
+                if (rs.next()) com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString(1);
+            } catch(Exception e) {}
+            
             quanLyChungFrm = new QuanLyChungFrm();
             if (txtUsername != null) {
                 quanLyChungFrm.setVisible(true);
@@ -98,6 +105,14 @@ public class DangNhapFrm extends JFrame implements ActionListener {
 
         } else if ("NhanVien".equals(vaiTro)) {
             dangNhapThanhCong = true;
+            // Fetch ID via SubQuery
+            try (java.sql.Connection con = com.example.manager.dao.DBConnection.getConnection();
+                 java.sql.PreparedStatement ps = con.prepareStatement("SELECT maNhanVien FROM NhanVien WHERE id = (SELECT id FROM TaiKhoan WHERE tenDangNhap = ?)")) {
+                ps.setString(1, user);
+                java.sql.ResultSet rs = ps.executeQuery();
+                if (rs.next()) com.example.manager.utils.SessionManager.maNhanVienDangNhap = rs.getString(1);
+            } catch(Exception e) {}
+
             nhanVienHomeFrm = new NhanVienHomeFrm();
             if (txtUsername != null) {
                 nhanVienHomeFrm.setVisible(true);
@@ -114,7 +129,6 @@ public class DangNhapFrm extends JFrame implements ActionListener {
         }
     }
 
-    // --- GETTERS & SETTERS (GIỮ NGUYÊN ĐỂ KHÔNG LỖI LIÊN ĐỚI) ---
     public void setTxtTDN(String txtTDN) {
         this.txtTDN = txtTDN;
         if (txtUsername != null) {

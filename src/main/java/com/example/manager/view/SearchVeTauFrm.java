@@ -26,7 +26,6 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     private JLabel lblMaVe, lblHoTenKhach, lblSoCCCD, lblTenChuyenTau, lblGaDi, lblGaDen, lblGioDi, lblViTriGhe, lblGiaVe, lblTrangThaiVe;
     private JPanel pnlKetQua;
 
-    // --- TOÀN BỘ THUỘC TÍNH KIỂM THỬ GỐC TRÊN GITHUB (GIỮ NGUYÊN VẸN ĐỂ DIỆT CONFLICT) ---
     private String txtMaVe;
     private String btnTimKiem;
     private String btnHuyVe;
@@ -173,7 +172,6 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * HÀM TIMKIEMVE GỐC CỦA GITHUB — Giữ nguyên vẹn 100% logic nghiệp vụ truy
      * quét Database qua DAO.
      */
     public void timKiemVe() {
@@ -348,7 +346,6 @@ public class SearchVeTauFrm extends JFrame implements ActionListener {
         dispose();
     }
 
-    // --- TOÀN BỘ CỤM GETTERS / SETTERS ĐƯỢC GIỮ NGUYÊN VẸN ĐỂ VƯỢT QUA UNIT TEST ---
     public String getTxtMaVe() {
         return txtMaVe;
     }

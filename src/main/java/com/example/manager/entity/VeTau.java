@@ -1,16 +1,13 @@
 package com.example.manager.entity;
 
-import com.example.manager.enums.LoaiDoiTuong;
-import com.example.manager.enums.TrangThaiVe;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.manager.enums.LoaiDoiTuong;
+import com.example.manager.enums.TrangThaiVe;
+
 public class VeTau {
-    // =========================================================================
-    // CÁC THUỘC TÍNH GỐC TỪ GITHUB (Giữ nguyên vẹn 100%)
-    // =========================================================================
     private String maVe;
     private LoaiDoiTuong loaiDoiTuong;
     private int giaVe; // Bản GitHub dùng int
@@ -21,7 +18,6 @@ public class VeTau {
     private LichTrinh lichTrinh;
     private NhanVien nhanVien;
 
-    // === BỔ SUNG LẠI: Các trường String cũ phục vụ cho luồng lưu JDBC của ông ===
     private String maKH;
     private String maLichTrinh;
     private String maGhe;
@@ -29,11 +25,11 @@ public class VeTau {
     private String maHoaDon;
     private String thoiDiemBanVeStr;
 
-    // === Constructor mặc định từ GitHub ===
+    // === Constructor mặc định ===
     public VeTau() {
     }
 
-    // === Constructor đầy đủ tham số 1 từ GitHub ===
+    // === Constructor đầy đủ tham số ===
     public VeTau(String maVe, LoaiDoiTuong loaiDoiTuong, int giaVe, TrangThaiVe trangThai,
                  LocalDateTime thoiDiemBanVe, GheNgoi gheNgoi, KhachHang khachHang) {
         this.maVe = maVe;
@@ -45,7 +41,7 @@ public class VeTau {
         this.khachHang = khachHang;
     }
 
-    // === Constructor đầy đủ tham số 2 từ GitHub ===
+    // === Constructor đầy đủ tham số ===
     public VeTau(String maVe, LoaiDoiTuong loaiDoiTuong, int giaVe, TrangThaiVe trangThai,
                  LocalDateTime thoiDiemBanVe, GheNgoi gheNgoi, KhachHang khachHang,
                  LichTrinh lichTrinh, NhanVien nhanVien) {
@@ -60,7 +56,6 @@ public class VeTau {
         this.nhanVien = nhanVien;
     }
 
-    // === BỔ SUNG LẠI: Các Getter/Setter cho thuộc tính String cũ của ông (Né lỗi compile tầng DAO) ===
     public String getMaKH() { return maKH != null ? maKH : (khachHang != null ? khachHang.getMaKH() : ""); }
     public void setMaKH(String m) { this.maKH = m; }
     public String getMaLichTrinh() { return maLichTrinh != null ? maLichTrinh : (lichTrinh != null ? lichTrinh.getMaLichTrinh() : ""); }
@@ -74,9 +69,6 @@ public class VeTau {
     public String getThoiDiemBanVeStr() { return thoiDiemBanVeStr; }
     public void setThoiDiemBanVeStr(String t) { this.thoiDiemBanVeStr = t; }
 
-    // =========================================================================
-    // TOÀN BỘ LOGIC GỐC TỪ GITHUB (Giữ nguyên vẹn 100% để né Conflict)
-    // =========================================================================
     public static List<VeTau> layDanhSachVeTheoLichTrinh(String maLichTrinh) {
         return new ArrayList<>();
     }

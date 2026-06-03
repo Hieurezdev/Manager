@@ -28,7 +28,6 @@ public class TraVeFrm extends JFrame implements ActionListener {
     private DefaultTableModel modelBangPhat;
     private JButton btnOkXacNhan, btnHuyGiaoDich;
 
-    // --- TOÀN BỘ THUỘC TÍNH GỐC TRÊN GITHUB (GIỮ NGUYÊN VẸN ĐỂ DIỆT CONFLICT) ---
     private VeTau veTau;
     private int tienPhat;
     private int tienHoanLai;
@@ -47,7 +46,6 @@ public class TraVeFrm extends JFrame implements ActionListener {
     public TraVeFrm(VeTau ve) {
         this.veTau = ve;
 
-        // 1. CHẠY TOÀN BỘ LOGIC NGHIỆP VỤ KẾT NỐI DB GỐC CỦA GITHUB
         if (ve == null) {
             this.outMessage = "Dữ liệu vé không hợp lệ.";
             this.btnXacNhanEnabled = false;
@@ -187,7 +185,6 @@ public class TraVeFrm extends JFrame implements ActionListener {
     }
 
     /**
-     * HÀM XACNHANTRAVE GỐC CỦA GITHUB — Đẩy toàn bộ dữ liệu thật xuống Database
      * qua hệ thống các lớp DAO.
      */
     public void xacNhanTraVe() {
@@ -245,7 +242,6 @@ public class TraVeFrm extends JFrame implements ActionListener {
         dispose();
     }
 
-    // --- TOÀN BỘ HÀM GETTERS ĐƯỢC GIỮ NGUYÊN VẸN THEO THIẾT KẾ ĐỂ VƯỢT QUA UNIT TEST ---
     public String getOutMaVe() {
         return outMaVe;
     }

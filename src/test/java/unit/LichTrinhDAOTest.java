@@ -27,6 +27,8 @@ public class LichTrinhDAOTest {
         MockitoAnnotations.openMocks(this);
         lichTrinhDAO = new LichTrinhDAO(mockConnection);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        when(mockConnection.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS))).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.getGeneratedKeys()).thenReturn(mockResultSet);
     }
 
     @Test
