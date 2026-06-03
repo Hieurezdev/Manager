@@ -77,7 +77,7 @@ public class DangNhapFrm extends JFrame implements ActionListener {
     /**
      * * Hàm đăng nhập đã chuyển kiểu trả về thành Object để có thể linh hoạt
      * trả về bất kỳ Form trang chủ nào mà không dính lỗi ép kiểu (Compile
-     * Error).
+     * Err                                                                                                                                                      or).
      */
     public Object dangNhap() {
         String user = (txtUsername != null) ? txtUsername.getText().trim() : this.txtTDN;
